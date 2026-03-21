@@ -6,181 +6,211 @@
 
 <title>BaytLogic Technologies | AI Security & Smart Systems</title>
 
-<meta name="description" content="CCTV Installation, Smart Home Automation & AI Security Systems in Nigeria.">
-
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
-<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 body { font-family: 'Inter', sans-serif; }
-.glass { background: rgba(0,0,0,0.7); backdrop-filter: blur(12px); }
+
+.hero-bg {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(34,211,238,0.15), transparent),
+    radial-gradient(circle at 80% 70%, rgba(59,130,246,0.15), transparent),
+    #0f172a;
+}
+
+.glass {
+  background: rgba(15,23,42,0.7);
+  backdrop-filter: blur(12px);
+}
+
+canvas {
+  position:absolute;
+  top:0;
+  left:0;
+  z-index:1;
+  opacity:0.3;
+}
 </style>
 </head>
 
-<body class="bg-slate-950 text-white">
+<body class="bg-slate-900 text-white overflow-x-hidden">
 
 <!-- NAV -->
 <nav class="fixed w-full z-50 glass px-6 py-4 flex justify-between items-center">
-    <h1 class="font-bold text-xl text-cyan-400">BAYTLOGIC</h1>
-    <div class="hidden md:flex space-x-6">
-        <a href="#services">Solutions</a>
-        <a href="#projects">Projects</a>
-        <a href="#training">Training</a>
-        <a href="#partners">Partners</a>
-        <a href="#contact" class="bg-cyan-500 px-4 py-2 rounded">Get Quote</a>
-    </div>
+  <h1 class="font-bold text-xl text-cyan-400">BAYTLOGIC</h1>
+  <div class="space-x-6 hidden md:block">
+    <a href="#services">Solutions</a>
+    <a href="#training">Training</a>
+    <a href="#projects">Portfolio</a>
+    <a href="#contact" class="bg-cyan-500 px-4 py-2 rounded-lg">Get Quote</a>
+  </div>
 </nav>
 
 <!-- HERO -->
-<section class="h-screen flex items-center justify-center text-center px-6 bg-gradient-to-br from-slate-900 to-black">
-    <div data-aos="fade-up">
-        <h1 class="text-5xl md:text-6xl font-extrabold mb-6">
-            Engineering Security <br>
-            <span class="text-cyan-400">Powered by AI</span>
-        </h1>
-        <p class="text-gray-400 max-w-xl mx-auto mb-8">
-            CCTV, Smart Homes, Embedded AI & Cybersecurity solutions designed for Nigeria.
-        </p>
+<section class="hero-bg min-h-screen flex items-center justify-center relative">
+<canvas id="canvas"></canvas>
 
-        <div class="flex gap-4 justify-center">
-            <a href="#contact" class="bg-cyan-500 px-6 py-3 rounded shadow-lg hover:scale-105 transition">
-                Request Consultation
-            </a>
-            <a href="#ai" class="border border-gray-600 px-6 py-3 rounded hover:border-cyan-400">
-                AI Security Planner
-            </a>
-        </div>
-    </div>
+<div class="text-center z-10 px-6">
+  
+  <h1 class="text-4xl md:text-6xl font-extrabold mb-6">
+    <span id="typing"></span>
+  </h1>
+
+  <p class="text-gray-400 max-w-2xl mx-auto mb-8">
+    Engineering-grade surveillance, smart homes, and AI-powered security systems across Nigeria.
+  </p>
+
+  <div class="flex gap-4 justify-center flex-wrap">
+    <a href="#contact" class="bg-cyan-500 px-6 py-3 rounded-lg">Get Consultation</a>
+    <a href="#training" class="border border-cyan-400 px-6 py-3 rounded-lg">View Training</a>
+  </div>
+
+</div>
 </section>
 
 <!-- SERVICES -->
-<section id="services" class="py-20 text-center">
-<h2 class="text-3xl font-bold mb-12">Our Solutions</h2>
+<section id="services" class="py-24 px-6 max-w-7xl mx-auto">
+<h2 class="text-3xl font-bold text-center mb-16">Our Solutions</h2>
 
-<div class="grid md:grid-cols-3 gap-8 px-6">
+<div class="grid md:grid-cols-3 gap-8">
 
-<div class="bg-slate-900 p-6 rounded-xl" data-aos="fade-up">
-<i data-lucide="camera" class="mx-auto text-cyan-400 mb-4"></i>
-<h3 class="font-bold text-xl">CCTV Surveillance</h3>
-<p class="text-gray-400">IP Cameras, NVR systems & remote viewing.</p>
+<div class="bg-slate-800 p-6 rounded-xl hover:scale-105 transition">
+<h3 class="text-xl font-bold mb-2 text-cyan-400">Smart Surveillance</h3>
+<p class="text-gray-400">IP CCTV, remote monitoring, and secure deployment.</p>
 </div>
 
-<div class="bg-slate-900 p-6 rounded-xl" data-aos="fade-up">
-<i data-lucide="home" class="mx-auto text-cyan-400 mb-4"></i>
-<h3 class="font-bold text-xl">Smart Homes</h3>
-<p class="text-gray-400">Voice-controlled automation systems.</p>
+<div class="bg-slate-800 p-6 rounded-xl hover:scale-105 transition">
+<h3 class="text-xl font-bold mb-2 text-cyan-400">Home Automation</h3>
+<p class="text-gray-400">Voice control, IoT integration, smart living.</p>
 </div>
 
-<div class="bg-slate-900 p-6 rounded-xl" data-aos="fade-up">
-<i data-lucide="cpu" class="mx-auto text-cyan-400 mb-4"></i>
-<h3 class="font-bold text-xl">AI Security Systems</h3>
-<p class="text-gray-400">Intelligent monitoring & threat detection.</p>
+<div class="bg-slate-800 p-6 rounded-xl hover:scale-105 transition">
+<h3 class="text-xl font-bold mb-2 text-cyan-400">Embedded AI</h3>
+<p class="text-gray-400">AI-powered detection and intelligent systems.</p>
 </div>
-
-</div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects" class="py-20 bg-slate-900 text-center">
-<h2 class="text-3xl font-bold mb-12">Recent Projects</h2>
-
-<div class="grid md:grid-cols-3 gap-6 px-6">
-
-<img src="assets/projects/atbu-cce-lab-cctv-01.jpg" class="rounded-xl">
-<img src="assets/projects/ip-camera-installation-01.jpg" class="rounded-xl">
-<img src="assets/projects/street-surveillance-bauchi.jpg" class="rounded-xl">
 
 </div>
 </section>
 
 <!-- TRAINING -->
-<section id="training" class="py-20 text-center">
-<h2 class="text-3xl font-bold mb-12">Training Programs</h2>
+<section id="training" class="py-24 bg-slate-800 px-6">
+<div class="max-w-7xl mx-auto text-center">
 
-<div class="grid md:grid-cols-2 gap-8 px-6">
+<h2 class="text-4xl font-bold mb-12">Training Programs</h2>
 
-<div class="bg-slate-900 p-8 rounded-xl">
-<h3 class="text-xl font-bold text-cyan-400 mb-4">Home Automation Masterclass</h3>
-<p class="text-gray-400 mb-4">Learn smart home systems hands-on.</p>
+<div class="grid md:grid-cols-2 gap-10">
+
+<div class="p-8 bg-slate-900 rounded-xl border border-cyan-500/20">
+<h3 class="text-2xl text-cyan-400 mb-4">Home Automation Masterclass</h3>
+<p class="text-gray-400">Learn smart home systems and IoT deployment.</p>
 </div>
 
-<div class="bg-slate-900 p-8 rounded-xl">
-<h3 class="text-xl font-bold text-cyan-400 mb-4">Kids Robotics Program</h3>
-<p class="text-gray-400 mb-4">Fun robotics & coding for kids.</p>
+<div class="p-8 bg-slate-900 rounded-xl border border-purple-500/20">
+<h3 class="text-2xl text-purple-400 mb-4">Kids Robotics</h3>
+<p class="text-gray-400">Arduino robotics and STEM learning.</p>
 </div>
+
+</div>
+</div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-24 px-6 max-w-7xl mx-auto">
+<h2 class="text-3xl font-bold text-center mb-16">Projects</h2>
+
+<div class="grid md:grid-cols-3 gap-6">
+
+<img src="assets/projects/atbu-cce-lab-cctv-01.jpg" class="rounded-xl hover:scale-105 transition">
+<img src="assets/projects/ip-camera-installation-01.jpg" class="rounded-xl hover:scale-105 transition">
+<img src="assets/projects/street-surveillance-bauchi.jpg" class="rounded-xl hover:scale-105 transition">
 
 </div>
 </section>
 
 <!-- PARTNERS -->
-<section id="partners" class="py-20 bg-slate-900 text-center">
-<h2 class="text-3xl font-bold mb-12">Partners & Affiliations</h2>
+<section class="py-16 bg-white text-center">
+<h2 class="text-2xl font-bold mb-10 text-black">Our Partners</h2>
 
-<div class="grid md:grid-cols-2 gap-8 px-6 max-w-4xl mx-auto">
-
-<div class="bg-slate-800 p-8 rounded-xl">
-<img src="assets/partners/nurture-roots.png" class="h-12 mx-auto mb-4">
-<h3 class="text-cyan-400 font-bold">Nurture Roots Foundation</h3>
-<p class="text-gray-400">Supporting innovation & AI education.</p>
+<div class="flex justify-center gap-10 flex-wrap">
+<img src="assets/partners/nurture-roots.png" class="h-16">
+<img src="assets/partners/nasscomsoft.png" class="h-16">
 </div>
 
-<div class="bg-slate-800 p-8 rounded-xl">
-<img src="assets/partners/nasscomsoft.png" class="h-12 mx-auto mb-4">
-<h3 class="text-cyan-400 font-bold">NASCOMSOFT Embedded</h3>
-<p class="text-gray-400">Advanced AI & cybersecurity training partner.</p>
-</div>
-
-</div>
 </section>
 
-<!-- AI SECTION -->
-<section id="ai" class="py-20 text-center">
-<h2 class="text-3xl font-bold mb-6">AI Security Planner</h2>
+<!-- AI -->
+<section class="py-24 px-6 text-center">
+<h2 class="text-3xl font-bold mb-6">AI Security Architect</h2>
 
-<textarea id="input" class="w-80 p-3 text-black rounded"></textarea><br><br>
+<textarea id="input" class="w-full max-w-xl p-4 text-black rounded-lg" placeholder="Describe property..."></textarea>
 
-<button onclick="generate()" class="bg-cyan-500 px-6 py-2 rounded">
-Generate Plan
-</button>
+<br><br>
 
-<div id="output" class="mt-6 max-w-xl mx-auto text-left"></div>
+<button onclick="generate()" class="bg-cyan-500 px-6 py-3 rounded-lg">Generate</button>
+
+<div id="output" class="mt-6 text-left max-w-xl mx-auto"></div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="py-20 text-center">
+<section id="contact" class="py-24 text-center">
 <h2 class="text-3xl font-bold mb-6">Contact Us</h2>
-
-<p>NITEL T-junction, Atiku Abubakar Street, Bauchi</p>
-<p>08032476476</p>
-<p>info@baytlogic.com.ng</p>
-
-<a href="https://wa.me/2348032476476" class="bg-green-500 px-6 py-3 rounded mt-4 inline-block">
-WhatsApp Us
-</a>
+<p>08032476476 | info@baytlogic.com.ng</p>
 </section>
 
-<footer class="text-center p-6 bg-black text-gray-500">
-© 2026 BaytLogic Technologies
-</footer>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-AOS.init();
 lucide.createIcons();
 
-async function generate() {
-const text = document.getElementById("input").value;
+// Typing effect
+const text = "Advanced Surveillance & AI Systems";
+let i = 0;
+function typing(){
+  if(i < text.length){
+    document.getElementById("typing").innerHTML += text.charAt(i);
+    i++;
+    setTimeout(typing,50);
+  }
+}
+typing();
 
-const res = await fetch("/.netlify/functions/security-blueprint", {
-method: "POST",
-body: JSON.stringify({ description: text })
-});
+// Canvas particles
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-const data = await res.json();
-document.getElementById("output").innerText = data.text || data.error;
+let particles = [];
+for(let i=0;i<50;i++){
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height
+  });
+}
+
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    ctx.fillStyle="cyan";
+    ctx.fillRect(p.x,p.y,2,2);
+  });
+  requestAnimationFrame(draw);
+}
+draw();
+
+// AI function
+async function generate(){
+  const val = document.getElementById("input").value;
+
+  const res = await fetch("/.netlify/functions/security-blueprint", {
+    method:"POST",
+    body:JSON.stringify({description:val})
+  });
+
+  const data = await res.json();
+  document.getElementById("output").innerHTML = marked.parse(data.text);
 }
 </script>
 
