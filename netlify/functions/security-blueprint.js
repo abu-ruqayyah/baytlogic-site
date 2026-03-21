@@ -1,19 +1,28 @@
-export async function handler(event) {
-  try {
-    if (event.httpMethod !== "POST") {
-      return { statusCode: 405, body: "Method Not Allowed" };
-    }
+// Put this file in your actual project at: netlify/functions/security-blueprint.js
 
+exports.handler = async function(event, context) {
+  // Only allow POST requests from your frontend
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, body: "Method Not Allowed" };
+  }
+
+  try {
     const { description } = JSON.parse(event.body || "{}");
+    
+    // Excellent input validation from your original code
     if (!description || description.trim().length < 5) {
       return { statusCode: 400, body: JSON.stringify({ error: "Missing description" }) };
     }
 
-    const apiKey = process.env.AIzaSyAHpjl8atE_qCEUjZiYGJTXZNlb7GXBMec;
+    // SECURE WAY: This pulls the key from Netlify's Environment Variables.
+    // Do NOT paste the actual "AIza..." string into this file.
+    const apiKey = process.env.GEMINI_API_KEY;
+    
     if (!apiKey) {
       return { statusCode: 500, body: JSON.stringify({ error: "Server missing GEMINI_API_KEY" }) };
     }
 
+    // Your highly detailed, professional prompt
     const prompt = `You are a senior security engineer at BaytLogic Technologies.
 Generate a professional SECURITY BLUEPRINT for a Nigerian context.
 
@@ -31,7 +40,7 @@ Include these sections:
 Tone: Corporate, authoritative, non-dramatic.
 Output as clear Markdown with bullet points.`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${AIzaSyAHpjl8atE_qCEUjZiYGJTXZNlb7GXBMec}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
 
     const resp = await fetch(url, {
       method: "POST",
@@ -58,6 +67,7 @@ Output as clear Markdown with bullet points.`;
       body: JSON.stringify({ text })
     };
   } catch (err) {
+    console.error(err);
     return { statusCode: 500, body: JSON.stringify({ error: err.message || "Server error" }) };
   }
-}
+};
