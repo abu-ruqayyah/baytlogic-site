@@ -130,6 +130,40 @@
       </div>
     </section>
 
+    <!-- Section 4: Product & Services Price Manager -->
+    <section class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="tags" class="w-6 h-6 text-cyan-400"></i> Manage Hardware & Services Base Catalog Prices
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Update default prices for CCTV cameras, NVRs, HDDs, Smart Home switches, Solar kits, and Labor fees used by the BOQ Generator.</p>
+        </div>
+
+        <button onclick="openAddCatalogModal()" class="px-4 py-2.5 bg-brand-primary hover:bg-cyan-600 text-white font-bold rounded-xl text-xs transition shadow flex items-center gap-1.5">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i> Add New Product / Service
+        </button>
+      </div>
+
+      <!-- Catalog Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-900 text-slate-300 font-bold uppercase text-[10px] tracking-wider border-b border-slate-700">
+              <th class="p-3">#</th>
+              <th class="p-3">Product / Service Item</th>
+              <th class="p-3">Category</th>
+              <th class="p-3 text-right">Base Unit Price (₦)</th>
+              <th class="p-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="catalogTbody" class="divide-y divide-slate-700/80 text-slate-200">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 
   <!-- Modal for Adding / Editing Project -->
@@ -196,6 +230,45 @@
       <div class="flex justify-end gap-3 pt-2">
         <button onclick="closeModal('trainingModal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-bold transition">Cancel</button>
         <button onclick="saveTraining()" class="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-bold transition">Save Course</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Product Catalog Item -->
+  <div id="catalogModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <h3 class="text-lg font-bold text-white flex items-center gap-2">
+        <i data-lucide="tag" class="w-5 h-5 text-cyan-400"></i> Add Product / Service to Base Catalog
+      </h3>
+      
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Product / Service Item Name</label>
+          <input type="text" id="catName" placeholder="e.g. 4K AI Outdoor IP Camera" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Category</label>
+            <select id="catCategory" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary">
+              <option value="CCTV">CCTV Surveillance</option>
+              <option value="Smart Home">Smart Home Automation</option>
+              <option value="Solar Power">Solar & Power Backup</option>
+              <option value="Cabling">Cabling & Infrastructure</option>
+              <option value="Labor">Labor & Commissioning</option>
+              <option value="Sponsorship">Training Sponsorship</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Base Unit Price (₦)</label>
+            <input type="number" id="catPrice" placeholder="45000" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary" />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button onclick="closeModal('catalogModal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-bold transition">Cancel</button>
+        <button onclick="saveCatalogItem()" class="px-5 py-2 bg-brand-primary hover:bg-cyan-600 text-white rounded-xl text-xs font-bold transition">Save Product to Catalog</button>
       </div>
     </div>
   </div>
@@ -498,6 +571,92 @@
       }
     }
 
+    // Product & Services Catalog Price Management
+    const defaultCatalog = [
+      { id: 1, name: "4K AI Outdoor IP Bullet Camera (Hikvision/EZVIZ)", price: 45000, category: "CCTV" },
+      { id: 2, name: "1080p Smart WiFi PTZ Outdoor Camera (Reolink)", price: 35000, category: "CCTV" },
+      { id: 3, name: "8-Channel NVR System H.265+ PoE", price: 85000, category: "CCTV" },
+      { id: 4, name: "16-Channel Enterprise NVR System", price: 145000, category: "CCTV" },
+      { id: 5, name: "4TB Western Digital Purple Surveillance HDD", price: 95000, category: "CCTV" },
+      { id: 6, name: "16-Port Gigabit PoE Switch", price: 65000, category: "CCTV" },
+      { id: 7, name: "Tuya Smart Zigbee Relay Touch Switch", price: 22000, category: "Smart Home" },
+      { id: 8, name: "Universal Smart Zigbee Gateway Hub", price: 35000, category: "Smart Home" },
+      { id: 9, name: "Smart Fingerprint & Keypad Door Lock", price: 75000, category: "Smart Home" },
+      { id: 10, name: "3.5kVA / 24V Pure Sine Wave Solar Inverter Kit", price: 450000, category: "Solar Power" },
+      { id: 11, name: "Outdoor Weatherproof Cat6 Network Cable (305m)", price: 65000, category: "Cabling" },
+      { id: 12, name: "PVC Trunking, Conduits & Accessories Pack", price: 30000, category: "Cabling" },
+      { id: 13, name: "Professional Installation, Cabling & Setup Labor", price: 50000, category: "Labor" },
+      { id: 14, name: "Youth Training Masterclass Sponsorship Fee (Per Candidate)", price: 30000, category: "Sponsorship" }
+    ];
+
+    let catalog = JSON.parse(localStorage.getItem('baytlogic_catalog')) || defaultCatalog;
+
+    function renderCatalog() {
+      const tbody = document.getElementById('catalogTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      catalog.forEach((item, i) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-700/50 transition';
+        tr.innerHTML = `
+          <td class="p-3 text-slate-500 font-medium">${i + 1}</td>
+          <td class="p-3 font-bold text-white">${item.name}</td>
+          <td class="p-3"><span class="px-2 py-0.5 bg-slate-700 text-cyan-300 rounded text-[11px] font-semibold">${item.category}</span></td>
+          <td class="p-3 text-right">
+            <div class="flex items-center justify-end gap-1">
+              <span class="text-xs text-slate-400 font-semibold">₦</span>
+              <input type="number" min="0" value="${item.price}" onchange="updateCatalogPrice(${item.id}, this.value)" class="w-28 px-2.5 py-1 bg-slate-900 border border-slate-700 rounded text-right text-xs font-bold text-emerald-400 outline-none focus:border-brand-primary" />
+            </div>
+          </td>
+          <td class="p-3 text-right">
+            <button onclick="deleteCatalogItem(${item.id})" class="py-1 px-2.5 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded transition">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      localStorage.setItem('baytlogic_catalog', JSON.stringify(catalog));
+      lucide.createIcons();
+    }
+
+    function updateCatalogPrice(id, price) {
+      const item = catalog.find(c => c.id === id);
+      if (item) {
+        item.price = Math.max(0, parseFloat(price) || 0);
+        localStorage.setItem('baytlogic_catalog', JSON.stringify(catalog));
+      }
+    }
+
+    function openAddCatalogModal() {
+      document.getElementById('catName').value = '';
+      document.getElementById('catPrice').value = '';
+      document.getElementById('catCategory').value = 'CCTV';
+      document.getElementById('catalogModal').classList.remove('hidden');
+    }
+
+    function saveCatalogItem() {
+      const name = document.getElementById('catName').value.trim();
+      const price = parseFloat(document.getElementById('catPrice').value) || 0;
+      const category = document.getElementById('catCategory').value.trim();
+
+      if (!name) {
+        alert('Please enter a product/service name.');
+        return;
+      }
+
+      catalog.push({ id: Date.now(), name, price, category: category || 'General' });
+      closeModal('catalogModal');
+      renderCatalog();
+    }
+
+    function deleteCatalogItem(id) {
+      if (confirm('Delete this catalog item?')) {
+        catalog = catalog.filter(c => c.id !== id);
+        renderCatalog();
+      }
+    }
+
     function closeModal(id) {
       document.getElementById(id).classList.add('hidden');
     }
@@ -507,6 +666,7 @@
       renderProjects();
       renderTrainings();
       renderAccounts();
+      renderCatalog();
     });
   </script>
 </body>

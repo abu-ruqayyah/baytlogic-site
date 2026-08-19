@@ -340,11 +340,44 @@
       { desc: "Professional Installation, Cabling & Commissioning Labor", qty: 1, unitPrice: 50000 }
     ];
 
+    function loadCatalogDropdown() {
+      const defaultCatalog = [
+        { id: 1, name: "4K AI Outdoor IP Bullet Camera (Hikvision/EZVIZ)", price: 45000 },
+        { id: 2, name: "1080p Smart WiFi PTZ Outdoor Camera (Reolink)", price: 35000 },
+        { id: 3, name: "8-Channel NVR System H.265+ PoE", price: 85000 },
+        { id: 4, name: "16-Channel Enterprise NVR System", price: 145000 },
+        { id: 5, name: "4TB Western Digital Purple Surveillance HDD", price: 95000 },
+        { id: 6, name: "16-Port Gigabit PoE Switch", price: 65000 },
+        { id: 7, name: "Tuya Smart Zigbee Relay Touch Switch", price: 22000 },
+        { id: 8, name: "Universal Smart Zigbee Gateway Hub", price: 35000 },
+        { id: 9, name: "Smart Fingerprint & Keypad Door Lock", price: 75000 },
+        { id: 10, name: "3.5kVA / 24V Pure Sine Wave Solar Inverter Kit", price: 450000 },
+        { id: 11, name: "Outdoor Weatherproof Cat6 Network Cable (305m)", price: 65000 },
+        { id: 12, name: "PVC Trunking, Conduits & Accessories Pack", price: 30000 },
+        { id: 13, name: "Professional Installation, Cabling & Setup Labor", price: 50000 },
+        { id: 14, name: "Youth Training Masterclass Sponsorship Fee (Per Candidate)", price: 30000 }
+      ];
+
+      const catalog = JSON.parse(localStorage.getItem('baytlogic_catalog')) || defaultCatalog;
+      const select = document.getElementById('catalogSelect');
+      if (!select) return;
+
+      select.innerHTML = '<option value="">-- Choose Hardware / Service Item --</option>';
+      catalog.forEach(item => {
+        const opt = document.createElement('option');
+        opt.value = `${item.name}|${item.price}`;
+        opt.textContent = `${item.name} - ₦${item.price.toLocaleString()}`;
+        select.appendChild(opt);
+      });
+    }
+
     function init() {
       requireStaffAuth((user) => {
         document.getElementById('staffName').value = user.name;
         document.getElementById('staffRole').value = user.role;
       });
+
+      loadCatalogDropdown();
 
       // Auto-generate BOQ Ref
       const randomId = Math.floor(1000 + Math.random() * 9000);
