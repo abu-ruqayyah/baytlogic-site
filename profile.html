@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Corporate Profile – BaytLogic Technologies</title>
+  
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              dark: '#0f172a',
+              primary: '#06b6d4',
+              accent: '#22d3ee',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; padding: 0 !important; }
+      .print-shadow-none { box-shadow: none !important; border: none !important; }
+      .print-border { border: 1px solid #cbd5e1 !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased min-h-screen">
+
+  <!-- Header (Hidden on Print) -->
+  <header class="no-print bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 py-4 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition">
+        <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-9 w-auto" />
+        <div>
+          <span class="font-extrabold text-lg tracking-wider text-white">BAYTLOGIC</span>
+          <span class="text-xs text-brand-accent block font-semibold tracking-widest uppercase">Corporate Profile</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3 text-xs font-semibold">
+        <a href="index.html" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition border border-slate-700">&larr; Back to Home</a>
+        <a href="NGO_Sponsorship_Proposal.md" target="_blank" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-amber-400 rounded-lg transition border border-slate-700 flex items-center gap-1.5">
+          <i data-lucide="file-text" class="w-3.5 h-3.5"></i> NGO Proposal
+        </a>
+        <button onclick="window.print()" class="px-4 py-2 bg-brand-primary hover:bg-cyan-600 text-white rounded-lg transition shadow flex items-center gap-1.5">
+          <i data-lucide="printer" class="w-4 h-4"></i> Print Profile PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Corporate Banner -->
+  <section class="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-900 py-16 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      
+      <div class="lg:col-span-8 space-y-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-cyan-950/80 border border-cyan-500/30 text-cyan-400 text-xs font-bold rounded-full uppercase tracking-wider">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> CAC Incorporated • FIRS Tax Compliant • SMEDAN Registered
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          BAYTLOGIC <span class="text-brand-accent">TECHNOLOGIES</span>
+        </h1>
+        <p class="text-xl text-cyan-400 font-semibold italic">Where Intelligence Meets Security</p>
+
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-3xl pt-2">
+          BaytLogic Technologies is an engineering-led technology company headquartered in Bauchi, Nigeria. We specialize in high-definition IP surveillance, smart home & building automation, embedded AI vision systems, and digital educational infrastructure across Northern Nigeria and nationwide.
+        </p>
+
+        <div class="pt-4 flex flex-wrap gap-4 text-xs font-semibold text-slate-300">
+          <div class="flex items-center gap-2"><i data-lucide="map-pin" class="w-4 h-4 text-brand-primary"></i> NITEL T-junction, Ibrahim Bako, Bauchi</div>
+          <div class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4 text-brand-primary"></i> +234 803 247 6476</div>
+          <div class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4 text-brand-primary"></i> info@baytlogic.com.ng</div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4 flex justify-center">
+        <div class="bg-slate-800/80 p-6 rounded-3xl border border-slate-700 shadow-2xl text-center space-y-3 max-w-xs">
+          <img src="assets/baytlogic-logo-cyan.png" alt="BaytLogic Logo" class="h-24 w-auto mx-auto drop-shadow-[0_0_15px_rgba(34,211,238,0.3)]" />
+          <h3 class="text-lg font-bold text-white">Official Company Profile</h3>
+          <p class="text-xs text-slate-400">Document Ref: BLT-CP-2026-V3</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Executive Leadership & CEO Spotlight -->
+  <section class="py-16 px-4 max-w-7xl mx-auto">
+    <div class="bg-slate-800/80 border border-slate-700 rounded-3xl p-8 sm:p-12 shadow-2xl">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- CEO Photo -->
+        <div class="lg:col-span-4 flex justify-center">
+          <div class="relative group">
+            <div class="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-3xl blur opacity-30 group-hover:opacity-75 transition duration-500"></div>
+            <img src="assets/new_projects/ceo_portrait.jpeg" alt="Yahaya Abdullahi Sulaiman - CEO BaytLogic Technologies" class="relative rounded-2xl w-64 sm:w-72 h-80 sm:h-96 object-cover shadow-2xl border border-slate-700" />
+          </div>
+        </div>
+
+        <!-- Executive Profile -->
+        <div class="lg:col-span-8 space-y-4">
+          <div class="inline-block px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/30 rounded-full text-xs font-bold uppercase tracking-wider">
+            Executive Leadership
+          </div>
+
+          <h2 class="text-3xl font-extrabold text-white">Yahaya Abdullahi Sulaiman</h2>
+          <p class="text-brand-accent font-semibold text-sm">Lead Engineer & Chief Executive Officer (CEO)</p>
+
+          <blockquote class="text-slate-300 italic text-sm sm:text-base leading-relaxed border-l-4 border-brand-primary pl-4 py-1">
+            "Our mission at BaytLogic Technologies is to deploy world-class engineering solutions while training the next generation of Nigerian youth in practical, job-ready technology skills. From smart surveillance to embedded AI, we bridge the gap between theoretical knowledge and real-world installation capabilities."
+          </blockquote>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs pt-4 border-t border-slate-700/80">
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+              <h4 class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="cpu" class="w-4 h-4 text-cyan-400"></i> Engineering Focus</h4>
+              <p class="text-slate-400 leading-relaxed">IP Surveillance Systems, Edge Computer Vision, Smart Home Automation, and Enterprise LMS Infrastructure.</p>
+            </div>
+
+            <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-700">
+              <h4 class="font-bold text-white mb-1 flex items-center gap-1.5"><i data-lucide="graduation-cap" class="w-4 h-4 text-purple-400"></i> Youth Skills Commitment</h4>
+              <p class="text-slate-400 leading-relaxed">Pioneered BaytLogic Academy practical bootcamps producing 8 staff hires and graduate-led startups.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Government & Corporate Credentials -->
+  <section class="py-16 px-4 max-w-7xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-12">
+      <h2 class="text-brand-primary font-semibold tracking-wide uppercase text-xs">Official Verification</h2>
+      <h3 class="text-3xl font-extrabold text-white mt-1">Corporate Registration & Governance</h3>
+      <p class="text-slate-400 text-sm mt-2">BaytLogic Technologies is fully registered and compliant with federal regulatory bodies in Nigeria.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- CAC Certificate -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4 hover:border-brand-primary transition">
+        <div>
+          <div class="h-48 rounded-xl overflow-hidden mb-4 bg-white/5 border border-slate-700 flex items-center justify-center p-2">
+            <img src="assets/new_projects/CAC.png" alt="CAC Registration Certificate" class="h-full w-auto object-contain" />
+          </div>
+          <span class="px-2.5 py-1 bg-emerald-950 text-emerald-400 border border-emerald-500/30 rounded text-[10px] font-bold uppercase tracking-wider">Incorporated Record</span>
+          <h4 class="text-lg font-bold text-white mt-2">CAC Certificate of Incorporation</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mt-1">Registered under the Corporate Affairs Commission of the Federal Republic of Nigeria.</p>
+        </div>
+        <a href="assets/new_projects/CAC.png" target="_blank" class="w-full py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl text-xs text-center transition">View Certificate Image &rarr;</a>
+      </div>
+
+      <!-- FIRS VAT Letter -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4 hover:border-brand-primary transition">
+        <div>
+          <div class="h-48 rounded-xl overflow-hidden mb-4 bg-white/5 border border-slate-700 flex items-center justify-center p-2">
+            <img src="assets/new_projects/firs_vat_letter.jpeg" alt="FIRS Tax VAT Registration Letter" class="h-full w-auto object-contain" />
+          </div>
+          <span class="px-2.5 py-1 bg-cyan-950 text-cyan-400 border border-cyan-500/30 rounded text-[10px] font-bold uppercase tracking-wider">Federal Tax Compliant</span>
+          <h4 class="text-lg font-bold text-white mt-2">FIRS Tax & VAT Registration</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mt-1">Official Tax Identification Number (TIN) and Value Added Tax registration letter from FIRS.</p>
+        </div>
+        <a href="assets/new_projects/firs_vat_letter.jpeg" target="_blank" class="w-full py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl text-xs text-center transition">View FIRS Document &rarr;</a>
+      </div>
+
+      <!-- SMEDAN Certificate -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl flex flex-col justify-between space-y-4 hover:border-brand-primary transition">
+        <div>
+          <div class="h-48 rounded-xl overflow-hidden mb-4 bg-slate-900 border border-slate-700 flex flex-col items-center justify-center p-4 text-center">
+            <i data-lucide="file-text" class="w-12 h-12 text-amber-400 mb-2"></i>
+            <span class="text-xs font-bold text-slate-300">SMEDAN Certification</span>
+            <span class="text-[10px] text-slate-500 font-mono mt-1">Official Federal Registration</span>
+          </div>
+          <span class="px-2.5 py-1 bg-amber-950 text-amber-400 border border-amber-500/30 rounded text-[10px] font-bold uppercase tracking-wider">SMEDAN Certified</span>
+          <h4 class="text-lg font-bold text-white mt-2">SMEDAN Enterprise Registration</h4>
+          <p class="text-xs text-slate-400 leading-relaxed mt-1">Certified by the Small and Medium Enterprises Development Agency of Nigeria.</p>
+        </div>
+        <a href="assets/new_projects/SMEDAN.pdf" target="_blank" class="w-full py-2 bg-slate-700 hover:bg-slate-600 text-amber-300 font-bold rounded-xl text-xs text-center transition">Download SMEDAN PDF &rarr;</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Major Executed Projects Showcase -->
+  <section class="py-16 px-4 max-w-7xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-12">
+      <h2 class="text-brand-primary font-semibold tracking-wide uppercase text-xs">Verified Track Record</h2>
+      <h3 class="text-3xl font-extrabold text-white mt-1">Featured Projects & Infrastructure Deployments</h3>
+      <p class="text-slate-400 text-sm mt-2">Real engineering installations completed for universities, commercial malls, street surveillance, and enterprise facilities.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      
+      <!-- ATBU CCE Lab -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden shadow-xl hover:border-brand-primary transition">
+        <div class="h-52 overflow-hidden bg-slate-900">
+          <img src="assets/new_projects/center_for_embedded_ai_atbu.jpeg" alt="ATBU Center for Embedded AI" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="p-6 space-y-2">
+          <div class="flex items-center text-xs text-brand-accent font-semibold">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i> ATBU, Bauchi
+          </div>
+          <h4 class="text-xl font-bold text-white">Center for Embedded AI Laboratory</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Full CCTV surveillance and IP monitoring system installed at the Department of Computer & Communications Engineering Laboratory.</p>
+        </div>
+      </div>
+
+      <!-- Shopping Mall GRA -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden shadow-xl hover:border-brand-primary transition">
+        <div class="h-52 overflow-hidden bg-slate-900">
+          <img src="assets/new_projects/shopping_mall_at_gra.jpeg" alt="Shopping Mall at GRA Bauchi" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="p-6 space-y-2">
+          <div class="flex items-center text-xs text-brand-accent font-semibold">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i> G.R.A, Bauchi
+          </div>
+          <h4 class="text-xl font-bold text-white">GRA Shopping Mall Security</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Commercial HD CCTV coverage for checkout registers, entry gates, and outdoor parking protection.</p>
+        </div>
+      </div>
+
+      <!-- Street CCTV Fadaman Mada -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden shadow-xl hover:border-brand-primary transition">
+        <div class="h-52 overflow-hidden bg-slate-900">
+          <img src="assets/new_projects/fadaman_mada_street.jpeg" alt="Fadaman Mada Street CCTV" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="p-6 space-y-2">
+          <div class="flex items-center text-xs text-brand-accent font-semibold">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i> Fadaman Mada, Bauchi
+          </div>
+          <h4 class="text-xl font-bold text-white">Fadaman Mada Street Surveillance</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">High-visibility street surveillance setup providing continuous neighborhood monitoring and public safety.</p>
+        </div>
+      </div>
+
+      <!-- SBN Street CCTV -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden shadow-xl hover:border-brand-primary transition">
+        <div class="h-52 overflow-hidden bg-slate-900">
+          <img src="assets/new_projects/sbn_street_cctv.jpeg" alt="SBN Street CCTV" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="p-6 space-y-2">
+          <div class="flex items-center text-xs text-brand-accent font-semibold">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i> SBN Area, Bauchi
+          </div>
+          <h4 class="text-xl font-bold text-white">SBN Street Traffic & Security</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Weatherproof pole-mounted IP cameras configured for remote viewing and perimeter motion detection.</p>
+        </div>
+      </div>
+
+      <!-- Shakatafi Intercom -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden shadow-xl hover:border-brand-primary transition">
+        <div class="h-52 overflow-hidden bg-slate-900">
+          <img src="assets/new_projects/ezviz_shakatafi_intercom.jpeg" alt="EZVIZ Shakatafi Intercom" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="p-6 space-y-2">
+          <div class="flex items-center text-xs text-brand-accent font-semibold">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 mr-1"></i> Commercial Facility
+          </div>
+          <h4 class="text-xl font-bold text-white">Commercial EZVIZ Intercom Setup</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Integrated smart video intercom and door entry control deployed with mobile app remote unlocking.</p>
+        </div>
+      </div>
+
+      <!-- Server Racks & Cabling -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl overflow-hidden shadow-xl hover:border-brand-primary transition">
+        <div class="h-52 overflow-hidden bg-slate-900">
+          <img src="assets/new_projects/server_rack_cabling.jpeg" alt="Server Rack Cabling" class="w-full h-full object-cover hover:scale-105 transition duration-500" />
+        </div>
+        <div class="p-6 space-y-2">
+          <div class="flex items-center text-xs text-brand-accent font-semibold">
+            <i data-lucide="network" class="w-3.5 h-3.5 mr-1"></i> IT Infrastructure
+          </div>
+          <h4 class="text-xl font-bold text-white">Server Room & Network Rack Cabling</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">Structured Cat6 cabling, PoE switch patching, server rack organization, and network cabinet installation.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BaytLogic Academy Impact Showcase -->
+  <section class="py-16 px-4 max-w-7xl mx-auto border-t border-slate-800">
+    <div class="text-center mb-12">
+      <h2 class="text-purple-400 font-semibold tracking-wide uppercase text-xs">Human Capital Development</h2>
+      <h3 class="text-3xl font-extrabold text-white mt-1">BaytLogic Academy & Practical Youth Skills</h3>
+      <p class="text-slate-400 text-sm mt-2">Training youth, university graduates, and Master's students in practical robotics, AI, and smart security installations.</p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="rounded-2xl overflow-hidden border border-slate-700 h-44 shadow-lg">
+        <img src="assets/new_projects/ai_training.jpeg" alt="AI Training" class="w-full h-full object-cover" />
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-slate-700 h-44 shadow-lg">
+        <img src="assets/new_projects/girls_coding.jpeg" alt="Girls Coding" class="w-full h-full object-cover" />
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-slate-700 h-44 shadow-lg">
+        <img src="assets/new_projects/kids_bootcamp_girls.jpeg" alt="Kids Bootcamp" class="w-full h-full object-cover" />
+      </div>
+      <div class="rounded-2xl overflow-hidden border border-slate-700 h-44 shadow-lg">
+        <img src="assets/new_projects/cctv_training.jpeg" alt="Practical CCTV Training" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Official Bank Payment Details & Footer Signoff -->
+  <footer class="bg-slate-950 py-12 border-t border-slate-800 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <div class="space-y-3">
+        <div class="flex items-center gap-2">
+          <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-8 w-auto" />
+          <span class="font-extrabold text-lg text-white">BAYTLOGIC</span>
+        </div>
+        <p class="text-slate-400 leading-relaxed">NITEL T-junction, Atiku Abubakar Street, Ibrahim Bako, Bauchi, Nigeria.</p>
+        <p class="text-slate-400">Phone: 0803 247 6476 | Email: info@baytlogic.com.ng</p>
+      </div>
+
+      <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-1">
+        <p class="font-bold text-white uppercase text-[10px] tracking-wider mb-1">💳 Official Payment Bank Account</p>
+        <p class="text-slate-300">Account Name: <strong class="text-white">BaytLogic Technologies</strong></p>
+        <p class="text-slate-300">Bank Name: <strong class="text-white">Stanbic IBTC</strong></p>
+        <p class="text-slate-300">Account Number: <strong class="text-brand-accent font-mono">0072236937</strong></p>
+      </div>
+
+      <div class="flex flex-col justify-between space-y-3">
+        <div>
+          <p class="font-bold text-white uppercase text-[10px] tracking-wider mb-1">Verification Links</p>
+          <div class="space-y-1">
+            <a href="verify.html" class="block hover:text-cyan-400 transition">&rarr; Certificate Verification Portal</a>
+            <a href="NGO_Sponsorship_Proposal.md" target="_blank" class="block hover:text-amber-400 transition">&rarr; Download NGO Sponsorship Proposal</a>
+          </div>
+        </div>
+        <p class="text-slate-500 text-[11px]">&copy; 2026 BaytLogic Technologies. Engineered in Bauchi, Serving Nigeria.</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>
