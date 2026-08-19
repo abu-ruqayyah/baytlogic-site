@@ -3,6 +3,13 @@
  * Supports: Netlify Identity (Production Backend) & Netlify Serverless Functions
  */
 
+// Automatically link Netlify Identity to production URL when testing on localhost
+if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  if (!localStorage.getItem('netlifySiteURL')) {
+    localStorage.setItem('netlifySiteURL', 'https://baytlogic.com.ng');
+  }
+}
+
 // Initialize Netlify Identity if Widget is present
 if (window.netlifyIdentity) {
   window.netlifyIdentity.on("init", user => {
