@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Official Certificate Generator – BaytLogic Technologies</title>
+  
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Great+Vibes&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+            cinzel: ['Cinzel', 'serif'],
+            signature: ['Great Vibes', 'cursive'],
+          },
+          colors: {
+            brand: {
+              navy: '#0f172a',
+              gold: '#c59b27',
+              goldLight: '#eab308',
+              cyan: '#06b6d4',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; padding: 0 !important; margin: 0 !important; }
+      .cert-paper {
+        box-shadow: none !important;
+        border: none !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: none !important;
+        margin: 0 !important;
+        border-radius: 0 !important;
+      }
+    }
+
+    .cert-frame-outer {
+      border: 3px solid #c59b27;
+      padding: 6px;
+    }
+
+    .cert-frame-inner {
+      border: 1px solid #d4af37;
+      height: 100%;
+    }
+
+    /* 3D Gold Seal Ribbon Badge */
+    .gold-seal {
+      background: radial-gradient(circle, #fef08a 0%, #ca8a04 60%, #854d0e 100%);
+      box-shadow: 0 4px 15px rgba(202, 138, 4, 0.4);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased min-h-screen">
+
+  <!-- Top Control Bar (Hidden on Print) -->
+  <header class="no-print bg-slate-900 border-b border-slate-800 py-3 px-4 sm:px-8 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <a href="admin.html" class="flex items-center gap-2 text-slate-400 hover:text-white transition text-xs font-semibold">
+          &larr; Return to Admin Studio
+        </a>
+        <span class="text-slate-700">|</span>
+        <span class="text-xs text-amber-400 font-bold tracking-wider uppercase flex items-center gap-1">
+          <i data-lucide="award" class="w-4 h-4"></i> Canva-Grade Certificate Generator
+        </span>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button onclick="toggleSidebar()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold transition border border-slate-700 flex items-center gap-1.5">
+          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Edit Details
+        </button>
+        <button onclick="window.print()" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-xs transition shadow-lg flex items-center gap-1.5">
+          <i data-lucide="printer" class="w-4 h-4"></i> Print Certificate / Save PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="max-w-7xl mx-auto p-4 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- Left Controls Panel (Hidden on Print) -->
+    <div id="controlsSidebar" class="no-print lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5 h-fit shadow-xl">
+      <h3 class="text-lg font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
+        <i data-lucide="sliders" class="w-5 h-5 text-amber-400"></i> Customizer Options
+      </h3>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Certificate ID</label>
+          <input type="text" id="inId" value="BLT-2026-020" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-amber-400 font-mono font-bold outline-none focus:border-amber-400 transition" />
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Graduate Full Name</label>
+          <input type="text" id="inName" value="Muhammad Ukasha Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold outline-none focus:border-amber-400 transition" />
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Program / Course Specialization</label>
+          <input type="text" id="inCourse" value="SMART HOME AUTOMATION & SMART CCTV INSTALLATION" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Masterclass Tagline</label>
+          <input type="text" id="inMasterclass" value="5-Day Professional Masterclass on" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Location</label>
+            <input type="text" id="inLoc" value="Ibrahim Bako, Bauchi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Training Date</label>
+            <input type="text" id="inDate" value="June 11 – June 17, 2026" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Director Name</label>
+          <input type="text" id="inDirector" value="Yahaya Sulaiman Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
+        </div>
+
+        <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700 text-[11px] text-slate-400 space-y-1">
+          <p><strong class="text-amber-400">⚡ Dynamic QR Verification:</strong></p>
+          <p>• QR Code encodes live link: <code id="qrPreviewLink" class="text-cyan-400">https://baytlogic.com.ng/verify.html?id=BLT-2026-020</code></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certificate Preview Area -->
+    <div class="lg:col-span-8 flex justify-center items-center">
+      
+      <!-- A4 Landscape Certificate Canvas -->
+      <div id="certPaper" class="cert-paper bg-[#fdfcf7] text-slate-900 w-full max-w-[1050px] aspect-[1.414/1] p-6 sm:p-10 shadow-2xl relative flex flex-col justify-between overflow-hidden rounded-xl border border-slate-200">
+        
+        <!-- Double Gold Border Frame -->
+        <div class="cert-frame-outer h-full w-full">
+          <div class="cert-frame-inner p-6 sm:p-8 flex flex-col justify-between relative bg-gradient-to-b from-amber-50/20 via-white to-amber-50/20">
+            
+            <!-- Top Branding Header -->
+            <div class="text-center space-y-1.5">
+              <div class="flex justify-center items-center gap-2">
+                <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-10 w-auto filter brightness-90 contrast-125" />
+              </div>
+              <h2 class="font-cinzel text-2xl sm:text-3xl font-extrabold tracking-widest text-slate-900">BAYTLOGIC</h2>
+              <div class="flex items-center justify-center gap-2 text-[11px] sm:text-xs tracking-[0.25em] text-amber-700 font-semibold uppercase">
+                <span>❖</span> BAYTLOGIC TECHNOLOGIES <span>❖</span>
+              </div>
+              <p class="text-[11px] text-slate-500 italic font-serif">Where Intelligence Meets Security</p>
+            </div>
+
+            <!-- Title & Recipient -->
+            <div class="text-center space-y-3 my-2">
+              <h1 class="font-cinzel text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-wide text-[#b8860b] drop-shadow-sm">
+                CERTIFICATE OF COMPLETION
+              </h1>
+
+              <p class="text-sm font-serif italic text-slate-600">This is to certify that</p>
+
+              <!-- Recipient Name -->
+              <div class="py-1">
+                <h3 id="outName" class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 border-b-2 border-slate-800 inline-block px-8 pb-1 tracking-wide">
+                  Muhammad Ukasha Abdullahi
+                </h3>
+              </div>
+
+              <p id="outMasterclass" class="text-xs sm:text-sm font-serif italic text-slate-600 pt-1">
+                has successfully completed the 5-Day Professional Masterclass on
+              </p>
+
+              <!-- Course Specialization -->
+              <h4 id="outCourse" class="font-cinzel text-lg sm:text-xl lg:text-2xl font-extrabold text-[#0f2847] tracking-wider uppercase max-w-2xl mx-auto leading-snug">
+                SMART HOME AUTOMATION & SMART CCTV INSTALLATION
+              </h4>
+            </div>
+
+            <!-- Metadata Details & Collaborators -->
+            <div class="grid grid-cols-3 items-center text-xs text-slate-700 pt-2 border-t border-amber-200/60">
+              
+              <!-- Location & Date -->
+              <div class="space-y-1.5 font-medium">
+                <div class="flex items-center gap-1.5">
+                  <span class="text-amber-700">📍</span> <span>Location:</span> <strong id="outLoc" class="text-slate-900">Ibrahim Bako, Bauchi</strong>
+                </div>
+                <div class="flex items-center gap-1.5">
+                  <span class="text-amber-700">📅</span> <span>Date:</span> <strong id="outDate" class="text-slate-900">June 11 – June 17, 2026</strong>
+                </div>
+              </div>
+
+              <!-- Collaborators Center -->
+              <div class="text-center space-y-1.5">
+                <p class="text-[10px] font-serif italic text-slate-500 uppercase tracking-widest">In Collaboration With:</p>
+                <div class="flex items-center justify-center gap-3">
+                  <!-- Partner 1: NascomSoft -->
+                  <div class="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-300 text-[10px] font-bold text-slate-800">
+                    <span class="w-2.5 h-2.5 rounded-full bg-teal-600"></span> NASCOMSOFT EMBEDDED
+                  </div>
+                  <!-- Partner 2: NurtureRoots -->
+                  <div class="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-300 text-[10px] font-bold text-slate-800">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span> NURTUREROOTS FOUNDATION
+                  </div>
+                </div>
+              </div>
+
+              <!-- Director Signature -->
+              <div class="text-right space-y-0.5">
+                <div class="h-10 flex justify-end items-end">
+                  <!-- Hand Drawn Digital Signature Graphic -->
+                  <span class="font-signature text-3xl text-slate-800 transform -rotate-6">Y.S. Abdullahi</span>
+                </div>
+                <p id="outDirector" class="font-bold text-slate-900 text-xs border-t border-slate-400 pt-0.5 inline-block">Yahaya Sulaiman Abdullahi</p>
+                <p class="text-[10px] text-slate-500 font-semibold block">Manager / Director</p>
+              </div>
+
+            </div>
+
+            <!-- Footer Bar with Gold Seal & QR Code -->
+            <div class="flex justify-between items-end pt-3">
+              
+              <!-- Bottom Left: Gold Ribbon Medal Seal -->
+              <div class="flex items-center gap-2">
+                <div class="gold-seal w-14 h-14 rounded-full flex flex-col items-center justify-center text-center border-2 border-amber-300 text-amber-950 shadow-md">
+                  <span class="text-[8px] font-bold tracking-widest">★ ★ ★</span>
+                  <span class="text-[9px] font-extrabold uppercase tracking-tighter">CERTIFIED</span>
+                  <span class="text-[8px] font-bold tracking-widest">★ ★ ★</span>
+                </div>
+              </div>
+
+              <!-- Footer Center Credentials Bar -->
+              <div class="text-center text-[11px] font-medium text-slate-600">
+                <span>Certificate ID: <strong id="outId" class="text-slate-900 font-mono">BLT-2026-020</strong></span>
+                <span class="mx-2">•</span>
+                <span>Contact: <strong class="text-slate-900">08032476476</strong></span>
+              </div>
+
+              <!-- Bottom Right: Dynamic QR Code -->
+              <div class="text-center space-y-1">
+                <div class="p-1 bg-white border border-slate-300 rounded shadow-sm inline-block">
+                  <img id="outQr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://baytlogic.com.ng/verify.html?id=BLT-2026-020" alt="Scan to Verify" class="w-14 h-14 object-contain" />
+                </div>
+                <span class="text-[9px] text-slate-500 font-semibold block uppercase tracking-wider">Scan to Verify</span>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    function updateCert() {
+      const id = document.getElementById('inId').value.trim().toUpperCase();
+      const name = document.getElementById('inName').value.trim();
+      const course = document.getElementById('inCourse').value.trim();
+      const masterclass = document.getElementById('inMasterclass').value.trim();
+      const loc = document.getElementById('inLoc').value.trim();
+      const date = document.getElementById('inDate').value.trim();
+      const director = document.getElementById('inDirector').value.trim();
+
+      document.getElementById('outId').innerText = id || 'BLT-2026-000';
+      document.getElementById('outName').innerText = name || 'Graduate Name';
+      document.getElementById('outCourse').innerText = course || 'SMART HOME AUTOMATION & CCTV INSTALLATION';
+      document.getElementById('outMasterclass').innerText = masterclass || 'has successfully completed the Masterclass on';
+      document.getElementById('outLoc').innerText = loc || 'Bauchi';
+      document.getElementById('outDate').innerText = date || '2026';
+      document.getElementById('outDirector').innerText = director || 'Yahaya Sulaiman Abdullahi';
+
+      const verifyUrl = `https://baytlogic.com.ng/verify.html?id=${id}`;
+      document.getElementById('outQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}`;
+      document.getElementById('qrPreviewLink').innerText = verifyUrl;
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('controlsSidebar');
+      sidebar.classList.toggle('hidden');
+    }
+
+    // Auto load parameters if passed from admin.html (e.g. certificate.html?id=BLT-2026-020&name=...)
+    window.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('id')) document.getElementById('inId').value = params.get('id');
+      if (params.get('name')) document.getElementById('inName').value = params.get('name');
+      if (params.get('course')) document.getElementById('inCourse').value = params.get('course');
+      if (params.get('date')) document.getElementById('inDate').value = params.get('date');
+      updateCert();
+    });
+  </script>
+</body>
+</html>
