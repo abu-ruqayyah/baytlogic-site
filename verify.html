@@ -169,11 +169,20 @@
           data = await response.json();
         }
 
-        // Use backend response or local fallback if offline/local dev
+        // Check custom issued certificates from Admin Studio
+        const customCerts = JSON.parse(localStorage.getItem('baytlogic_certificates')) || [];
         const normalizedKey = normalizeCertId(certId);
-        const fallbackRecord = localDb[normalizedKey];
+        const customMatch = customCerts.find(c => normalizeCertId(c.id) === normalizedKey);
 
-        if (data && data.success) {
+        if (customMatch) {
+          showResult({
+            name: customMatch.name,
+            course: customMatch.course,
+            issueDate: customMatch.date,
+            cohort: customMatch.cohort || 'BaytLogic Academy Graduate',
+            status: 'Valid Record'
+          });
+        } else if (data && data.success) {
           showResult(data.data);
         } else if (!response && fallbackRecord) {
           showResult(fallbackRecord);
@@ -182,11 +191,22 @@
           errorMsg.classList.remove('hidden');
         }
       } catch (error) {
+        const customCerts = JSON.parse(localStorage.getItem('baytlogic_certificates')) || [];
         const normalizedKey = normalizeCertId(certId);
-        if (localDb[normalizedKey]) {
+        const customMatch = customCerts.find(c => normalizeCertId(c.id) === normalizedKey);
+
+        if (customMatch) {
+          showResult({
+            name: customMatch.name,
+            course: customMatch.course,
+            issueDate: customMatch.date,
+            cohort: customMatch.cohort || 'BaytLogic Academy Graduate',
+            status: 'Valid Record'
+          });
+        } else if (localDb[normalizedKey]) {
           showResult(localDb[normalizedKey]);
         } else {
-          errorText.innerText = "Network error. Please try again later.";
+          errorText.innerText = "Invalid or unrecognized certificate number.";
           errorMsg.classList.remove('hidden');
         }
       } finally {
@@ -201,7 +221,7 @@
       document.getElementById('resName').innerText = record.name;
       document.getElementById('resCourse').innerText = record.course;
       document.getElementById('resDate').innerText = record.issueDate;
-      document.getElementById('resStatus').innerText = record.status || "Valid";
+      document.getElementById('resStatus').innerText = record.status || "Valid Record";
       document.getElementById('resultCard').classList.remove('hidden');
       lucide.createIcons();
     }

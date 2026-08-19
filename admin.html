@@ -164,6 +164,41 @@
       </div>
     </section>
 
+    <!-- Section 5: Certificate Issuer & Verification Database -->
+    <section class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="award" class="w-6 h-6 text-amber-400"></i> Manage & Issue Verifiable Graduate Certificates
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Issue, edit or manage verifiable credentials for BaytLogic Academy trainees. Certificates verify live on <code class="text-cyan-400">verify.html</code>.</p>
+        </div>
+
+        <button onclick="openAddCertModal()" class="px-4 py-2.5 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-xl text-xs transition shadow flex items-center gap-1.5">
+          <i data-lucide="plus" class="w-4 h-4"></i> Issue New Certificate
+        </button>
+      </div>
+
+      <!-- Certificates Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-900 text-slate-300 font-bold uppercase text-[10px] tracking-wider border-b border-slate-700">
+              <th class="p-3">Cert ID</th>
+              <th class="p-3">Graduate Name</th>
+              <th class="p-3">Course Specialization</th>
+              <th class="p-3">Cohort</th>
+              <th class="p-3">Issue Date</th>
+              <th class="p-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="certsTbody" class="divide-y divide-slate-700/80 text-slate-200">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 
   <!-- Modal for Adding / Editing Project -->
@@ -269,6 +304,48 @@
       <div class="flex justify-end gap-3 pt-2">
         <button onclick="closeModal('catalogModal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-bold transition">Cancel</button>
         <button onclick="saveCatalogItem()" class="px-5 py-2 bg-brand-primary hover:bg-cyan-600 text-white rounded-xl text-xs font-bold transition">Save Product to Catalog</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Issuing New Certificate -->
+  <div id="certModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <h3 id="certModalTitle" class="text-lg font-bold text-white flex items-center gap-2">
+        <i data-lucide="award" class="w-5 h-5 text-amber-400"></i> Issue New Graduate Certificate
+      </h3>
+      
+      <div class="space-y-3 text-xs">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Certificate ID</label>
+            <input type="text" id="certId" placeholder="e.g. BLT-2026-027" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white font-mono uppercase outline-none focus:border-amber-500" />
+          </div>
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Issue Date</label>
+            <input type="date" id="certDate" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-500" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Graduate Full Name</label>
+          <input type="text" id="certName" placeholder="e.g. Mustapha Ibrahim" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-500 font-bold" />
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Course / Program Specialization</label>
+          <input type="text" id="certCourse" placeholder="e.g. Smart Home Automation & Professional CCTV Installation" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-500" />
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Cohort Tag / Year</label>
+          <input type="text" id="certCohort" placeholder="e.g. Cohort 2 - Feb 2026" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-amber-500" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button onclick="closeModal('certModal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-bold transition">Cancel</button>
+        <button onclick="saveCertificateRecord()" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-xl text-xs font-bold transition">Issue & Verify Certificate</button>
       </div>
     </div>
   </div>
@@ -657,6 +734,88 @@
       }
     }
 
+    // Certificate Management
+    const defaultCerts = [
+      { id: "BLT-2026-001", name: "Yahaya Abdullahi Sulaiman", course: "Smart Home Automation & Professional CCTV Installation", cohort: "Cohort 1 - Jan 2026", date: "2026-02-15" },
+      { id: "BLT-2026-002", name: "Kareem Shaheed", course: "Smart Home Automation & Professional CCTV Installation", cohort: "Cohort 1 - Jan 2026", date: "2026-02-15" },
+      { id: "BLT-2026-003", name: "Ibrahim Garba", course: "Smart Home Automation & Professional CCTV Installation", cohort: "Cohort 2 - Feb 2026", date: "2026-03-01" },
+      { id: "BLT-2026-004", name: "Fatima Abubakar", course: "Smart Home Automation & Professional CCTV Installation", cohort: "Cohort 2 - Feb 2026", date: "2026-03-01" }
+    ];
+
+    let certificates = JSON.parse(localStorage.getItem('baytlogic_certificates')) || defaultCerts;
+
+    function renderCertificates() {
+      const tbody = document.getElementById('certsTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      certificates.forEach((c) => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-700/50 transition';
+        tr.innerHTML = `
+          <td class="p-3 font-mono font-bold text-amber-400">${c.id}</td>
+          <td class="p-3 font-bold text-white">${c.name}</td>
+          <td class="p-3 text-slate-300">${c.course}</td>
+          <td class="p-3 text-slate-400 font-medium">${c.cohort || 'Standard'}</td>
+          <td class="p-3 text-slate-400 font-mono">${c.date}</td>
+          <td class="p-3 text-right space-x-2">
+            <a href="verify.html?id=${c.id}" target="_blank" class="py-1 px-2.5 bg-cyan-900/50 hover:bg-cyan-800 text-cyan-300 text-xs font-bold rounded transition inline-block">Verify &rarr;</a>
+            <button onclick="deleteCertificateRecord('${c.id}')" class="py-1 px-2.5 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded transition">Revoke</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      localStorage.setItem('baytlogic_certificates', JSON.stringify(certificates));
+      lucide.createIcons();
+    }
+
+    function openAddCertModal() {
+      const nextNum = certificates.length + 1;
+      const nextId = `BLT-2026-${String(nextNum).padStart(3, '0')}`;
+      const today = new Date().toISOString().split('T')[0];
+
+      document.getElementById('certId').value = nextId;
+      document.getElementById('certName').value = '';
+      document.getElementById('certCourse').value = 'Smart Home Automation & Professional CCTV Installation';
+      document.getElementById('certCohort').value = 'Cohort 3 - March 2026';
+      document.getElementById('certDate').value = today;
+
+      document.getElementById('certModal').classList.remove('hidden');
+    }
+
+    function saveCertificateRecord() {
+      const id = document.getElementById('certId').value.trim().toUpperCase();
+      const name = document.getElementById('certName').value.trim();
+      const course = document.getElementById('certCourse').value.trim();
+      const cohort = document.getElementById('certCohort').value.trim();
+      const date = document.getElementById('certDate').value;
+
+      if (!id || !name || !course) {
+        alert('Please fill in Certificate ID, Graduate Name, and Course.');
+        return;
+      }
+
+      const existingIndex = certificates.findIndex(item => item.id === id);
+      const rec = { id, name, course, cohort, date };
+
+      if (existingIndex >= 0) {
+        certificates[existingIndex] = rec;
+      } else {
+        certificates.push(rec);
+      }
+
+      closeModal('certModal');
+      renderCertificates();
+    }
+
+    function deleteCertificateRecord(id) {
+      if (confirm(`Revoke and delete certificate ${id}?`)) {
+        certificates = certificates.filter(c => c.id !== id);
+        renderCertificates();
+      }
+    }
+
     function closeModal(id) {
       document.getElementById(id).classList.add('hidden');
     }
@@ -667,6 +826,7 @@
       renderTrainings();
       renderAccounts();
       renderCatalog();
+      renderCertificates();
     });
   </script>
 </body>
