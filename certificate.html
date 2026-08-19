@@ -22,7 +22,7 @@
           },
           colors: {
             brand: {
-              navy: '#0f172a',
+              navy: '#0f2847',
               gold: '#c59b27',
               goldLight: '#eab308',
               cyan: '#06b6d4',
@@ -63,7 +63,6 @@
       height: 100%;
     }
 
-    /* 3D Gold Seal Ribbon Badge */
     .gold-seal {
       background: radial-gradient(circle, #fef08a 0%, #ca8a04 60%, #854d0e 100%);
       box-shadow: 0 4px 15px rgba(202, 138, 4, 0.4);
@@ -81,13 +80,13 @@
         </a>
         <span class="text-slate-700">|</span>
         <span class="text-xs text-amber-400 font-bold tracking-wider uppercase flex items-center gap-1">
-          <i data-lucide="award" class="w-4 h-4"></i> Canva-Grade Certificate Generator
+          <i data-lucide="award" class="w-4 h-4"></i> Canva-Grade Certificate Studio
         </span>
       </div>
 
       <div class="flex items-center gap-3">
         <button onclick="toggleSidebar()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold transition border border-slate-700 flex items-center gap-1.5">
-          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Edit Details
+          <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Customize Details
         </button>
         <button onclick="window.print()" class="px-5 py-2 bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold rounded-lg text-xs transition shadow-lg flex items-center gap-1.5">
           <i data-lucide="printer" class="w-4 h-4"></i> Print Certificate / Save PDF
@@ -101,7 +100,7 @@
     <!-- Left Controls Panel (Hidden on Print) -->
     <div id="controlsSidebar" class="no-print lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5 h-fit shadow-xl">
       <h3 class="text-lg font-bold text-white flex items-center gap-2 pb-2 border-b border-slate-800">
-        <i data-lucide="sliders" class="w-5 h-5 text-amber-400"></i> Customizer Options
+        <i data-lucide="sliders" class="w-5 h-5 text-amber-400"></i> Certificate Customizer
       </h3>
 
       <div class="space-y-4 text-xs">
@@ -116,13 +115,20 @@
         </div>
 
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Program / Course Specialization</label>
+          <label class="block text-slate-300 font-semibold mb-1">Training Program / Course</label>
+          <select id="inCoursePreset" onchange="applyPresetCourse()" class="w-full mb-2 px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-cyan-300 font-semibold outline-none focus:border-amber-400 transition">
+            <option value="SMART HOME AUTOMATION & SMART CCTV INSTALLATION">Smart Home Automation & CCTV</option>
+            <option value="YOUNG INNOVATORS ROBOTICS & STEM BOOTCAMP">Young Innovators Robotics Bootcamp</option>
+            <option value="EMBEDDED AI & EDGE COMPUTER VISION MASTERCLASS">Embedded AI & Edge Computer Vision</option>
+            <option value="SCRATCH PROGRAMMING & GIRLS IN TECH BOOTCAMP">Scratch Coding & Girls in Tech</option>
+            <option value="CUSTOM">Custom Course Title...</option>
+          </select>
           <input type="text" id="inCourse" value="SMART HOME AUTOMATION & SMART CCTV INSTALLATION" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
         </div>
 
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Masterclass Tagline</label>
-          <input type="text" id="inMasterclass" value="5-Day Professional Masterclass on" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
+          <input type="text" id="inMasterclass" value="has successfully completed the Professional Masterclass on" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -135,6 +141,12 @@
             <label class="block text-slate-300 font-semibold mb-1">Training Date</label>
             <input type="text" id="inDate" value="June 11 – June 17, 2026" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
           </div>
+        </div>
+
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Optional Collaborators / Partners</label>
+          <input type="text" id="inPartners" placeholder="e.g. NASCOMSOFT EMBEDDED, NURTUREROOTS FOUNDATION (or leave blank)" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
+          <span class="text-[10px] text-slate-400 block mt-1">Leave empty if there are no co-sponsoring partners for this cohort.</span>
         </div>
 
         <div>
@@ -187,7 +199,7 @@
               </div>
 
               <p id="outMasterclass" class="text-xs sm:text-sm font-serif italic text-slate-600 pt-1">
-                has successfully completed the 5-Day Professional Masterclass on
+                has successfully completed the Professional Masterclass on
               </p>
 
               <!-- Course Specialization -->
@@ -196,7 +208,7 @@
               </h4>
             </div>
 
-            <!-- Metadata Details & Collaborators -->
+            <!-- Metadata Details & Optional Collaborators -->
             <div class="grid grid-cols-3 items-center text-xs text-slate-700 pt-2 border-t border-amber-200/60">
               
               <!-- Location & Date -->
@@ -209,25 +221,15 @@
                 </div>
               </div>
 
-              <!-- Collaborators Center -->
-              <div class="text-center space-y-1.5">
-                <p class="text-[10px] font-serif italic text-slate-500 uppercase tracking-widest">In Collaboration With:</p>
-                <div class="flex items-center justify-center gap-3">
-                  <!-- Partner 1: NascomSoft -->
-                  <div class="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-300 text-[10px] font-bold text-slate-800">
-                    <span class="w-2.5 h-2.5 rounded-full bg-teal-600"></span> NASCOMSOFT EMBEDDED
-                  </div>
-                  <!-- Partner 2: NurtureRoots -->
-                  <div class="flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-300 text-[10px] font-bold text-slate-800">
-                    <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span> NURTUREROOTS FOUNDATION
-                  </div>
-                </div>
+              <!-- Collaborators Center (Optional) -->
+              <div id="outPartnersBox" class="text-center space-y-1.5">
+                <p id="outPartnersLabel" class="text-[10px] font-serif italic text-slate-500 uppercase tracking-widest hidden">In Collaboration With:</p>
+                <div id="outPartnersBadges" class="flex items-center justify-center gap-2 flex-wrap"></div>
               </div>
 
               <!-- Director Signature -->
               <div class="text-right space-y-0.5">
                 <div class="h-10 flex justify-end items-end">
-                  <!-- Hand Drawn Digital Signature Graphic -->
                   <span class="font-signature text-3xl text-slate-800 transform -rotate-6">Y.S. Abdullahi</span>
                 </div>
                 <p id="outDirector" class="font-bold text-slate-900 text-xs border-t border-slate-400 pt-0.5 inline-block">Yahaya Sulaiman Abdullahi</p>
@@ -277,6 +279,14 @@
   <script>
     lucide.createIcons();
 
+    function applyPresetCourse() {
+      const preset = document.getElementById('inCoursePreset').value;
+      if (preset !== 'CUSTOM') {
+        document.getElementById('inCourse').value = preset;
+        updateCert();
+      }
+    }
+
     function updateCert() {
       const id = document.getElementById('inId').value.trim().toUpperCase();
       const name = document.getElementById('inName').value.trim();
@@ -284,15 +294,34 @@
       const masterclass = document.getElementById('inMasterclass').value.trim();
       const loc = document.getElementById('inLoc').value.trim();
       const date = document.getElementById('inDate').value.trim();
+      const partnersStr = document.getElementById('inPartners').value.trim();
       const director = document.getElementById('inDirector').value.trim();
 
       document.getElementById('outId').innerText = id || 'BLT-2026-000';
       document.getElementById('outName').innerText = name || 'Graduate Name';
-      document.getElementById('outCourse').innerText = course || 'SMART HOME AUTOMATION & CCTV INSTALLATION';
-      document.getElementById('outMasterclass').innerText = masterclass || 'has successfully completed the Masterclass on';
+      document.getElementById('outCourse').innerText = course || 'TRAINING PROGRAM SPECIALIZATION';
+      document.getElementById('outMasterclass').innerText = masterclass || 'has successfully completed the training program on';
       document.getElementById('outLoc').innerText = loc || 'Bauchi';
       document.getElementById('outDate').innerText = date || '2026';
       document.getElementById('outDirector').innerText = director || 'Yahaya Sulaiman Abdullahi';
+
+      // Handle optional partners / collaborators
+      const partnersLabel = document.getElementById('outPartnersLabel');
+      const partnersBadges = document.getElementById('outPartnersBadges');
+      partnersBadges.innerHTML = '';
+
+      if (partnersStr) {
+        partnersLabel.classList.remove('hidden');
+        const list = partnersStr.split(',').map(p => p.trim()).filter(Boolean);
+        list.forEach(p => {
+          const badge = document.createElement('div');
+          badge.className = 'flex items-center gap-1 bg-slate-100 px-2 py-1 rounded border border-slate-300 text-[10px] font-bold text-slate-800';
+          badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-600"></span> ${p}`;
+          partnersBadges.appendChild(badge);
+        });
+      } else {
+        partnersLabel.classList.add('hidden');
+      }
 
       const verifyUrl = `https://baytlogic.com.ng/verify.html?id=${id}`;
       document.getElementById('outQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}`;
@@ -304,13 +333,17 @@
       sidebar.classList.toggle('hidden');
     }
 
-    // Auto load parameters if passed from admin.html (e.g. certificate.html?id=BLT-2026-020&name=...)
+    // Auto load parameters if passed from admin.html
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
       if (params.get('id')) document.getElementById('inId').value = params.get('id');
       if (params.get('name')) document.getElementById('inName').value = params.get('name');
-      if (params.get('course')) document.getElementById('inCourse').value = params.get('course');
+      if (params.get('course')) {
+        document.getElementById('inCourse').value = params.get('course');
+        document.getElementById('inCoursePreset').value = 'CUSTOM';
+      }
       if (params.get('date')) document.getElementById('inDate').value = params.get('date');
+      if (params.get('partners')) document.getElementById('inPartners').value = params.get('partners');
       updateCert();
     });
   </script>
