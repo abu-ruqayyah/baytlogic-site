@@ -20,6 +20,9 @@
   <!-- Markdown Parser -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
+  <!-- Netlify Identity Widget -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
   <!-- AOS Animation Library -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -1480,7 +1483,14 @@
           lucide.createIcons();
         }
       }
-    });
+    // Netlify Identity Token Handler (Recovery & Invite links)
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", user => {
+        if (!user && (window.location.hash.includes("recovery_token") || window.location.hash.includes("invite_token") || window.location.hash.includes("confirmation_token"))) {
+          window.netlifyIdentity.open();
+        }
+      });
+    }
   </script>
 
 </body>
