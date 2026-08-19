@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 550" width="100%" height="100%">
+  <!-- Definitions for gradients/styles -->
+  <defs>
+    <style>
+      .brand-navy { fill: #0b192c; }
+      .brand-cyan { fill: #06b6d4; }
+      .brand-stroke { stroke: #0b192c; stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+      .shield-stroke { stroke: #0b192c; stroke-width: 12; fill: none; }
+      .text-title { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 800; font-size: 52px; fill: #0b192c; letter-spacing: -0.5px; }
+      .text-sub { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 600; font-size: 20px; fill: #475569; letter-spacing: 12px; }
+      .text-tagline { font-family: 'Inter', system-ui, -apple-system, sans-serif; font-weight: 500; font-size: 16px; fill: #64748b; letter-spacing: 0.5px; }
+    </style>
+  </defs>
+
+  <!-- HOUSE OUTLINE -->
+  <path class="brand-stroke" d="M 120 160 L 250 55 L 380 160 M 145 145 V 290 H 355 V 145" />
+
+  <!-- SHIELD -->
+  <path class="brand-navy" fill-rule="evenodd" d="M 250 85 C 295 95 325 110 325 135 V 195 C 325 245 285 275 250 290 C 215 275 175 245 175 195 V 135 C 175 110 205 95 250 85 Z M 250 99 C 213 108 187 121 187 141 V 192 C 187 234 220 260 250 274 C 280 260 313 234 313 192 V 141 C 313 121 287 108 250 99 Z" />
+
+  <!-- BRAIN LEFT HALF (AI / Intelligence) -->
+  <g class="brand-navy">
+    <path d="M 242 110 C 220 110 200 125 200 145 C 192 150 192 165 200 172 C 192 180 195 198 205 205 C 200 215 205 230 220 235 C 230 238 242 235 242 235 Z" fill="none" stroke="#0b192c" stroke-width="7" stroke-linecap="round" />
+    <path d="M 242 130 C 228 130 215 140 218 152 C 222 162 235 160 242 160" fill="none" stroke="#0b192c" stroke-width="6" stroke-linecap="round" />
+    <path d="M 242 180 C 230 180 212 185 215 200 C 218 212 232 215 242 212" fill="none" stroke="#0b192c" stroke-width="6" stroke-linecap="round" />
+  </g>
+
+  <!-- CIRCUIT RIGHT HALF (Technologies / Logic) -->
+  <g class="brand-navy">
+    <line x1="250" y1="100" x2="250" y2="274" stroke="#0b192c" stroke-width="7" />
+    <!-- Circuit lines & nodes -->
+    <path d="M 250 130 H 285 L 298 143 V 155" fill="none" stroke="#0b192c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="298" cy="158" r="5" class="brand-navy" />
+    
+    <path d="M 250 160 H 275 L 290 175 H 302" fill="none" stroke="#0b192c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="305" cy="175" r="5" class="brand-navy" />
+
+    <path d="M 250 190 H 282 L 295 203 V 220" fill="none" stroke="#0b192c" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" />
+    <circle cx="295" cy="223" r="5" class="brand-navy" />
+
+    <path d="M 250 225 H 270 L 280 235 H 290" fill="none" stroke="#0b192c" stroke-width="6" stroke-linecap="round" opacity="0.9" />
+    <circle cx="293" cy="235" r="4.5" class="brand-navy" />
+  </g>
+
+  <!-- PADLOCK RIGHT SIDE -->
+  <g class="brand-navy" transform="translate(328, 170)">
+    <!-- Shackle -->
+    <path d="M 12 14 V 2 C 12 -8 28 -8 28 2 V 14" fill="none" stroke="#0b192c" stroke-width="7" stroke-linecap="round" />
+    <!-- Body -->
+    <rect x="4" y="12" width="32" height="34" rx="6" class="brand-navy" />
+    <!-- Keyhole -->
+    <circle cx="20" cy="25" r="3.5" fill="#ffffff" />
+    <polygon points="18.5,26 21.5,26 22,34 18,34" fill="#ffffff" />
+  </g>
+
+  <!-- TYPOGRAPHY -->
+  <text x="250" y="380" text-anchor="middle" class="text-title">BaytLogic</text>
+  <text x="250" y="420" text-anchor="middle" class="text-sub">TECHNOLOGIES</text>
+  <text x="250" y="455" text-anchor="middle" class="text-tagline">Where Intelligence Meets Security</text>
+</svg>

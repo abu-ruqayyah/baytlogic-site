@@ -20,13 +20,22 @@ body {
   box-shadow: 0 0 30px rgba(34,211,238,0.25);
 }
 
-/* floating animation */
 .float {
   animation: float 4s ease-in-out infinite;
 }
 @keyframes float {
   0%,100%{transform:translateY(0)}
   50%{transform:translateY(-10px)}
+}
+
+/* Pulse effect for register button */
+.pulse {
+  animation: pulse 1.5s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(168,85,247,0.6); }
+  70% { box-shadow: 0 0 0 15px rgba(168,85,247,0); }
+  100% { box-shadow: 0 0 0 0 rgba(168,85,247,0); }
 }
 </style>
 </head>
@@ -36,16 +45,11 @@ body {
 <div class="max-w-md w-full text-center relative z-10">
 
 <!-- LOGO -->
-<div class="mb-6 float">
-  <div class="flex justify-center items-center">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-cyan-400 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-    </svg>
-    <div>
-      <div class="font-bold text-lg">BAYTLOGIC</div>
-      <div class="text-xs text-cyan-400">TECHNOLOGIES</div>
-    </div>
-  </div>
+<div class="mb-6 float flex flex-col items-center">
+  <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Technologies" class="h-16 w-auto mb-2 drop-shadow-[0_0_15px_rgba(34,211,238,0.5)]" />
+  <div class="font-extrabold text-xl tracking-wider text-white">BAYTLOGIC</div>
+  <div class="text-xs text-cyan-400 font-semibold tracking-widest uppercase">TECHNOLOGIES</div>
+  <div class="text-[11px] text-slate-400 tracking-wide mt-1">Where Intelligence Meets Security</div>
 </div>
 
 <!-- NAME -->
@@ -56,29 +60,37 @@ body {
 <div class="space-y-4">
 
 <a href="tel:+2348032476476"
-onclick="trackClick('call')"
+onclick="stopRedirect(); trackClick('call')"
 class="block w-full py-3 rounded-lg bg-slate-800 glow">
 📞 Call Now
 </a>
 
 <a id="waBtn"
 href="https://wa.me/2348032476476"
-onclick="trackClick('whatsapp')"
+onclick="stopRedirect(); trackClick('whatsapp')"
 class="block w-full py-3 rounded-lg bg-green-500 text-white font-bold glow">
 💬 Chat on WhatsApp
 </a>
 
 <a href="https://baytlogic.com.ng"
-onclick="trackClick('website')"
+onclick="stopRedirect(); trackClick('website')"
 class="block w-full py-3 rounded-lg bg-cyan-500 font-bold glow">
 🌐 Visit Website
 </a>
 
+<!-- 🔥 REGISTER BUTTON -->
+<a href="https://forms.gle/ykDWvtjZtjjbKkES8"
+onclick="stopRedirect(); trackClick('form')"
+target="_blank"
+class="block w-full py-3 rounded-lg bg-purple-500 text-white font-bold pulse">
+📝 Register for Training
+</a>
+
 </div>
 
-<!-- AUTO REDIRECT NOTICE -->
-<p id="redirectMsg" class="mt-6 text-xs text-gray-500">
-Redirecting to WhatsApp in 5 seconds...
+<!-- COUNTDOWN -->
+<p id="redirectMsg" class="mt-6 text-xs text-gray-400">
+Redirecting to WhatsApp in <span id="count">10</span>s...
 </p>
 
 <!-- SERVICES -->
@@ -87,6 +99,7 @@ Redirecting to WhatsApp in 5 seconds...
 <p>✔ Smart Home Automation</p>
 <p>✔ Embedded AI Systems</p>
 <p>✔ Robotics Training</p>
+<p>✔ EdTech & School LMS</p>
 </div>
 
 <!-- FOOTER -->
@@ -96,13 +109,11 @@ Redirecting to WhatsApp in 5 seconds...
 
 </div>
 
-<!-- BACKGROUND PARTICLES -->
+<!-- BACKGROUND -->
 <canvas id="bgCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
 
 <script>
-// ICON INIT (optional if using lucide later)
-
-// SIMPLE TRACKING (FREE)
+// TRACKING
 function trackClick(type){
   fetch("/.netlify/functions/track", {
     method:"POST",
@@ -110,10 +121,31 @@ function trackClick(type){
   });
 }
 
-// AUTO WHATSAPP REDIRECT
-setTimeout(()=>{
-  window.location.href = "https://wa.me/2348032476476";
-}, 5000);
+// STOP AUTO REDIRECT IF USER INTERACTS
+let redirectStopped = false;
+function stopRedirect(){
+  redirectStopped = true;
+}
+
+// COUNTDOWN + REDIRECT
+let timeLeft = 10;
+const countEl = document.getElementById("count");
+
+const timer = setInterval(()=>{
+  if(redirectStopped){
+    clearInterval(timer);
+    document.getElementById("redirectMsg").innerText = "Redirect cancelled";
+    return;
+  }
+
+  timeLeft--;
+  countEl.innerText = timeLeft;
+
+  if(timeLeft <= 0){
+    clearInterval(timer);
+    window.location.href = "https://wa.me/2348032476476";
+  }
+},1000);
 
 // PARTICLE BACKGROUND
 const canvas = document.getElementById("bgCanvas");

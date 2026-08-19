@@ -1,10 +1,7 @@
-export async function handler(event) {
-  const data = JSON.parse(event.body || "{}");
-
-  console.log("QR Interaction:", data.type);
-
+exports.handler = async (event) => {
   return {
     statusCode: 200,
-    body: JSON.stringify({ success: true })
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ message: "Click tracked successfully", timestamp: new Date().toISOString() })
   };
-}
+};

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify Certificate – BaytLogic Technologies</title>
+  
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              dark: '#0f172a',
+              primary: '#06b6d4',
+              accent: '#22d3ee',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-brand-dark text-slate-200 antialiased min-h-screen flex flex-col items-center justify-center p-4">
+
+  <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-500 opacity-10 blur-[100px] pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-blue-600 opacity-10 blur-[100px] pointer-events-none"></div>
+
+  <div class="max-w-xl w-full relative z-10">
+    <div class="text-center mb-10">
+      <a href="index.html" class="inline-flex items-center justify-center mb-6 hover:opacity-90 transition group">
+        <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-12 w-auto mr-3 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)] group-hover:scale-105 transition-transform duration-300" />
+        <div class="flex flex-col text-left">
+          <span class="font-bold text-2xl tracking-wider text-white">BAYTLOGIC</span>
+          <span class="text-xs text-brand-accent tracking-widest uppercase font-semibold">Academy</span>
+        </div>
+      </a>
+      <h1 class="text-3xl font-extrabold text-white">Certificate Verification</h1>
+      <p class="text-slate-400 mt-2">Enter the unique ID found at the bottom of your certificate.</p>
+    </div>
+
+    <div class="bg-slate-800/50 backdrop-blur-xl border border-slate-700 p-8 rounded-2xl shadow-2xl">
+      <div class="relative">
+        <input type="text" id="certInput" class="w-full bg-slate-900 border border-slate-600 text-white px-5 py-4 rounded-xl outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition font-mono uppercase tracking-widest placeholder-slate-500" placeholder="e.g. BLT-2026-001">
+        <button onclick="verifyCertificate()" id="verifyBtn" class="absolute right-2 top-2 bottom-2 bg-brand-primary hover:bg-cyan-600 text-white px-6 rounded-lg font-bold transition flex items-center">
+          <span id="btnText">Verify</span>
+          <i data-lucide="search" id="btnIcon" class="w-4 h-4 ml-2"></i>
+          <div id="btnLoader" class="hidden animate-spin h-4 w-4 ml-2 border-2 border-white border-t-transparent rounded-full"></div>
+        </button>
+      </div>
+
+      <div id="errorMsg" class="hidden mt-4 p-4 bg-red-900/30 border border-red-500/50 rounded-lg flex items-start">
+        <i data-lucide="x-circle" class="w-5 h-5 text-red-400 mr-3 mt-0.5"></i>
+        <p id="errorText" class="text-red-200 text-sm"></p>
+      </div>
+
+      <div id="resultCard" class="hidden mt-6 bg-slate-900 border border-brand-primary/50 rounded-xl p-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 bg-brand-primary text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider flex items-center gap-1">
+          <i data-lucide="shield-check" class="w-3 h-3"></i> Verified Official
+        </div>
+        <div class="flex items-center space-x-4 mb-4">
+          <div class="bg-green-500/20 p-3 rounded-full text-green-400">
+            <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+          </div>
+          <div>
+            <p class="text-slate-400 text-xs uppercase tracking-widest">Student / Graduate Name</p>
+            <h3 id="resName" class="text-xl font-bold text-white"></h3>
+          </div>
+        </div>
+        <div class="space-y-3 border-t border-slate-700 pt-4 mt-2">
+          <div>
+            <p class="text-slate-400 text-xs uppercase tracking-widest">Program Completed</p>
+            <p id="resCourse" class="text-slate-200 font-medium"></p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <p class="text-slate-400 text-xs uppercase tracking-widest">Issue Date</p>
+              <p id="resDate" class="text-slate-200"></p>
+            </div>
+            <div>
+              <p class="text-slate-400 text-xs uppercase tracking-widest">Verification Status</p>
+              <p id="resStatus" class="text-green-400 font-semibold flex items-center gap-1">
+                <span class="w-2 h-2 rounded-full bg-green-400 inline-block animate-ping"></span> Valid Record
+              </p>
+            </div>
+          </div>
+          <div class="pt-4 flex justify-end gap-3">
+            <button onclick="window.print()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-semibold rounded-lg transition flex items-center gap-1.5 border border-slate-700">
+              <i data-lucide="printer" class="w-3.5 h-3.5"></i> Print Record
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-8">
+      <a href="index.html" class="text-slate-500 hover:text-brand-primary text-sm transition">&larr; Back to BaytLogic Home</a>
+    </div>
+  </div>
+
+  <script>
+    lucide.createIcons();
+
+    // Client-side fallback database for offline / local preview testing
+    const localDb = {
+      "BLT-2026-001": { name: "Ahmad Adamu Zakari", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", status: "Valid" },
+      "BLT-2026-002": { name: "Abdulkadir Ahmed Tataru", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", status: "Valid" },
+      "BLT-2026-003": { name: "Sulaiman Jibril Babayo", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", status: "Valid" },
+      "BLT-2026-004": { name: "Dahiru Adamu", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", status: "Valid" },
+      "BLT-2026-005": { name: "Saeed Haruna Saeed", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
+      "BLT-2026-006": { name: "Maryam Muhammad Ahmad", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
+      "BLT-2026-018": { name: "Moshood Lukman Sekoni", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
+      "BLT-2026-019": { name: "Ismail Abdullahi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
+      "BLT-2026-020": { name: "Muhammad Ukasha Abdullahi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
+      "BLT-2026-026": { name: "Salihu Adamu Deba", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" }
+    };
+
+    function normalizeCertId(id) {
+      let searchId = id.replace(/\s+/g, "").toUpperCase();
+      if (searchId.startsWith("BLT2026")) searchId = "BLT-2026-" + searchId.substring(7);
+      const match = searchId.match(/^(BLT-2026-)(\d+)$/);
+      if (match) searchId = match[1] + match[2].padStart(3, '0');
+      return searchId;
+    }
+
+    async function verifyCertificate() {
+      const inputField = document.getElementById('certInput');
+      const certId = inputField.value.trim();
+      
+      const btnText = document.getElementById('btnText');
+      const btnIcon = document.getElementById('btnIcon');
+      const btnLoader = document.getElementById('btnLoader');
+      const verifyBtn = document.getElementById('verifyBtn');
+      
+      const errorMsg = document.getElementById('errorMsg');
+      const errorText = document.getElementById('errorText');
+      const resultCard = document.getElementById('resultCard');
+
+      errorMsg.classList.add('hidden');
+      resultCard.classList.add('hidden');
+      
+      if (!certId) {
+        errorText.innerText = "Please enter a certificate ID.";
+        errorMsg.classList.remove('hidden');
+        return;
+      }
+
+      verifyBtn.disabled = true;
+      btnText.innerText = "Checking...";
+      btnIcon.classList.add('hidden');
+      btnLoader.classList.remove('hidden');
+
+      try {
+        const response = await fetch("/.netlify/functions/verify-cert", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ certId })
+        }).catch(() => null);
+
+        let data = null;
+        if (response && response.ok) {
+          data = await response.json();
+        }
+
+        // Use backend response or local fallback if offline/local dev
+        const normalizedKey = normalizeCertId(certId);
+        const fallbackRecord = localDb[normalizedKey];
+
+        if (data && data.success) {
+          showResult(data.data);
+        } else if (!response && fallbackRecord) {
+          showResult(fallbackRecord);
+        } else {
+          errorText.innerText = (data && data.error) ? data.error : "Invalid or unrecognized certificate number.";
+          errorMsg.classList.remove('hidden');
+        }
+      } catch (error) {
+        const normalizedKey = normalizeCertId(certId);
+        if (localDb[normalizedKey]) {
+          showResult(localDb[normalizedKey]);
+        } else {
+          errorText.innerText = "Network error. Please try again later.";
+          errorMsg.classList.remove('hidden');
+        }
+      } finally {
+        verifyBtn.disabled = false;
+        btnText.innerText = "Verify";
+        btnIcon.classList.remove('hidden');
+        btnLoader.classList.add('hidden');
+      }
+    }
+
+    function showResult(record) {
+      document.getElementById('resName').innerText = record.name;
+      document.getElementById('resCourse').innerText = record.course;
+      document.getElementById('resDate').innerText = record.issueDate;
+      document.getElementById('resStatus').innerText = record.status || "Valid";
+      document.getElementById('resultCard').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    // Auto-verify from QR Code / URL parameter (e.g. verify.html?id=BLT-2026-001)
+    window.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const queryId = urlParams.get('id') || urlParams.get('cert') || urlParams.get('code');
+      if (queryId) {
+        document.getElementById('certInput').value = queryId;
+        verifyCertificate();
+      }
+    });
+
+    document.getElementById("certInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        verifyCertificate();
+      }
+    });
+  </script>
+</body>
+</html>

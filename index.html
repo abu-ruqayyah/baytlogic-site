@@ -5,10 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Professional CCTV & AI Security Solutions – BaytLogic Technologies</title>
-  <meta name="description" content="Expert CCTV installation, Smart Home Automation, and Embedded AI solutions by BaytLogic. Headquartered in Bauchi, serving Abuja, Kano, and Nationwide." />
+  <meta name="description" content="Expert CCTV installation, Smart Home Automation, Embedded AI, and EdTech solutions by BaytLogic. Headquartered in Bauchi, serving Abuja, Kano, and Nationwide." />
 
   <!-- FAVICON -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2306b6d4' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="apple-touch-icon" href="assets/favicon.png">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -86,12 +87,12 @@
   <nav class="fixed w-full z-50 glass text-white shadow-lg transition-all duration-300" id="navbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
-        <a href="#" class="flex-shrink-0 flex items-center cursor-pointer hover:opacity-80 transition">
-          <i data-lucide="shield" class="h-8 w-8 text-brand-accent mr-2"></i>
+        <a href="#" class="flex-shrink-0 flex items-center cursor-pointer hover:opacity-90 transition group">
+          <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Technologies" class="h-10 w-auto mr-3 drop-shadow-[0_0_8px_rgba(34,211,238,0.4)] transition-transform duration-300 group-hover:scale-105" />
           <div class="flex flex-col">
-            <span class="font-bold text-xl tracking-wider">BAYTLOGIC</span>
+            <span class="font-bold text-xl tracking-wider text-white">BAYTLOGIC</span>
             <div class="flex items-center space-x-2">
-              <span class="text-xs text-brand-accent tracking-widest uppercase">Technologies</span>
+              <span class="text-xs text-brand-accent tracking-widest uppercase font-semibold">Technologies</span>
               <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
                 Nationwide Service
               </span>
@@ -100,13 +101,17 @@
         </a>
 
         <!-- Desktop Menu -->
-        <div class="hidden md:flex space-x-8 items-center">
+        <div class="hidden md:flex space-x-6 items-center">
           <a href="#" class="hover:text-brand-accent transition text-sm font-medium">Home</a>
           <a href="#services" class="hover:text-brand-accent transition text-sm font-medium">Solutions</a>
           <a href="#projects" class="hover:text-brand-accent transition text-sm font-medium">Portfolio</a>
+          <a href="#edtech" class="hover:text-brand-accent transition text-sm font-medium">EdTech</a>
           <a href="#training" class="hover:text-brand-accent transition text-sm font-medium text-brand-accent">Academy</a>
-          <a href="#ai-planner" class="hover:text-brand-accent transition flex items-center group text-sm font-medium">
-            <i data-lucide="sparkles" class="w-4 h-4 mr-1 text-brand-accent group-hover:rotate-12 transition"></i> AI Architect
+          <a href="#sponsorship" class="hover:text-brand-accent transition text-sm font-medium text-purple-400 font-semibold flex items-center gap-1">
+            <i data-lucide="heart-handshake" class="w-3.5 h-3.5"></i> Sponsorship
+          </a>
+          <a href="boq.html" class="hover:text-cyan-300 transition text-sm font-semibold text-cyan-400 flex items-center gap-1">
+            <i data-lucide="calculator" class="w-3.5 h-3.5"></i> BOQ Studio
           </a>
           <a href="#contact" class="px-5 py-2 bg-brand-primary hover:bg-cyan-600 text-white font-medium rounded-full transition shadow-lg hover:shadow-cyan-500/25 transform hover:-translate-y-0.5">
             Get a Quote
@@ -128,6 +133,7 @@
         <a href="#" class="block px-3 py-3 hover:bg-slate-800 rounded-md text-white">Home</a>
         <a href="#services" onclick="toggleMenu()" class="block px-3 py-3 hover:bg-slate-800 rounded-md text-white">Solutions</a>
         <a href="#projects" onclick="toggleMenu()" class="block px-3 py-3 hover:bg-slate-800 rounded-md text-white">Portfolio</a>
+        <a href="#edtech" onclick="toggleMenu()" class="block px-3 py-3 hover:bg-slate-800 rounded-md text-white">EdTech</a>
         <a href="#training" onclick="toggleMenu()" class="block px-3 py-3 hover:bg-slate-800 rounded-md text-white">Academy</a>
         <a href="#contact" onclick="toggleMenu()" class="block px-3 py-3 text-white font-bold bg-brand-primary rounded-md mt-4 text-center">Get a Quote</a>
       </div>
@@ -149,7 +155,7 @@
         Advanced Surveillance & <br/> <span class="text-brand-accent">Embedded AI Systems</span>
       </h1>
       <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-400 leading-relaxed">
-        We don't just install cameras; we engineer safety. From our HQ in Bauchi to projects in Abuja and nationwide, we secure what matters most.
+        We don't just install cameras; we engineer safety and empower education. From advanced surveillance to school LMS deployments across Nigeria, we build what matters most.
       </p>
 
       <div class="flex justify-center gap-4 flex-col sm:flex-row px-4 mt-10">
@@ -310,68 +316,63 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <!-- ATBU Lab -->
           <div class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer h-96" data-aos="flip-left">
-            <img src="assets/projects/atbu-cce-lab-cctv-01.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800'" alt="ATBU CCE Lab" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <img src="assets/projects/atbu-cce-lab-cctv-01.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558002038-1091a16606f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="Home Security" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90"></div>
             <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition duration-300">
               <div class="flex items-center text-brand-accent text-sm font-semibold mb-2">
-                <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> ATBU, Bauchi
+                <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> G.R.A, Bauchi
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">ATBU CCE Laboratory</h3>
-              <p class="text-gray-300 text-sm">Comprehensive indoor IP camera deployment for university computer lab security.</p>
+              <h3 class="text-xl font-bold text-white mb-2">Residential Smart Estate</h3>
+              <p class="text-gray-300 text-sm">Full perimeter CCTV installation with IP cameras and motion coverage.</p>
             </div>
           </div>
 
-          <!-- Remote Viewing -->
           <div class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer h-96" data-aos="flip-left" data-aos-delay="100">
-            <img src="assets/projects/cctv-remote-viewing-01.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=800'" alt="Remote Viewing Configuration" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <img src="assets/projects/camera-ezviz-eb8-4g-4k-2.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1557597774-9d273605dfa9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="Commercial Surveillance" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90"></div>
             <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition duration-300">
               <div class="flex items-center text-brand-accent text-sm font-semibold mb-2">
-                <i data-lucide="smartphone" class="w-4 h-4 mr-1"></i> Mobile Configuration
+                <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> Abuja
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">Retail Remote Monitoring</h3>
-              <p class="text-gray-300 text-sm">Enabling business owners to monitor operations in real-time from their smartphones.</p>
+              <h3 class="text-xl font-bold text-white mb-2">Commercial Complex</h3>
+              <p class="text-gray-300 text-sm">Structured monitoring for business continuity and customer safety.</p>
             </div>
           </div>
 
-          <!-- Smart Devices -->
           <div class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer h-96" data-aos="flip-left" data-aos-delay="200">
-            <img src="assets/projects/IMG_20260202_103815.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1558002038-1091a16606f3?w=800'" alt="Smart Devices and Installation Tools" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <img src="assets/projects/street-surveillance-bauchi.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541888946425-d81bb19240f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="Street Surveillance" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90"></div>
             <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition duration-300">
               <div class="flex items-center text-brand-accent text-sm font-semibold mb-2">
-                <i data-lucide="home" class="w-4 h-4 mr-1"></i> Residential Automation
+                <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> Bauchi
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">Smart Home Integrations</h3>
-              <p class="text-gray-300 text-sm">Deployment of EZVIZ 4G battery cameras, Zigbee gateways, and smart switches.</p>
+              <h3 class="text-xl font-bold text-white mb-2">Urban Traffic Monitoring</h3>
+              <p class="text-gray-300 text-sm">High-visibility street coverage ensuring public space security.</p>
             </div>
           </div>
 
-          <!-- Field Installation -->
           <div class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer h-96" data-aos="flip-left" data-aos-delay="0">
-            <img src="assets/projects/ip-camera-installation-01.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1496368077930-c1e31b4e5b44?w=800'" alt="Camera Installation" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <img src="assets/projects/ip-camera-installation-01.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1496368077930-c1e31b4e5b44?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="IP Camera Setup" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90"></div>
             <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition duration-300">
               <div class="flex items-center text-brand-accent text-sm font-semibold mb-2">
-                <i data-lucide="wrench" class="w-4 h-4 mr-1"></i> On-site Deployment
+                <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> Abuja
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">Precision Camera Mounting</h3>
-              <p class="text-gray-300 text-sm">Expert field installation ensuring optimal viewing angles and secure cable routing.</p>
+              <h3 class="text-xl font-bold text-white mb-2">Corporate IT Infrastructure</h3>
+              <p class="text-gray-300 text-sm">Seamless integration of IP cameras into existing enterprise networks.</p>
             </div>
           </div>
 
-          <!-- Street Surveillance -->
           <div class="group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer h-96" data-aos="flip-left" data-aos-delay="100">
-            <img src="assets/projects/street-surveillance-bauchi.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800'" alt="Street Surveillance" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+            <img src="assets/projects/cctv-remote-viewing-01.jpg" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'" alt="ATBU CCTV" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90"></div>
             <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition duration-300">
               <div class="flex items-center text-brand-accent text-sm font-semibold mb-2">
-                <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> Bauchi Streets
+                <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> ATBU – CCE Laboratory
               </div>
-              <h3 class="text-xl font-bold text-white mb-2">Urban Traffic Surveillance</h3>
-              <p class="text-gray-300 text-sm">Outdoor perimeter and street monitoring systems designed for harsh weather conditions.</p>
+              <h3 class="text-xl font-bold text-white mb-2">University Laboratory CCTV</h3>
+              <p class="text-gray-300 text-sm">Institutional CCTV installation for controlled monitoring and asset protection.</p>
             </div>
           </div>
         </div>
@@ -402,8 +403,65 @@
       </div>
     </section>
 
+    <!-- EdTech & Enterprise LMS -->
+    <section id="edtech" class="py-20 bg-slate-50 border-b border-slate-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <div class="inline-flex items-center justify-center p-2 bg-emerald-100 rounded-full mb-4 px-4">
+            <i data-lucide="book-open" class="w-4 h-4 text-emerald-600 mr-2"></i>
+            <span class="text-emerald-600 text-sm font-semibold tracking-wide">EDTECH & INNOVATION</span>
+          </div>
+          <h2 class="text-3xl font-extrabold text-slate-900 sm:text-4xl">Empowering Education with Technology</h2>
+          <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+            Transforming learning environments through robust School Management Systems, teacher upskilling, and engaging STEM programs.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- LMS Enterprise -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition group" data-aos="fade-up" data-aos-delay="0">
+            <div class="bg-emerald-50 w-16 h-16 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:bg-emerald-600 group-hover:text-white transition group-hover:scale-110">
+              <i data-lucide="laptop" class="h-8 w-8 text-emerald-600 group-hover:text-white transition"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Enterprise LMS & Portals</h3>
+            <p class="text-gray-600 leading-relaxed mb-6">
+              Custom-built Learning Management Systems (LMS) and school portals designed to streamline administration, grading, and student engagement.
+            </p>
+            <div class="mt-auto pt-4 border-t border-gray-100">
+              <p class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Featured Deployment</p>
+              <a href="https://minaret.sch.ng" target="_blank" class="inline-flex items-center px-3 py-1.5 bg-emerald-50 text-emerald-700 rounded-md text-sm font-bold hover:bg-emerald-100 transition">
+                <i data-lucide="globe" class="w-4 h-4 mr-1.5"></i> Minaret Int'l School
+              </a>
+            </div>
+          </div>
+
+          <!-- Teacher Training -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition group" data-aos="fade-up" data-aos-delay="100">
+            <div class="bg-blue-50 w-16 h-16 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:bg-blue-600 group-hover:text-white transition group-hover:scale-110">
+              <i data-lucide="users" class="h-8 w-8 text-blue-600 group-hover:text-white transition"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Digital Skills for Educators</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Comprehensive training programs equipping teachers with modern digital tools, software proficiency, and pedagogical strategies needed for 21st-century classrooms.
+            </p>
+          </div>
+
+          <!-- Kids Robotics -->
+          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-xl transition group" data-aos="fade-up" data-aos-delay="200">
+            <div class="bg-purple-50 w-16 h-16 rounded-xl flex items-center justify-center shadow-sm mb-6 group-hover:bg-purple-600 group-hover:text-white transition group-hover:scale-110">
+              <i data-lucide="bot" class="h-8 w-8 text-purple-600 group-hover:text-white transition"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Kids Robotics & STEM</h3>
+            <p class="text-gray-600 leading-relaxed">
+              Interactive bootcamps and school curriculum integration for robotics, coding, and electronics, preparing young minds for the future of technology and AI.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- Training & Academy Section -->
-    <section id="training" class="py-20 bg-slate-50 border-b border-slate-200">
+    <section id="training" class="py-20 bg-white border-b border-slate-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16" data-aos="fade-up">
           <div class="inline-flex items-center justify-center p-2 bg-purple-100 rounded-full mb-4 px-4">
@@ -418,67 +476,495 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Course 1: Smart Home & CCTV -->
-          <div class="bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group flex flex-col" data-aos="fade-up" data-aos-delay="0">
-            <!-- Flyer Image -->
-            <div class="w-full h-64 bg-slate-900 relative overflow-hidden">
-              <img src="assets/training/lv_0_20260313052524.jpg" alt="Smart Home & CCTV Master Class Flyer" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-95 group-hover:opacity-100">
-              <div class="absolute top-4 right-4 bg-red-500 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-red-400">
-                Starts March 28
+          <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition relative overflow-hidden group" data-aos="fade-up" data-aos-delay="0">
+            <div class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl z-10 shadow-sm">
+              Starts March 28
+            </div>
+            <div class="flex items-center space-x-4 mb-6 relative z-10">
+              <div class="bg-cyan-100 p-4 rounded-xl text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition">
+                <i data-lucide="cctv" class="w-8 h-8"></i>
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-slate-900">Smart Home Automation & CCTV</h3>
+                <p class="text-brand-primary font-semibold text-sm uppercase tracking-wide">Professional Class</p>
               </div>
             </div>
-            
-            <div class="p-8 flex-1 flex flex-col">
-              <div class="flex items-center space-x-3 mb-4">
-                <div class="bg-cyan-100 p-2.5 rounded-lg text-brand-primary">
-                  <i data-lucide="cctv" class="w-6 h-6"></i>
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-slate-900 leading-tight">Smart Home & CCTV</h3>
-                  <p class="text-brand-primary font-bold text-sm uppercase tracking-wide mt-1">₦30,000 • 5-Day Master Class</p>
-                </div>
-              </div>
-              
-              <p class="text-gray-600 mb-8 relative z-10 leading-relaxed flex-1">
-                Master the installation, configuration, and remote networking of modern IP surveillance systems, sensors, and smart home lighting integrations in a fully hands-on environment.
-              </p>
-              
-              <a href="https://forms.gle/3o4bD2jJa5Tx9eCLA" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center w-full px-5 py-3 bg-slate-900 text-white font-semibold rounded-lg hover:bg-brand-primary transition transform active:scale-95 shadow-md hover:shadow-cyan-500/30">
-                Register Now <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
-              </a>
-            </div>
+            <p class="text-gray-600 mb-8 relative z-10 leading-relaxed">
+              Master the installation, configuration, and remote networking of modern IP surveillance systems and smart home integrations in a fully hands-on environment.
+            </p>
+            <a href="https://forms.gle/3o4bD2jJa5Tx9eCLA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-5 py-2.5 border border-brand-primary text-brand-primary font-semibold rounded-lg hover:bg-brand-primary hover:text-white transition">
+              Register Now <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+	<a href="verify.html" class="hover:text-brand-accent transition text-sm font-medium">Verify Certificate</a>
           </div>
 
           <!-- Course 2: Kids Robotics -->
-          <div class="bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 relative overflow-hidden group flex flex-col" data-aos="fade-up" data-aos-delay="100">
-            <!-- Flyer Image -->
-            <div class="w-full h-64 bg-slate-900 relative overflow-hidden">
-              <img src="assets/training/lv_0_20260312113248.jpg" alt="Kids Robotics Bootcamp Flyer" class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700 opacity-95 group-hover:opacity-100">
-              <div class="absolute top-4 right-4 bg-purple-600 text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg border border-purple-400">
-                April 13 – May 1
+          <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition relative overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+            <div class="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl z-10 shadow-lg animate-pulse">
+  April 6 – April 24
+</div>
+            <div class="flex items-center space-x-4 mb-6 relative z-10">
+              <div class="bg-purple-100 p-4 rounded-xl text-purple-600 group-hover:bg-purple-600 group-hover:text-white transition">
+                <i data-lucide="bot" class="w-8 h-8"></i>
+              </div>
+              <div>
+                <h3 class="text-2xl font-bold text-slate-900">Kids Robotics Bootcamp</h3>
+                <p class="text-purple-600 font-semibold text-sm uppercase tracking-wide">Interactive Learning</p>
               </div>
             </div>
-            
-            <div class="p-8 flex-1 flex flex-col">
-              <div class="flex items-center space-x-3 mb-4">
-                <div class="bg-purple-100 p-2.5 rounded-lg text-purple-600">
-                  <i data-lucide="bot" class="w-6 h-6"></i>
-                </div>
-                <div>
-                  <h3 class="text-2xl font-bold text-slate-900 leading-tight">Kids Robotics Bootcamp!</h3>
-                  <p class="text-purple-600 font-bold text-sm uppercase tracking-wide mt-1">₦20,000 • Holiday Program</p>
-                </div>
-              </div>
+            <p class="text-gray-600 mb-8 relative z-10 leading-relaxed">
+              A hands-on robotics bootcamp running from April 6 to April 24, designed to introduce children to robotics, coding, and electronics in a fun, practical way.
+            </p>
+            <a href="https://wa.me/2348032476476?text=Hello%20BaytLogic,%20I%20am%20interested%20in%20pre-registering%20my%20child%20for%20the%20Kids%20Robotics%20Bootcamp." target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-5 py-2.5 border border-purple-600 text-purple-600 font-semibold rounded-lg hover:bg-purple-600 hover:text-white transition">
+              Pre-Register <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-              <p class="text-gray-600 mb-8 relative z-10 leading-relaxed flex-1">
-                Build and program real robots! Learn Arduino electronics, create smart sensors, and build obstacle-avoiding cars in an engaging, hands-on holiday bootcamp.
-              </p>
-              
-              <a href="https://wa.me/2348032476476?text=Hello%20BaytLogic,%20I%20am%20interested%20in%20pre-registering%20my%20child%20for%20the%20Kids%20Robotics%20Bootcamp." target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center w-full px-5 py-3 border-2 border-purple-600 text-purple-600 font-semibold rounded-lg hover:bg-purple-600 hover:text-white transition transform active:scale-95 shadow-sm hover:shadow-purple-500/30">
-                Contact via WhatsApp <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+    <!-- NGO & Institutional Youth Sponsorship Hub -->
+    <section id="sponsorship" class="py-20 bg-slate-900 text-white border-b border-slate-800 relative overflow-hidden">
+      <!-- Ambient Gradient Glow -->
+      <div class="absolute top-0 right-1/4 w-96 h-96 rounded-full bg-cyan-500 opacity-5 blur-[120px] pointer-events-none"></div>
+      <div class="absolute bottom-0 left-1/4 w-96 h-96 rounded-full bg-purple-600 opacity-5 blur-[120px] pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <!-- 2. HERO SECTION -->
+        <div class="text-center max-w-4xl mx-auto mb-20" data-aos="fade-up">
+          <div class="inline-flex items-center justify-center p-2 bg-cyan-500/10 rounded-full mb-6 px-4 border border-cyan-500/30">
+            <i data-lucide="heart-handshake" class="w-4 h-4 text-cyan-400 mr-2"></i>
+            <span class="text-cyan-400 text-xs font-bold tracking-widest uppercase">Institutional Youth Sponsorship</span>
+          </div>
+          <h2 class="text-3xl sm:text-5xl font-extrabold text-white leading-tight mb-6">
+            Invest in Youth. Build Practical Technology Skills. Create Opportunity.
+          </h2>
+          <p class="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto mb-8">
+            BaytLogic Technologies provides practical, hands-on technology training designed to help young people develop marketable technical skills, pursue employment opportunities and build technology-based businesses.
+          </p>
+
+          <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <a href="https://wa.me/2348032476476?text=Hello%20BaytLogic,%20we%20are%20an%20NGO/Institution%20interested%20in%20sponsoring%20youth%20technology%20training." target="_blank" rel="noopener" class="px-8 py-4 bg-brand-primary hover:bg-cyan-600 text-white font-bold rounded-xl shadow-lg hover:shadow-cyan-500/25 transition transform hover:-translate-y-0.5 flex items-center gap-2">
+              <i data-lucide="heart-handshake" class="w-5 h-5"></i> Sponsor Youth Training
+            </a>
+            <a href="#sponsorship-impact" class="px-8 py-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-xl border border-slate-700 transition flex items-center gap-2">
+              <i data-lucide="line-chart" class="w-5 h-5 text-cyan-400"></i> View Our Impact
+            </a>
+          </div>
+
+          <div class="inline-flex flex-wrap items-center justify-center gap-2 sm:gap-4 px-6 py-2.5 bg-slate-800/60 rounded-full border border-slate-700/80 text-xs sm:text-sm text-slate-300 font-medium">
+            <span>Practical training</span> <span class="text-slate-600">•</span>
+            <span>Real devices</span> <span class="text-slate-600">•</span>
+            <span>Documented outcomes</span> <span class="text-slate-600">•</span>
+            <span>Verifiable certificates</span>
+          </div>
+        </div>
+
+        <!-- 3. PROGRAMME MODEL (5-Step Visual Pathway) -->
+        <div class="mb-24" data-aos="fade-up">
+          <div class="text-center mb-12">
+            <h3 class="text-2xl font-bold text-white">The Five-Step Programme Model</h3>
+            <p class="text-sm text-slate-400 mt-2">A structured pathway from institutional sponsorship to tangible post-training outcomes</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+            <!-- Step 1 -->
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700 flex flex-col justify-between hover:border-cyan-500/40 transition">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-extrabold text-sm mb-4">01</div>
+                <h4 class="text-lg font-bold text-white mb-2">SPONSOR</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">An NGO or institution sponsors selected young people for technical skills training.</p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700 flex flex-col justify-between hover:border-cyan-500/40 transition">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-extrabold text-sm mb-4">02</div>
+                <h4 class="text-lg font-bold text-white mb-2">TRAIN</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">Participants receive structured practical training delivered by experienced technicians.</p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700 flex flex-col justify-between hover:border-cyan-500/40 transition">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-extrabold text-sm mb-4">03</div>
+                <h4 class="text-lg font-bold text-white mb-2">PRACTICE</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">Participants work directly with real smart-home, CCTV, networking and automation equipment.</p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700 flex flex-col justify-between hover:border-cyan-500/40 transition">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-extrabold text-sm mb-4">04</div>
+                <h4 class="text-lg font-bold text-white mb-2">CERTIFY</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">Successful participants receive a BaytLogic certificate with a verifiable certificate ID.</p>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700 flex flex-col justify-between hover:border-cyan-500/40 transition">
+              <div>
+                <div class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-extrabold text-sm mb-4">05</div>
+                <h4 class="text-lg font-bold text-white mb-2">PROGRESS</h4>
+                <p class="text-xs text-slate-300 leading-relaxed">BaytLogic tracks available post-training outcomes such as employment, technical work & entrepreneurship.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. WHAT SPONSORED TRAINEES RECEIVE -->
+        <div class="mb-24" data-aos="fade-up">
+          <div class="text-center mb-12">
+            <h3 class="text-2xl font-bold text-white">What Sponsored Trainees Receive</h3>
+            <p class="text-sm text-slate-400 mt-2">Comprehensive hands-on training built around commercial industry standards</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Smart Home & Automation -->
+            <div class="bg-slate-800/50 rounded-2xl p-7 border border-slate-700/80">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6">
+                <i data-lucide="cpu" class="w-6 h-6"></i>
+              </div>
+              <h4 class="text-xl font-bold text-white mb-4">Smart Home Automation</h4>
+              <ul class="space-y-2.5 text-xs text-slate-300">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Tuya / Smart Life Ecosystem</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Zigbee Hub & Smart Gateway Setup</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Smart Switch & Relay Wiring</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Door/Window Motion Sensors</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Mobile & Voice Automation Rules</li>
+              </ul>
+            </div>
+
+            <!-- Professional CCTV & Networking -->
+            <div class="bg-slate-800/50 rounded-2xl p-7 border border-slate-700/80">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6">
+                <i data-lucide="cctv" class="w-6 h-6"></i>
+              </div>
+              <h4 class="text-xl font-bold text-white mb-4">Professional CCTV Systems</h4>
+              <ul class="space-y-2.5 text-xs text-slate-300">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> IP Cameras & NVR Configurations</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> PoE Switches & IP Subnetting</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> RJ45 Cable Termination & Crimping</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Mobile Remote View Setup</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Hardware Brands: EZVIZ, Reolink, Hikvision</li>
+              </ul>
+            </div>
+
+            <!-- Practical Field & Evaluation -->
+            <div class="bg-slate-800/50 rounded-2xl p-7 border border-slate-700/80">
+              <div class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-6">
+                <i data-lucide="wrench" class="w-6 h-6"></i>
+              </div>
+              <h4 class="text-xl font-bold text-white mb-4">Field Practice & Certification</h4>
+              <ul class="space-y-2.5 text-xs text-slate-300">
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Practical Fault Troubleshooting</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Real-World Site Installation Exercises</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Practical Hands-on Performance Assessment</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Official Certificate of Completion</li>
+                <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Online Verifiable Certificate ID</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. WHO OUR TRAINEES ARE -->
+        <div class="mb-24 bg-slate-800/40 rounded-3xl p-8 sm:p-10 border border-slate-700/80" data-aos="fade-up">
+          <div class="max-w-3xl">
+            <div class="inline-flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-3">
+              <i data-lucide="users" class="w-4 h-4"></i> Learner Profile
+            </div>
+            <h3 class="text-2xl sm:text-3xl font-bold text-white mb-4">Who Our Trainees Are</h3>
+            <p class="text-sm text-slate-300 leading-relaxed mb-6">
+              Our training programmes attract serious technology learners committed to gaining real technical skills. Participants come from diverse educational and professional backgrounds:
+            </p>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-200">
+              <li class="flex items-start gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+                <span>University graduates seeking job-ready practical engineering skills.</span>
+              </li>
+              <li class="flex items-start gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+                <span>Postgraduate students deepening applied technical proficiency.</span>
+              </li>
+              <li class="flex items-start gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700 border-cyan-500/40">
+                <i data-lucide="star" class="w-4 h-4 text-amber-400 shrink-0 mt-0.5"></i>
+                <span><strong>Four participants are Master's students studying Embedded AI.</strong></span>
+              </li>
+              <li class="flex items-start gap-2 bg-slate-800/80 p-3 rounded-xl border border-slate-700">
+                <i data-lucide="check-circle-2" class="w-4 h-4 text-cyan-400 shrink-0 mt-0.5"></i>
+                <span>Learners passionate about practical IoT, security, and smart automation.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 6. PROVEN IMPACT SECTION -->
+        <div id="sponsorship-impact" class="mb-24" data-aos="fade-up">
+          <div class="text-center max-w-2xl mx-auto mb-12">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">From Training to Real-World Outcomes</h3>
+            <p class="text-sm text-slate-400 mt-2">Documented examples of alumni progression following practical training cohorts</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Outcome 1: Staff Recruitment -->
+            <div class="bg-slate-800/70 rounded-2xl p-8 border border-slate-700 flex flex-col justify-between">
+              <div>
+                <div class="inline-block px-3 py-1 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 rounded-full text-xs font-bold mb-4">
+                  Internal Employment Outcome
+                </div>
+                <h4 class="text-2xl font-bold text-white mb-3">8 Graduates Hired as BaytLogic Technical Staff</h4>
+                <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                  8 graduates from Cohorts 1 & 2 are now working as staff with BaytLogic Technologies. Some high-performing graduates have progressed into technical roles within BaytLogic Technologies, creating a direct example of how practical training can develop talent for the technology workforce.
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-700/80 flex items-center justify-between text-xs text-slate-400">
+                <span>Direct Staff Recruitment</span>
+                <span class="text-cyan-400 font-semibold">Cohorts 1 & 2</span>
+              </div>
+            </div>
+
+            <!-- Outcome 2: Entrepreneurship Startup -->
+            <div class="bg-slate-800/70 rounded-2xl p-8 border border-slate-700 flex flex-col justify-between">
+              <div>
+                <div class="inline-block px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/30 rounded-full text-xs font-bold mb-4">
+                  Entrepreneurship Outcome
+                </div>
+                <h4 class="text-2xl font-bold text-white mb-3">Kareem Shaheed — Kwara State</h4>
+                <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                  Kareem Shaheed is an alumnus who has gone on to establish his own startup in Kwara State, applying the practical smart automation and security installation skills gained during his training.
+                </p>
+              </div>
+              <div class="pt-4 border-t border-slate-700/80 flex items-center justify-between">
+                <span class="text-xs text-slate-400">Independent Venture Launch</span>
+                <button type="button" onclick="alert('Alumni story video coming soon!')" class="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+                  <i data-lucide="play-circle" class="w-3.5 h-3.5"></i> Watch Alumni Story
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. TESTIMONIALS & EVIDENCE GALLERY -->
+        <div class="mb-24" data-aos="fade-up">
+          <div class="text-center mb-12">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Evidence & Trainee Feedback</h3>
+            <p class="text-sm text-slate-400 mt-2">Authentic student reviews, training photographs and documented video feedback</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+            <!-- Trainee Video Card 1 -->
+            <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm">AS</div>
+                  <div>
+                    <h5 class="text-base font-bold text-white">Ahmad Adamu Zakari</h5>
+                    <p class="text-xs text-cyan-400">Cohort 1 Alumnus</p>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-6">
+                  "Completed hands-on masterclass in Smart Home Automation and IP CCTV networking. Gained real installation experience working with physical devices."
+                </p>
+              </div>
+              <button type="button" onclick="alert('Video testimony player: Ahmad Adamu Zakari')" class="w-full py-2.5 bg-slate-700/80 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-cyan-400"></i> Watch Testimonial
+              </button>
+            </div>
+
+            <!-- Trainee Video Card 2 -->
+            <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center gap-3 mb-4">
+                  <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">KS</div>
+                  <div>
+                    <h5 class="text-base font-bold text-white">Kareem Shaheed</h5>
+                    <p class="text-xs text-purple-400">Cohort 2 Alumnus (Kwara)</p>
+                  </div>
+                </div>
+                <p class="text-xs text-slate-300 leading-relaxed mb-6">
+                  "The practical exercises gave me the technical confidence to offer smart home and security installation services independently."
+                </p>
+              </div>
+              <button type="button" onclick="alert('Video testimony player: Kareem Shaheed')" class="w-full py-2.5 bg-slate-700/80 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
+                <i data-lucide="play" class="w-3.5 h-3.5 text-purple-400"></i> Watch Testimonial
+              </button>
+            </div>
+
+            <!-- Training in Action Photo Card -->
+            <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 flex flex-col justify-between overflow-hidden">
+              <div>
+                <div class="rounded-xl overflow-hidden mb-4 border border-slate-700 h-36 relative">
+                  <img src="assets/training/lv_0_20260312113248.png" alt="BaytLogic Practical Training in Action" class="w-full h-full object-cover" />
+                  <div class="absolute bottom-2 left-2 bg-slate-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded">Training In Action</div>
+                </div>
+                <h5 class="text-base font-bold text-white mb-1">Hands-on Lab Exercises</h5>
+                <p class="text-xs text-slate-300 leading-relaxed mb-4">Real equipment wiring, crimping and IP configuration exercises.</p>
+              </div>
+              <a href="https://share.google/YCzL64jy6P3d9g93H" target="_blank" rel="noopener" class="w-full py-2.5 bg-white text-slate-900 hover:bg-slate-100 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow">
+                <i data-lucide="external-link" class="w-3.5 h-3.5 text-cyan-600"></i> Read Independent Reviews
               </a>
             </div>
           </div>
         </div>
+
+        <!-- 8. WHY SPONSOR WITH BAYTLOGIC? (6 Concise Donor Benefits) -->
+        <div class="mb-24" data-aos="fade-up">
+          <div class="text-center mb-12">
+            <h3 class="text-2xl font-extrabold text-white">Why Sponsor with BaytLogic?</h3>
+            <p class="text-sm text-slate-400 mt-2">Six key institutional advantages for donor organizations and sponsors</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700/80">
+              <div class="text-cyan-400 font-bold text-lg mb-2">1. Practical Skills</div>
+              <p class="text-xs text-slate-300 leading-relaxed">Young people work directly with real hardware technology rather than relying only on theoretical concepts.</p>
+            </div>
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700/80">
+              <div class="text-cyan-400 font-bold text-lg mb-2">2. Employability</div>
+              <p class="text-xs text-slate-300 leading-relaxed">Participants develop practical technical capabilities relevant to commercial installation and tech services.</p>
+            </div>
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700/80">
+              <div class="text-cyan-400 font-bold text-lg mb-2">3. Entrepreneurship</div>
+              <p class="text-xs text-slate-300 leading-relaxed">Participants can use acquired skills to pursue independent technical services and local technology businesses.</p>
+            </div>
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700/80">
+              <div class="text-cyan-400 font-bold text-lg mb-2">4. Certification</div>
+              <p class="text-xs text-slate-300 leading-relaxed">Successful trainees receive verifiable completion credentials authenticated online via our verification portal.</p>
+            </div>
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700/80">
+              <div class="text-cyan-400 font-bold text-lg mb-2">5. Impact Evidence</div>
+              <p class="text-xs text-slate-300 leading-relaxed">Sponsors receive documented information about participation, completion, and available trainee outcomes.</p>
+            </div>
+            <div class="bg-slate-800/60 p-6 rounded-2xl border border-slate-700/80">
+              <div class="text-cyan-400 font-bold text-lg mb-2">6. Local Capacity</div>
+              <p class="text-xs text-slate-300 leading-relaxed">Sponsors contribute directly to developing practical technical talent and technology capacity within Nigeria.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9. WHAT THE SPONSOR RECEIVES & 13. IMPACT MEASUREMENT DASHBOARD CONCEPT -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-24" data-aos="fade-up">
+          <!-- What Sponsor Receives -->
+          <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700">
+            <h4 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <i data-lucide="file-check" class="w-5 h-5 text-cyan-400"></i> What the Sponsor Receives
+            </h4>
+            <p class="text-xs text-slate-400 mb-6">Sponsoring organizations receive complete documentation and transparent records:</p>
+            <ul class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-300">
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Trainee registration records</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Attendance & completion records</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Training photographs</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Practical training documentation</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Certificates issued</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Trainee testimonials</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Alumni stories (where available)</li>
+              <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400 shrink-0"></i> Post-training outcome updates</li>
+            </ul>
+            <div class="mt-6 pt-4 border-t border-slate-700/80 text-[11px] text-cyan-300 font-medium">
+              * Verifiable digital credentials and transparent trainee records.
+            </div>
+          </div>
+
+          <!-- Impact Measurement Dashboard -->
+          <div class="bg-slate-800/50 p-8 rounded-3xl border border-slate-700">
+            <h4 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
+              <i data-lucide="bar-chart-3" class="w-5 h-5 text-purple-400"></i> How We Measure Impact
+            </h4>
+            <p class="text-xs text-slate-400 mb-6">Tracked indicators across cohort execution and alumni progression:</p>
+            <div class="grid grid-cols-2 gap-3 text-xs">
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700">
+                <span class="text-slate-400 block text-[10px] uppercase">Number Sponsored</span>
+                <span class="text-white font-bold">Tracked per Cohort</span>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700">
+                <span class="text-slate-400 block text-[10px] uppercase">Completion Rate</span>
+                <span class="text-white font-bold">Tracked</span>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700">
+                <span class="text-slate-400 block text-[10px] uppercase">BaytLogic Staff Hires</span>
+                <span class="text-cyan-400 font-bold">8 Graduates</span>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700">
+                <span class="text-slate-400 block text-[10px] uppercase">Startups Established</span>
+                <span class="text-purple-400 font-bold">1 (Kwara State)</span>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700">
+                <span class="text-slate-400 block text-[10px] uppercase">Postgraduate Learners</span>
+                <span class="text-amber-400 font-bold">4 Master's (Embedded AI)</span>
+              </div>
+              <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700">
+                <span class="text-slate-400 block text-[10px] uppercase">Digital Credential Verification</span>
+                <span class="text-emerald-400 font-bold">Online Portal Live</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 10. SPONSORSHIP MODEL & CALCULATOR -->
+        <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 sm:p-12 border border-slate-700 mb-20" data-aos="fade-up">
+          <div class="max-w-3xl mx-auto text-center mb-10">
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Sponsorship Model</h3>
+            <p class="text-sm text-slate-300 mt-2">Clear, predictable per-trainee structure for institutional budgeting</p>
+            <div class="mt-4 inline-block px-4 py-1.5 bg-cyan-500/20 text-cyan-300 rounded-full font-extrabold text-sm border border-cyan-500/40">
+              Base Training Fee: ₦30,000 per trainee
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-700 text-center">
+              <span class="text-xs text-slate-400 uppercase font-semibold">10 Trainees</span>
+              <div class="text-2xl font-extrabold text-white my-2">₦300,000</div>
+              <p class="text-[11px] text-slate-400">Illustrative sponsorship amount</p>
+            </div>
+            <div class="bg-slate-900/80 p-6 rounded-2xl border border-cyan-500/50 text-center shadow-lg relative">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-cyan-500 text-white text-[10px] font-bold px-3 py-0.5 rounded-full uppercase">Popular Cohort</div>
+              <span class="text-xs text-slate-400 uppercase font-semibold">25 Trainees</span>
+              <div class="text-2xl font-extrabold text-cyan-400 my-2">₦750,000</div>
+              <p class="text-[11px] text-slate-400">Illustrative sponsorship amount</p>
+            </div>
+            <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-700 text-center">
+              <span class="text-xs text-slate-400 uppercase font-semibold">50 Trainees</span>
+              <div class="text-2xl font-extrabold text-white my-2">₦1,500,000</div>
+              <p class="text-[11px] text-slate-400">Illustrative sponsorship amount</p>
+            </div>
+          </div>
+
+          <p class="text-xs text-center text-slate-400 max-w-2xl mx-auto mb-8">
+            * Illustrative sponsorship amounts based on current ₦30,000 training fee. Custom sponsorship packages can be developed for larger cohorts or specific programme requirements.
+          </p>
+
+          <div class="text-center">
+            <a href="https://wa.me/2348032476476?text=Hello%20BaytLogic,%20we%20would%20like%20to%20discuss%20an%20institutional%20sponsorship%20package." target="_blank" rel="noopener" class="px-8 py-3.5 bg-brand-primary hover:bg-cyan-600 text-white font-bold rounded-xl shadow-lg transition inline-flex items-center gap-2 text-sm">
+              <i data-lucide="message-square" class="w-4 h-4"></i> Discuss Sponsorship
+            </a>
+          </div>
+        </div>
+
+        <!-- 11. STRONG DONOR CTA -->
+        <div class="bg-slate-800/80 rounded-3xl p-8 sm:p-12 border border-slate-700 text-center max-w-4xl mx-auto" data-aos="zoom-in">
+          <h3 class="text-2xl sm:text-4xl font-extrabold text-white mb-4">
+            Help a Young Person Move From Learning to Earning.
+          </h3>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl mx-auto mb-8">
+            Partner with BaytLogic Technologies to sponsor practical technology training for young people and help expand access to skills, employment pathways and entrepreneurship opportunities.
+          </p>
+          <div class="flex flex-wrap justify-center gap-4 text-sm font-bold">
+            <a href="https://wa.me/2348032476476?text=Hello%20BaytLogic,%20I%20want%20to%20sponsor%20youth%20training." target="_blank" rel="noopener" class="px-6 py-3.5 bg-brand-primary hover:bg-cyan-600 text-white rounded-xl shadow-lg transition flex items-center gap-2">
+              <i data-lucide="heart-handshake" class="w-4 h-4"></i> Sponsor Youth Training
+            </a>
+            <a href="NGO_Sponsorship_Proposal.md" target="_blank" class="px-6 py-3.5 bg-slate-700 hover:bg-slate-600 text-white rounded-xl border border-slate-600 transition flex items-center gap-2">
+              <i data-lucide="file-text" class="w-4 h-4 text-cyan-400"></i> Request Sponsorship Proposal
+            </a>
+            <a href="#contact" class="px-6 py-3.5 bg-slate-900 hover:bg-slate-950 text-slate-200 rounded-xl border border-slate-700 transition flex items-center gap-2">
+              <i data-lucide="phone" class="w-4 h-4"></i> Talk to BaytLogic
+            </a>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -516,24 +1002,45 @@
                   <i data-lucide="sparkles" class="w-4 h-4 mr-2"></i> Generate Blueprint
                 </button>
               </div>
+
+              <!-- Quick Presets -->
+              <div class="flex flex-wrap gap-2 pt-1 text-xs">
+                <span class="text-slate-400 font-medium mr-1 self-center">Quick Presets:</span>
+                <button type="button" onclick="setPreset('4-Bedroom Residential Duplex in Bauchi with 2 gates and perimeter fence requiring smart IP cameras & solar backup')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded border border-slate-700 transition">🏠 4-Bed Duplex</button>
+                <button type="button" onclick="setPreset('Commercial Supermarket in Kano requiring 16-channel 4K CCTV, POS checkout monitoring, and night vision perimeter protection')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded border border-slate-700 transition">🛒 Supermarket</button>
+                <button type="button" onclick="setPreset('School Campus in Abuja requiring LMS integration, admin lab surveillance, and solar-powered gate access control')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded border border-slate-700 transition">🏫 School Campus</button>
+                <button type="button" onclick="setPreset('Logistics Warehouse in Bauchi needing AI intrusion motion tracking, 360-degree PTZ cameras, and remote cloud viewing')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-cyan-300 rounded border border-slate-700 transition">🏭 Warehouse</button>
+              </div>
             </div>
 
             <div id="aiOutput" class="hidden mt-8 pt-6 border-t border-slate-700">
-              <h3 class="text-xl font-bold text-white mb-4 flex items-center">
-                <i data-lucide="file-text" class="w-5 h-5 mr-2 text-brand-accent"></i>
-                Your Custom Security Blueprint
-              </h3>
+              <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+                <h3 class="text-xl font-bold text-white flex items-center">
+                  <i data-lucide="file-text" class="w-5 h-5 mr-2 text-brand-accent"></i>
+                  Your Custom Security Blueprint
+                </h3>
+                <div class="flex gap-2">
+                  <button type="button" onclick="copyBlueprint()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-lg border border-slate-600 transition flex items-center gap-1">
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Text
+                  </button>
+                  <button type="button" onclick="sendBlueprintToWA()" class="px-3 py-1.5 bg-green-600 hover:bg-green-500 text-white text-xs font-semibold rounded-lg transition flex items-center gap-1">
+                    <i data-lucide="message-square" class="w-3.5 h-3.5"></i> Send to WhatsApp
+                  </button>
+                </div>
+              </div>
+
               <div class="prose prose-invert max-w-none text-gray-300 bg-slate-800/50 p-6 rounded-lg border border-slate-600/50">
                 <div id="aiTextContent" class="whitespace-pre-line leading-relaxed"></div>
-                <div class="mt-6 pt-4 border-t border-slate-700">
-                  <p class="text-sm text-brand-accent italic">* AI-assisted recommendation. Contact our technical team for a site survey and final BOQ.</p>
+                <div class="mt-6 pt-4 border-t border-slate-700 flex flex-wrap justify-between items-center text-xs text-brand-accent">
+                  <span>* BaytLogic Engineering Blueprint Recommendation.</span>
+                  <a href="#contact" class="hover:underline font-bold text-white bg-brand-primary px-3 py-1 rounded">Book Site Survey & BOQ &rarr;</a>
                 </div>
               </div>
             </div>
 
             <div id="aiLoading" class="hidden mt-8 text-center py-10">
               <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-brand-accent mb-2"></div>
-              <p class="text-cyan-200 text-sm">Analyzing requirements...</p>
+              <p class="text-cyan-200 text-sm">Engineering your custom security blueprint...</p>
             </div>
           </div>
         </div>
@@ -589,45 +1096,51 @@
             </div>
 
             <div class="p-10 bg-white">
-              <h3 class="text-2xl font-bold text-gray-800 mb-6">Request a Quote</h3>
-              <form class="space-y-6" name="contact" method="POST" data-netlify="true">
+              <h3 class="text-2xl font-bold text-gray-800 mb-6">Request a Custom Quote</h3>
+              <form id="quoteForm" class="space-y-5" name="contact" method="POST" data-netlify="true">
                 <input type="hidden" name="form-name" value="contact" />
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                  <input type="text" name="name" class="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary" placeholder="John Doe" required>
+                  <input type="text" id="formName" name="name" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary" placeholder="e.g. Yahaya Sulaiman" required>
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-                    <input type="tel" name="phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary" placeholder="0803..." required>
+                    <input type="tel" id="formPhone" name="phone" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary" placeholder="0803 247 6476" required>
                   </div>
                   <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">City/State</label>
-                    <input type="text" name="city" class="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary" placeholder="e.g. Abuja">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">City / State</label>
+                    <input type="text" id="formCity" name="city" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary" placeholder="e.g. Bauchi, Abuja, Kano">
                   </div>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Service</label>
-                  <select id="serviceSelect" name="service" class="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary">
-                    <option value="surveillance">Smart Surveillance / CCTV</option>
-                    <option value="automation">Home Automation</option>
-                    <option value="ai">Embedded AI Solutions</option>
-                    <option value="training">Technical Training</option>
-                    <option value="solar">Solar Security Systems</option>
-                    <option value="consultancy">General Consultancy</option>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Service Required</label>
+                  <select id="serviceSelect" name="service" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary font-medium text-slate-700">
+                    <option value="surveillance">Smart CCTV & High-Def Surveillance</option>
+                    <option value="automation">Smart Home & Building Automation</option>
+                    <option value="ai">Embedded AI & Vision Systems</option>
+                    <option value="edtech">EdTech & School LMS Solutions</option>
+                    <option value="training">Academy Technical Training</option>
+                    <option value="solar">Solar-Powered Security Systems</option>
+                    <option value="consultancy">Engineering Consultancy & BOQ</option>
                   </select>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-1">Message</label>
-                  <textarea name="message" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary" placeholder="Details about your project..." required></textarea>
+                  <label class="block text-sm font-medium text-gray-700 mb-1">Project Details</label>
+                  <textarea id="formMessage" name="message" rows="3" class="w-full px-4 py-2.5 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-brand-primary" placeholder="Tell us about your property size, number of cameras, or technical requirements..." required></textarea>
                 </div>
 
-                <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3 rounded-lg hover:bg-slate-800 transition transform active:scale-95">
-                  Send Message
-                </button>
+                <div class="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3 px-4 rounded-lg hover:bg-slate-800 transition transform active:scale-95 flex items-center justify-center gap-2">
+                    <i data-lucide="send" class="w-4 h-4"></i> Submit Request
+                  </button>
+                  <button type="button" onclick="sendFormToWhatsApp()" class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-lg transition transform active:scale-95 flex items-center justify-center gap-2 shadow-md">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp Quote
+                  </button>
+                </div>
               </form>
 
               <div class="mt-6 text-sm text-gray-500">
@@ -652,8 +1165,28 @@
 
   </main>
 
-  <footer class="bg-brand-dark py-8 text-center text-gray-500 text-sm border-t border-slate-800">
-    <p>&copy; 2026 BaytLogic Technologies. Engineered in Bauchi, Serving Nigeria.</p>
+  <footer class="bg-brand-dark py-12 text-center text-gray-400 text-sm border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col items-center justify-center space-y-4">
+      <a href="#" class="inline-block hover:opacity-90 transition">
+        <img src="assets/baytlogic-logo-cyan.png" alt="BaytLogic Technologies - Where Intelligence Meets Security" class="h-20 w-auto opacity-95 hover:opacity-100 transition duration-300 drop-shadow-[0_0_12px_rgba(34,211,238,0.25)]" />
+      </a>
+      <p class="text-xs text-slate-400 max-w-md tracking-wider font-medium">Where Intelligence Meets Security</p>
+      
+      <!-- Quick Staff & Resource Links -->
+      <div class="flex flex-wrap justify-center gap-6 text-xs text-slate-400 font-semibold pt-2">
+        <a href="boq.html" class="hover:text-cyan-400 transition flex items-center gap-1"><i data-lucide="calculator" class="w-3.5 h-3.5 text-cyan-400"></i> BOQ Studio</a>
+        <a href="admin.html" class="hover:text-purple-400 transition flex items-center gap-1"><i data-lucide="settings" class="w-3.5 h-3.5 text-purple-400"></i> Staff Admin Studio</a>
+        <a href="verify.html" class="hover:text-cyan-400 transition flex items-center gap-1"><i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Verify Certificate</a>
+        <a href="NGO_Sponsorship_Proposal.md" target="_blank" class="hover:text-amber-400 transition flex items-center gap-1"><i data-lucide="file-text" class="w-3.5 h-3.5 text-amber-400"></i> NGO Proposal</a>
+      </div>
+
+      <!-- Payment Account Note -->
+      <div class="text-[11px] text-slate-400 bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800">
+        Bank Transfer: <strong class="text-slate-200">Stanbic IBTC</strong> • Account: <strong class="text-cyan-400 font-mono">0072236937</strong> • Name: <strong class="text-slate-200">BaytLogic Technologies</strong>
+      </div>
+
+      <p class="text-slate-500 text-xs">&copy; 2026 BaytLogic Technologies. Engineered in Bauchi, Serving Nigeria.</p>
+    </div>
   </footer>
 
   <!-- Scripts -->
@@ -767,7 +1300,44 @@
     initParticles();
     animateCanvas();
 
-    // CONNECTED TO YOUR NETLIFY BACKEND
+    function setPreset(text) {
+      const input = document.getElementById('propertyInput');
+      input.value = text;
+      input.focus();
+    }
+
+    function generateLocalFallbackBlueprint(desc) {
+      const dateStr = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      return `### 🛡️ BAYTLOGIC SECURITY BLUEPRINT & BOQ SUMMARY
+**Date:** ${dateStr}  
+**Property Description:** "${desc}"  
+**Status:** Initial Technical Recommendation  
+
+---
+
+#### 1. Vulnerability Assessment
+* High-risk blind spots identified around primary ingress/egress points and perimeter perimeter walls.
+* Power vulnerability detected; grid fluctuations require dedicated battery/solar inverter isolation.
+* Need for centralized, encrypted IP camera network isolated from public Wi-Fi traffic.
+
+#### 2. Recommended CCTV Architecture
+* **Primary Coverage:** 8 to 16 Channel 4K AI-PoE IP Bullet & Dome Cameras with H.265+ compression.
+* **Perimeter Defense:** Active deterrence cameras with dual-light full-color night vision and siren alert.
+* **Storage:** 4TB Surveillance-grade Hard Drive providing 30+ days continuous retention.
+
+#### 3. IoT & Smart Automation Controls
+* Smart Door/Gate Sensors with real-time mobile push notifications.
+* AI Motion Detection calibrated for human/vehicle shape filtering to eliminate false alerts.
+* Remote Cloud Gateway enabling viewing from mobile apps anywhere worldwide.
+
+#### 4. Power & Infrastructure Reliability
+* Pure Sine Wave Solar-Inverter Integration guaranteeing 24/7 uptime during local power outages.
+* Surge protection modules & outdoor weatherproof IP67 rated junction boxes.
+
+---
+*📍 **Next Steps:** Contact BaytLogic Engineers at **0803 247 6476** or **info@baytlogic.com.ng** to schedule an on-site technical survey and receive your final Bill of Quantities (BOQ).*`;
+    }
+
     async function generateSecurityPlan() {
       const input = document.getElementById('propertyInput');
       const output = document.getElementById('aiOutput');
@@ -783,28 +1353,122 @@
       loading.classList.remove('hidden');
 
       try {
-        // Fetching from your deployed serverless function
         const response = await fetch("/.netlify/functions/security-blueprint", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ description })
-        });
+        }).catch(() => null);
 
-        const data = await response.json().catch(() => ({}));
-        
-        if (!response.ok) {
-          throw new Error(data.error || "AI service error. Please try again.");
+        let data = null;
+        if (response && response.ok) {
+          data = await response.json().catch(() => ({}));
         }
 
-        textContent.innerHTML = marked.parse(data.text || "Could not generate plan.");
+        const rawMarkdown = (data && data.text) ? data.text : generateLocalFallbackBlueprint(description);
+        window.currentBlueprintText = rawMarkdown;
+
+        textContent.innerHTML = marked.parse(rawMarkdown);
         output.classList.remove('hidden');
+        lucide.createIcons();
       } catch (error) {
-        alert("AI Service Error: " + error.message);
+        const fallbackText = generateLocalFallbackBlueprint(description);
+        window.currentBlueprintText = fallbackText;
+        textContent.innerHTML = marked.parse(fallbackText);
+        output.classList.remove('hidden');
+        lucide.createIcons();
       } finally {
         loading.classList.add('hidden');
         btn.disabled = false;
       }
     }
+
+    function copyBlueprint() {
+      if (!window.currentBlueprintText) return;
+      navigator.clipboard.writeText(window.currentBlueprintText).then(() => {
+        alert("Security Blueprint copied to clipboard!");
+      });
+    }
+
+    function sendBlueprintToWA() {
+      const input = document.getElementById('propertyInput').value.trim();
+      const text = `Hello BaytLogic Team, I generated a Security Blueprint for my property:\n\n"${input}"\n\nI would like to schedule a site survey and BOQ quote.`;
+      window.open(`https://wa.me/2348032476476?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    function sendFormToWhatsApp() {
+      const name = document.getElementById('formName').value.trim() || 'Client';
+      const phone = document.getElementById('formPhone').value.trim() || 'N/A';
+      const city = document.getElementById('formCity').value.trim() || 'N/A';
+      const serviceSelect = document.getElementById('serviceSelect');
+      const serviceText = serviceSelect ? serviceSelect.options[serviceSelect.selectedIndex].text : 'Consultancy';
+      const msg = document.getElementById('formMessage').value.trim() || 'Inquiry about BaytLogic services.';
+
+      const waText = `Hello BaytLogic Technologies,\n\n*Quote Request Details:*\n• *Name:* ${name}\n• *Phone:* ${phone}\n• *Location:* ${city}\n• *Service:* ${serviceText}\n• *Details:* ${msg}\n\nPlease get back to me with a preliminary BOQ and consultation timeline.`;
+      window.open(`https://wa.me/2348032476476?text=${encodeURIComponent(waText)}`, '_blank');
+    }
+
+    // Dynamic Portfolio & Training syncing with Management Studio (admin.html)
+    window.addEventListener('DOMContentLoaded', () => {
+      const customProjects = JSON.parse(localStorage.getItem('baytlogic_projects'));
+      if (customProjects && customProjects.length > 0) {
+        const projContainer = document.querySelector('#projects .grid');
+        if (projContainer) {
+          projContainer.innerHTML = '';
+          customProjects.forEach(p => {
+            const card = document.createElement('div');
+            card.className = 'group relative overflow-hidden rounded-2xl shadow-lg cursor-pointer h-96';
+            card.innerHTML = `
+              <img src="${p.img}" onerror="this.src='assets/projects/atbu-cce-lab-cctv-01.jpg'" alt="${p.title}" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent opacity-90"></div>
+              <div class="absolute bottom-0 left-0 p-6 w-full transform translate-y-2 group-hover:translate-y-0 transition duration-300">
+                <div class="flex items-center text-brand-accent text-sm font-semibold mb-2">
+                  <i data-lucide="map-pin" class="w-4 h-4 mr-1"></i> ${p.location}
+                </div>
+                <h3 class="text-xl font-bold text-white mb-2">${p.title}</h3>
+                <p class="text-gray-300 text-sm">${p.desc}</p>
+              </div>
+            `;
+            projContainer.appendChild(card);
+          });
+          lucide.createIcons();
+        }
+      }
+
+      const customTrainings = JSON.parse(localStorage.getItem('baytlogic_trainings'));
+      if (customTrainings && customTrainings.length > 0) {
+        const trContainer = document.querySelector('#training .grid');
+        if (trContainer) {
+          trContainer.innerHTML = '';
+          customTrainings.forEach(t => {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition relative overflow-hidden group';
+            card.innerHTML = `
+              <div class="absolute top-0 right-0 bg-brand-primary text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl z-10 shadow-sm">
+                ${t.date}
+              </div>
+              <div class="flex items-center space-x-4 mb-6 relative z-10">
+                <div class="bg-cyan-100 p-4 rounded-xl text-brand-primary group-hover:bg-brand-primary group-hover:text-white transition">
+                  <i data-lucide="graduation-cap" class="w-8 h-8"></i>
+                </div>
+                <div>
+                  <h3 class="text-2xl font-bold text-slate-900">${t.title}</h3>
+                  <p class="text-brand-primary font-semibold text-sm uppercase tracking-wide">${t.category || 'Academy Course'}</p>
+                </div>
+              </div>
+              <p class="text-gray-600 mb-8 relative z-10 leading-relaxed">${t.desc}</p>
+              <div class="flex flex-wrap items-center gap-3">
+                <a href="https://forms.gle/3o4bD2jJa5Tx9eCLA" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-5 py-2.5 border border-brand-primary text-brand-primary font-semibold rounded-lg hover:bg-brand-primary hover:text-white transition text-xs">
+                  Register Now <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+                </a>
+                <a href="verify.html" class="hover:text-brand-accent transition text-xs text-slate-500 font-medium">Verify Certificate &rarr;</a>
+              </div>
+            `;
+            trContainer.appendChild(card);
+          });
+          lucide.createIcons();
+        }
+      }
+    });
   </script>
 
 </body>

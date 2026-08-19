@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automated BOQ Generator – BaytLogic Technologies</title>
+  
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          colors: {
+            brand: {
+              dark: '#0f172a',
+              primary: '#06b6d4',
+              accent: '#22d3ee',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { background: white !important; color: black !important; padding: 0 !important; }
+      .print-shadow-none { box-shadow: none !important; border: none !important; }
+      .print-full-width { max-width: 100% !important; width: 100% !important; margin: 0 !important; }
+      .print-border { border: 1px solid #cbd5e1 !important; }
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 antialiased min-h-screen">
+
+  <!-- Header (Hidden on Print) -->
+  <header class="no-print bg-slate-900/90 backdrop-blur-md border-b border-slate-800 sticky top-0 z-50 py-4 px-4 sm:px-8">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
+      <a href="index.html" class="flex items-center gap-3 hover:opacity-90 transition">
+        <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-9 w-auto" />
+        <div>
+          <span class="font-extrabold text-lg tracking-wider text-white">BAYTLOGIC</span>
+          <span class="text-xs text-brand-accent block font-semibold tracking-widest uppercase">BOQ & Quote Studio</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3 text-xs font-semibold">
+        <a href="index.html" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg transition border border-slate-700">&larr; Back to Website</a>
+        <a href="admin.html" class="px-3.5 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-lg transition border border-slate-700 flex items-center gap-1.5">
+          <i data-lucide="settings" class="w-3.5 h-3.5"></i> Admin Studio
+        </a>
+        <button onclick="window.print()" class="px-4 py-2 bg-brand-primary hover:bg-cyan-600 text-white rounded-lg transition shadow flex items-center gap-1.5">
+          <i data-lucide="printer" class="w-4 h-4"></i> Print / Export PDF
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+
+    <!-- Left Controls Form (Hidden on Print) -->
+    <div class="no-print lg:col-span-5 space-y-6">
+      
+      <!-- Staff & Project Info Card -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl">
+        <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">
+          <i data-lucide="user-check" class="w-5 h-5 text-brand-accent"></i> Staff & Client Details
+        </h3>
+
+        <div class="space-y-4 text-xs">
+          <!-- Staff Name -->
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Generating Staff Name</label>
+            <input type="text" id="staffName" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition" value="Yahaya Abdullahi Sulaiman" oninput="updatePreview()" />
+          </div>
+
+          <!-- Staff Role -->
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Staff Designation / Role</label>
+            <input type="text" id="staffRole" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition" value="Lead Security Engineer" oninput="updatePreview()" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-400 font-semibold mb-1">Issue Date</label>
+              <input type="date" id="boqDate" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition" onchange="updatePreview()" />
+            </div>
+            <div>
+              <label class="block text-slate-400 font-semibold mb-1">Reference ID</label>
+              <input type="text" id="boqRef" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition uppercase font-mono" oninput="updatePreview()" />
+            </div>
+          </div>
+
+          <hr class="border-slate-700/80 my-2" />
+
+          <!-- Client Info -->
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Client / Organization Name</label>
+            <input type="text" id="clientName" placeholder="e.g. Alhaji Musa Abubakar / Minaret International" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition" oninput="updatePreview()" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-400 font-semibold mb-1">Client Phone</label>
+              <input type="tel" id="clientPhone" placeholder="0803..." class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition" oninput="updatePreview()" />
+            </div>
+            <div>
+              <label class="block text-slate-400 font-semibold mb-1">Location / Address</label>
+              <input type="text" id="clientAddress" placeholder="e.g. G.R.A, Bauchi" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition" oninput="updatePreview()" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Project Type / Category</label>
+            <select id="projectCategory" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" onchange="updatePreview()">
+              <option value="Smart CCTV & High-Def Surveillance">Smart CCTV & High-Def Surveillance</option>
+              <option value="Smart Home & Building Automation">Smart Home & Building Automation</option>
+              <option value="Solar Power & Inverter Security Backup">Solar Power & Inverter Security Backup</option>
+              <option value="School LMS & EdTech Infrastructure">School LMS & EdTech Infrastructure</option>
+              <option value="Technical Youth Skills Training Sponsorship">Technical Youth Skills Training Sponsorship</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Catalog Quick Picker & Add Line Item -->
+      <div class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-4">
+        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+          <i data-lucide="package-plus" class="w-5 h-5 text-brand-accent"></i> Add Items to Estimate
+        </h3>
+
+        <!-- Preset Catalog Selector -->
+        <div>
+          <label class="block text-xs text-slate-400 font-semibold mb-1">Quick Select from Hardware Catalog</label>
+          <div class="flex gap-2">
+            <select id="catalogSelect" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs text-white outline-none focus:border-brand-primary">
+              <option value="">-- Choose Hardware / Service Item --</option>
+              <option value="4K AI Outdoor IP Bullet Camera (Hikvision/EZVIZ)|45000">4K AI Outdoor IP Bullet Camera - ₦45,000</option>
+              <option value="1080p Smart WiFi PTZ Outdoor Camera (Reolink)|35000">1080p PTZ Outdoor Camera (Reolink) - ₦35,000</option>
+              <option value="8-Channel NVR System H.265+ PoE|85000">8-Channel NVR System H.265+ PoE - ₦85,000</option>
+              <option value="16-Channel Enterprise NVR System|145000">16-Channel Enterprise NVR System - ₦145,000</option>
+              <option value="4TB Western Digital Purple Surveillance HDD|95000">4TB Surveillance Hard Drive (WD Purple) - ₦95,000</option>
+              <option value="16-Port Gigabit PoE Switch|65000">16-Port Gigabit PoE Switch - ₦65,000</option>
+              <option value="Tuya Smart Zigbee Relay Touch Switch|22000">Tuya Smart Touch Light Switch - ₦22,000</option>
+              <option value="Universal Smart Zigbee Gateway Hub|35000">Universal Smart Gateway Hub - ₦35,000</option>
+              <option value="Smart Fingerprint & Keypad Door Lock|75000">Smart Fingerprint & Keypad Lock - ₦75,000</option>
+              <option value="3.5kVA / 24V Pure Sine Wave Solar Inverter Kit|450000">3.5kVA / 24V Solar Inverter Kit - ₦450,000</option>
+              <option value="Outdoor Weatherproof Cat6 Network Cable (305m)|65000">Outdoor Cat6 Network Cable 305m Roll - ₦65,000</option>
+              <option value="PVC Trunking, Conduits & Accessories Pack|30000">PVC Trunking & Accessories Pack - ₦30,000</option>
+              <option value="Professional Installation, Cabling & Setup Labor|50000">Installation, Cabling & Setup Labor - ₦50,000</option>
+              <option value="Youth Training Masterclass Sponsorship Fee (Per Candidate)|30000">Youth Training Sponsorship Fee - ₦30,000</option>
+            </select>
+            <button onclick="addCatalogItem()" class="px-4 py-2 bg-brand-primary hover:bg-cyan-600 text-white rounded-xl text-xs font-bold shrink-0 transition">
+              + Add
+            </button>
+          </div>
+        </div>
+
+        <hr class="border-slate-700/80 my-2" />
+
+        <!-- Custom Item Form -->
+        <div class="space-y-3 text-xs">
+          <label class="block text-slate-400 font-semibold">Or Add Custom Item / Service</label>
+          <input type="text" id="customDesc" placeholder="Item description / specification" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none" />
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-400 font-semibold mb-1">Quantity</label>
+              <input type="number" id="customQty" min="1" value="1" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none" />
+            </div>
+            <div>
+              <label class="block text-slate-400 font-semibold mb-1">Unit Price (₦)</label>
+              <input type="number" id="customPrice" placeholder="0" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none" />
+            </div>
+          </div>
+          <button onclick="addCustomItem()" class="w-full py-2.5 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl transition flex items-center justify-center gap-1.5">
+            <i data-lucide="plus" class="w-4 h-4 text-cyan-400"></i> Add Custom Line Item
+          </button>
+        </div>
+
+        <!-- Adjustments (Discount & Tax) -->
+        <div class="pt-3 border-t border-slate-700/80 grid grid-cols-2 gap-3 text-xs">
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">Discount (₦)</label>
+            <input type="number" id="discountAmt" min="0" value="0" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none" oninput="updatePreview()" />
+          </div>
+          <div>
+            <label class="block text-slate-400 font-semibold mb-1">VAT / Tax (%)</label>
+            <input type="number" id="vatPercent" min="0" value="0" step="0.5" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none" oninput="updatePreview()" />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Right Live Printable Document Preview -->
+    <div class="lg:col-span-7 print-full-width">
+      <div id="boqDocument" class="bg-white text-slate-900 rounded-2xl p-8 sm:p-10 shadow-2xl print-shadow-none print-border border border-slate-200 min-h-[750px] flex flex-col justify-between">
+        
+        <div>
+          <!-- Header -->
+          <div class="flex justify-between items-start border-b border-slate-200 pb-6 mb-6">
+            <div class="flex items-center gap-3">
+              <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Technologies" class="h-14 w-auto" />
+              <div>
+                <h1 class="text-2xl font-extrabold tracking-wider text-slate-900">BAYTLOGIC</h1>
+                <p class="text-xs font-bold text-cyan-600 tracking-widest uppercase">TECHNOLOGIES</p>
+                <p class="text-[10px] text-slate-500 italic mt-0.5">Where Intelligence Meets Security</p>
+              </div>
+            </div>
+            
+            <div class="text-right text-xs text-slate-600 space-y-1">
+              <span class="inline-block px-3 py-1 bg-slate-100 text-slate-900 font-extrabold rounded uppercase tracking-wider text-[11px]">Official BOQ Estimate</span>
+              <p><strong class="text-slate-800">Ref:</strong> <span id="docRef" class="font-mono">BLT-BOQ-2026-001</span></p>
+              <p><strong class="text-slate-800">Date:</strong> <span id="docDate">19 August 2026</span></p>
+            </div>
+          </div>
+
+          <!-- Info Meta Grid -->
+          <div class="grid grid-cols-2 gap-6 bg-slate-50 p-4 rounded-xl border border-slate-200 text-xs mb-6">
+            <div>
+              <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Client Information</p>
+              <p id="docClientName" class="font-bold text-slate-800 text-sm mt-0.5">Valued Client</p>
+              <p id="docClientPhone" class="text-slate-600">Phone: N/A</p>
+              <p id="docClientAddr" class="text-slate-600">Location: Bauchi, Nigeria</p>
+            </div>
+            <div>
+              <p class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Generated By Staff</p>
+              <p id="docStaffName" class="font-bold text-slate-800 text-sm mt-0.5">Yahaya Abdullahi Sulaiman</p>
+              <p id="docStaffRole" class="text-slate-600">Lead Security Engineer</p>
+              <p><strong class="text-slate-700">Project Type:</strong> <span id="docCategory" class="text-cyan-700 font-medium">Smart CCTV & High-Def Surveillance</span></p>
+            </div>
+          </div>
+
+          <!-- Items Table -->
+          <div class="overflow-x-auto mb-6">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="bg-slate-800 text-white font-bold uppercase text-[10px] tracking-wider">
+                  <th class="p-3 rounded-tl-lg">#</th>
+                  <th class="p-3">Item & Technical Description</th>
+                  <th class="p-3 text-center">Qty</th>
+                  <th class="p-3 text-right">Unit Price (₦)</th>
+                  <th class="p-3 text-right rounded-tr-lg">Total (₦)</th>
+                </tr>
+              </thead>
+              <tbody id="itemsTbody" class="divide-y divide-slate-200">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Summary Calculations -->
+          <div class="flex justify-end mb-8">
+            <div class="w-64 space-y-2 text-xs border-t border-slate-200 pt-3">
+              <div class="flex justify-between text-slate-600">
+                <span>Subtotal:</span>
+                <span id="subtotalVal" class="font-semibold">₦0</span>
+              </div>
+              <div id="discountRow" class="flex justify-between text-emerald-600 hidden">
+                <span>Discount:</span>
+                <span id="discountVal">-₦0</span>
+              </div>
+              <div id="vatRow" class="flex justify-between text-slate-600 hidden">
+                <span>VAT / Tax (<span id="vatPercentVal">0</span>%):</span>
+                <span id="vatVal">₦0</span>
+              </div>
+              <div class="flex justify-between text-slate-900 font-extrabold text-base border-t-2 border-slate-800 pt-2">
+                <span>Grand Total:</span>
+                <span id="grandTotalVal" class="text-cyan-700">₦0</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Bank Details & Footer Signoff -->
+        <div class="border-t-2 border-slate-800 pt-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs">
+            
+            <!-- MANDATORY BANK DETAILS -->
+            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
+              <p class="font-bold text-slate-900 text-xs uppercase tracking-wider mb-2 border-b border-slate-200 pb-1">
+                💳 Official Payment Bank Details
+              </p>
+              <p class="text-slate-700"><strong>Account Name:</strong> <span class="font-bold text-slate-900">BaytLogic Technologies</span></p>
+              <p class="text-slate-700"><strong>Bank Name:</strong> <span class="font-bold text-slate-900">Stanbic IBTC</span></p>
+              <p class="text-slate-700"><strong>Account Number:</strong> <span class="font-extrabold font-mono text-cyan-700 text-sm">0072236937</span></p>
+            </div>
+
+            <!-- Terms & Contact -->
+            <div class="space-y-1 text-slate-600 text-[11px] flex flex-col justify-between">
+              <div>
+                <p class="font-bold text-slate-800 uppercase tracking-wider text-[10px]">Terms & Conditions</p>
+                <p>• Estimate valid for 30 days from date of issue.</p>
+                <p>• 70% mobilization deposit required prior to project commencement.</p>
+                <p>• Quality guaranteed with BaytLogic technical warranty.</p>
+              </div>
+              <div class="pt-2 text-[10px] text-slate-500">
+                NITEL T-junction, Atiku Abubakar Street, Bauchi • 0803 247 6476 • info@baytlogic.com.ng
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Document Quick Actions (Hidden on Print) -->
+      <div class="no-print mt-6 flex flex-wrap gap-3 justify-end">
+        <button onclick="sendWAText()" class="px-5 py-2.5 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl text-xs transition shadow flex items-center gap-2">
+          <i data-lucide="message-circle" class="w-4 h-4"></i> Send BOQ via WhatsApp
+        </button>
+        <button onclick="window.print()" class="px-5 py-2.5 bg-brand-primary hover:bg-cyan-600 text-white font-bold rounded-xl text-xs transition shadow flex items-center gap-2">
+          <i data-lucide="printer" class="w-4 h-4"></i> Print / Save PDF
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    lucide.createIcons();
+
+    // Default line items
+    let lineItems = [
+      { desc: "4K AI Outdoor IP Bullet Camera (Hikvision/EZVIZ)", qty: 4, unitPrice: 45000 },
+      { desc: "8-Channel NVR System H.265+ PoE Network Switch", qty: 1, unitPrice: 85000 },
+      { desc: "4TB Western Digital Purple Surveillance Hard Drive", qty: 1, unitPrice: 95000 },
+      { desc: "Outdoor Weatherproof Cat6 Cable (305m roll)", qty: 1, unitPrice: 65000 },
+      { desc: "Professional Installation, Cabling & Commissioning Labor", qty: 1, unitPrice: 50000 }
+    ];
+
+    function init() {
+      // Auto-generate BOQ Ref
+      const randomId = Math.floor(1000 + Math.random() * 9000);
+      document.getElementById('boqRef').value = `BLT-BOQ-2026-${randomId}`;
+      
+      // Auto-set Date to today
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('boqDate').value = today;
+
+      updatePreview();
+    }
+
+    function addCatalogItem() {
+      const select = document.getElementById('catalogSelect');
+      const val = select.value;
+      if (!val) return;
+
+      const [desc, priceStr] = val.split('|');
+      lineItems.push({ desc: desc, qty: 1, unitPrice: parseFloat(priceStr) });
+      select.value = '';
+      updatePreview();
+    }
+
+    function addCustomItem() {
+      const desc = document.getElementById('customDesc').value.trim();
+      const qty = parseInt(document.getElementById('customQty').value) || 1;
+      const price = parseFloat(document.getElementById('customPrice').value) || 0;
+
+      if (!desc) {
+        alert('Please enter an item description.');
+        return;
+      }
+
+      lineItems.push({ desc, qty, unitPrice: price });
+      document.getElementById('customDesc').value = '';
+      document.getElementById('customQty').value = 1;
+      document.getElementById('customPrice').value = '';
+      updatePreview();
+    }
+
+    function removeItem(index) {
+      lineItems.splice(index, 1);
+      updatePreview();
+    }
+
+    function updateItemQty(index, qty) {
+      lineItems[index].qty = Math.max(1, parseInt(qty) || 1);
+      updatePreview();
+    }
+
+    function updateItemPrice(index, price) {
+      lineItems[index].unitPrice = Math.max(0, parseFloat(price) || 0);
+      updatePreview();
+    }
+
+    function formatNaira(num) {
+      return '₦' + num.toLocaleString('en-NG', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+    }
+
+    function updatePreview() {
+      // Inputs
+      const staffName = document.getElementById('staffName').value.trim() || 'Yahaya Abdullahi Sulaiman';
+      const staffRole = document.getElementById('staffRole').value.trim() || 'Lead Security Engineer';
+      const clientName = document.getElementById('clientName').value.trim() || 'Valued Client';
+      const clientPhone = document.getElementById('clientPhone').value.trim() || 'N/A';
+      const clientAddress = document.getElementById('clientAddress').value.trim() || 'Bauchi, Nigeria';
+      const category = document.getElementById('projectCategory').value;
+      const boqRef = document.getElementById('boqRef').value.trim() || 'BLT-BOQ-2026-001';
+      const boqDateVal = document.getElementById('boqDate').value;
+      
+      const dateObj = boqDateVal ? new Date(boqDateVal) : new Date();
+      const formattedDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+      // Update Header/Meta
+      document.getElementById('docStaffName').innerText = staffName;
+      document.getElementById('docStaffRole').innerText = staffRole;
+      document.getElementById('docClientName').innerText = clientName;
+      document.getElementById('docClientPhone').innerText = 'Phone: ' + clientPhone;
+      document.getElementById('docClientAddr').innerText = 'Location: ' + clientAddress;
+      document.getElementById('docCategory').innerText = category;
+      document.getElementById('docRef').innerText = boqRef;
+      document.getElementById('docDate').innerText = formattedDate;
+
+      // Populate Table
+      const tbody = document.getElementById('itemsTbody');
+      tbody.innerHTML = '';
+
+      let subtotal = 0;
+
+      lineItems.forEach((item, i) => {
+        const total = item.qty * item.unitPrice;
+        subtotal += total;
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 transition';
+        tr.innerHTML = `
+          <td class="p-3 text-slate-500 font-medium">${i + 1}</td>
+          <td class="p-3 font-semibold text-slate-800">${item.desc}</td>
+          <td class="p-3 text-center">
+            <input type="number" min="1" value="${item.qty}" onchange="updateItemQty(${i}, this.value)" class="no-print w-14 px-1.5 py-0.5 border border-slate-300 rounded text-center text-xs font-bold" />
+            <span class="hidden print:inline font-bold">${item.qty}</span>
+          </td>
+          <td class="p-3 text-right text-slate-700">${formatNaira(item.unitPrice)}</td>
+          <td class="p-3 text-right font-bold text-slate-900">
+            ${formatNaira(total)}
+            <button onclick="removeItem(${i})" class="no-print ml-2 text-red-500 hover:text-red-700 font-bold" title="Remove">&times;</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      if (lineItems.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-slate-400 italic">No line items added yet. Choose from catalog or add a custom item.</td></tr>`;
+      }
+
+      // Calculations
+      const discountAmt = parseFloat(document.getElementById('discountAmt').value) || 0;
+      const vatPercent = parseFloat(document.getElementById('vatPercent').value) || 0;
+
+      const subAfterDiscount = Math.max(0, subtotal - discountAmt);
+      const vatVal = (subAfterDiscount * vatPercent) / 100;
+      const grandTotal = subAfterDiscount + vatVal;
+
+      document.getElementById('subtotalVal').innerText = formatNaira(subtotal);
+
+      // Discount Row
+      const discountRow = document.getElementById('discountRow');
+      if (discountAmt > 0) {
+        document.getElementById('discountVal').innerText = '-' + formatNaira(discountAmt);
+        discountRow.classList.remove('hidden');
+      } else {
+        discountRow.classList.add('hidden');
+      }
+
+      // VAT Row
+      const vatRow = document.getElementById('vatRow');
+      if (vatPercent > 0) {
+        document.getElementById('vatPercentVal').innerText = vatPercent;
+        document.getElementById('vatVal').innerText = formatNaira(vatVal);
+        vatRow.classList.remove('hidden');
+      } else {
+        vatRow.classList.add('hidden');
+      }
+
+      document.getElementById('grandTotalVal').innerText = formatNaira(grandTotal);
+    }
+
+    function sendWAText() {
+      const clientName = document.getElementById('clientName').value.trim() || 'Client';
+      const staffName = document.getElementById('staffName').value.trim() || 'Yahaya Abdullahi Sulaiman';
+      const boqRef = document.getElementById('boqRef').value.trim();
+      const total = document.getElementById('grandTotalVal').innerText;
+
+      let msg = `Hello ${clientName},\n\nHere is your official *BaytLogic Technologies BOQ Estimate*:\n• *Ref ID:* ${boqRef}\n• *Generated by Staff:* ${staffName}\n• *Grand Total:* ${total}\n\n*Official Payment Details:*\n• *Account Name:* BaytLogic Technologies\n• *Bank:* Stanbic IBTC\n• *Account Number:* 0072236937\n\nPlease let us know if you would like to proceed with site deployment!`;
+      
+      window.open(`https://wa.me/2348032476476?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    window.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
