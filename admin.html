@@ -10,6 +10,7 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
+  <script src="assets/auth.js"></script>
   <script>
     tailwind.config = {
       theme: {
@@ -94,6 +95,40 @@
       </div>
     </section>
 
+    <!-- Section 3: Staff & Team Account Manager -->
+    <section class="bg-slate-800/80 border border-slate-700 rounded-2xl p-6 sm:p-8 shadow-xl">
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-2xl font-bold text-white flex items-center gap-2">
+            <i data-lucide="shield-check" class="w-6 h-6 text-emerald-400"></i> Manage Staff Team Accounts & Logins
+          </h2>
+          <p class="text-xs text-slate-400 mt-1">Chief Admin Portal: Add or manage login credentials for field engineers and staff members.</p>
+        </div>
+
+        <button onclick="openAddUserModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition shadow flex items-center gap-1.5">
+          <i data-lucide="user-plus" class="w-4 h-4"></i> Add Team Member
+        </button>
+      </div>
+
+      <!-- Accounts Table -->
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-slate-900 text-slate-300 font-bold uppercase text-[10px] tracking-wider border-b border-slate-700">
+              <th class="p-3">Staff Name</th>
+              <th class="p-3">Username / Login</th>
+              <th class="p-3">Role / Designation</th>
+              <th class="p-3">Password</th>
+              <th class="p-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="accountsTbody" class="divide-y divide-slate-700/80 text-slate-200">
+            <!-- Rendered dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
   </main>
 
   <!-- Modal for Adding / Editing Project -->
@@ -160,6 +195,42 @@
       <div class="flex justify-end gap-3 pt-2">
         <button onclick="closeModal('trainingModal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-bold transition">Cancel</button>
         <button onclick="saveTraining()" class="px-5 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-xl text-xs font-bold transition">Save Course</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for Adding Team Member Account -->
+  <div id="userModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <h3 class="text-lg font-bold text-white flex items-center gap-2">
+        <i data-lucide="user-plus" class="w-5 h-5 text-emerald-400"></i> Add Staff / Team Member Login
+      </h3>
+      
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Staff Full Name</label>
+          <input type="text" id="accName" placeholder="e.g. Engr. Abdulkadir" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-emerald-500" />
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Username / Login ID</label>
+          <input type="text" id="accUsername" placeholder="e.g. abdulkadir or tech.sales" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-emerald-500" />
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Role / Designation</label>
+          <input type="text" id="accRole" placeholder="e.g. Field Operations Engineer / Technical Sales Rep" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-emerald-500" />
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Login Password</label>
+          <input type="text" id="accPassword" placeholder="e.g. BaytLogicField2026" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-emerald-500" />
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button onclick="closeModal('userModal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-bold transition">Cancel</button>
+        <button onclick="saveUserAccount()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition">Create Staff Login</button>
       </div>
     </div>
   </div>
@@ -358,13 +429,83 @@
       }
     }
 
+    // Accounts Management
+    let editingAccId = null;
+
+    function renderAccounts() {
+      const tbody = document.getElementById('accountsTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      const accounts = getAccounts();
+
+      accounts.forEach(a => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-700/50 transition';
+        const isMasterAdmin = a.username === 'admin';
+        tr.innerHTML = `
+          <td class="p-3 font-bold text-white">${a.name}</td>
+          <td class="p-3 font-mono text-cyan-400 font-semibold">${a.username}</td>
+          <td class="p-3 text-slate-300 font-medium">${a.role}</td>
+          <td class="p-3 font-mono text-slate-400">••••••••</td>
+          <td class="p-3 text-right">
+            ${isMasterAdmin ? '<span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Chief Admin</span>' : `
+              <button onclick="deleteUserAccount('${a.id}')" class="py-1 px-2.5 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded transition">Delete</button>
+            `}
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      lucide.createIcons();
+    }
+
+    function openAddUserModal() {
+      editingAccId = null;
+      document.getElementById('accName').value = '';
+      document.getElementById('accUsername').value = '';
+      document.getElementById('accPassword').value = '';
+      document.getElementById('accRole').value = 'Field Operations Engineer';
+      document.getElementById('userModal').classList.remove('hidden');
+    }
+
+    function saveUserAccount() {
+      const name = document.getElementById('accName').value.trim();
+      const username = document.getElementById('accUsername').value.trim();
+      const password = document.getElementById('accPassword').value.trim();
+      const role = document.getElementById('accRole').value.trim();
+
+      if (!name || !username || !password) {
+        alert('Please fill in Name, Username, and Password.');
+        return;
+      }
+
+      saveAccount({
+        id: 'usr-' + Date.now(),
+        name,
+        username,
+        password,
+        role: role || 'Field Staff'
+      });
+
+      closeModal('userModal');
+      renderAccounts();
+    }
+
+    function deleteUserAccount(id) {
+      if (confirm('Delete this team member login?')) {
+        deleteAccount(id);
+        renderAccounts();
+      }
+    }
+
     function closeModal(id) {
       document.getElementById(id).classList.add('hidden');
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      requireStaffAuth();
       renderProjects();
       renderTrainings();
+      renderAccounts();
     });
   </script>
 </body>
