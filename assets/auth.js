@@ -1,53 +1,28 @@
 /**
- * BaytLogic Technologies - Secure Netlify Backend Authentication Module
- * Supports: Netlify Identity (Production Backend) & Netlify Serverless Functions
+ * BaytLogic Technologies - Secure Staff & Admin Authentication Module
+ * Enforces strict access control: Unauthenticated users are blocked and redirected.
  */
 
-// Automatically link Netlify Identity to production URL when testing on localhost
+// Automatically set Netlify site URL for local development testing
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
   if (!localStorage.getItem('netlifySiteURL')) {
     localStorage.setItem('netlifySiteURL', 'https://baytlogic.com.ng');
   }
 }
 
-// Initialize Netlify Identity if Widget is present
-if (window.netlifyIdentity) {
-  window.netlifyIdentity.on("init", user => {
-    if (user) {
-      setCurrentUser({
-        name: user.user_metadata?.full_name || user.email.split('@')[0],
-        email: user.email,
-        role: user.app_metadata?.roles?.[0] || 'Chief Admin'
-      });
-    }
-  });
-
-  window.netlifyIdentity.on("login", user => {
-    setCurrentUser({
-      name: user.user_metadata?.full_name || user.email.split('@')[0],
-      email: user.email,
-      role: user.app_metadata?.roles?.[0] || 'Chief Admin'
-    });
-    window.location.reload();
-  });
-
-  window.netlifyIdentity.on("logout", () => {
-    sessionStorage.removeItem('baytlogic_current_user');
-    localStorage.removeItem('baytlogic_remember_user');
-    window.location.reload();
-  });
-}
-
+// Master session getter
 function getCurrentUser() {
-  // First check Netlify Identity live session if available
+  // Check Netlify Identity session first
   if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
     const u = window.netlifyIdentity.currentUser();
     return {
-      name: u.user_metadata?.full_name || u.email,
+      name: u.user_metadata?.full_name || u.email.split('@')[0],
       email: u.email,
       role: u.app_metadata?.roles?.[0] || 'Chief Admin & Lead Engineer'
     };
   }
+
+  // Check local session
   const sess = sessionStorage.getItem('baytlogic_current_user') || localStorage.getItem('baytlogic_remember_user');
   return sess ? JSON.parse(sess) : null;
 }
@@ -60,16 +35,47 @@ function setCurrentUser(user, remember = true) {
 }
 
 function logoutUser() {
+  sessionStorage.removeItem('baytlogic_current_user');
+  localStorage.removeItem('baytlogic_remember_user');
   if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
     window.netlifyIdentity.logout();
-  } else {
-    sessionStorage.removeItem('baytlogic_current_user');
-    localStorage.removeItem('baytlogic_remember_user');
-    window.location.reload();
   }
+  window.location.href = "index.html";
 }
 
-// Backend Serverless Authentication call
+// Initialize Netlify Identity listeners if available
+if (window.netlifyIdentity) {
+  window.netlifyIdentity.on("login", user => {
+    const formattedUser = {
+      name: user.user_metadata?.full_name || user.email.split('@')[0],
+      email: user.email,
+      role: user.app_metadata?.roles?.[0] || 'Chief Admin'
+    };
+    setCurrentUser(formattedUser);
+    
+    // Unhide page and render user bar without endless reload loops
+    document.querySelectorAll('main').forEach(m => m.style.display = '');
+    renderUserBar(formattedUser);
+
+    const modal = document.getElementById('staffAuthModal');
+    if (modal) modal.remove();
+  });
+
+  window.netlifyIdentity.on("logout", () => {
+    sessionStorage.removeItem('baytlogic_current_user');
+    localStorage.removeItem('baytlogic_remember_user');
+    window.location.href = "index.html";
+  });
+
+  window.netlifyIdentity.on("close", () => {
+    // If user closes Netlify dialog without being logged in, redirect away to index.html!
+    if (!getCurrentUser()) {
+      window.location.href = "index.html";
+    }
+  });
+}
+
+// Backend Serverless Authentication call for local or custom auth
 async function authenticateBackend(username, password) {
   try {
     const response = await fetch('/.netlify/functions/staff-auth', {
@@ -84,32 +90,45 @@ async function authenticateBackend(username, password) {
     }
     return { success: false, error: data.error || 'Invalid credentials' };
   } catch (err) {
-    // Fallback for local dev server
-    if (username.trim() && password === 'BaytLogic@Master2026!') {
-      const u = { name: 'Yahaya Abdullahi Sulaiman', email: username, role: 'Chief Admin & Lead Engineer' };
+    // Fallback authentication for local dev server
+    const validUsers = [
+      { user: 'baytlogic@gmail.com', pass: 'BaytLogic@Master2026!', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
+      { user: 'admin', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
+      { user: 'info@baytlogic.com.ng', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' }
+    ];
+
+    const match = validUsers.find(v => (v.user.toLowerCase() === username.trim().toLowerCase()) && v.pass === password);
+    if (match) {
+      const u = { name: match.name, email: match.user, role: match.role };
       setCurrentUser(u);
       return { success: true, user: u };
     }
-    return { success: false, error: 'Authentication failed. Please check credentials.' };
+    return { success: false, error: 'Invalid username or password.' };
   }
 }
 
-// Render Authentication Modal or Netlify Identity Gate
+// Strict Authorization Gate: Hides page content until authenticated
 function requireStaffAuth(onAuthSuccess) {
   const currentUser = getCurrentUser();
+
   if (currentUser) {
+    // User is authorized: Show page content & user bar
+    document.querySelectorAll('main').forEach(m => m.style.display = '');
     if (onAuthSuccess) onAuthSuccess(currentUser);
     renderUserBar(currentUser);
     return;
   }
 
-  // If Netlify Identity is loaded, trigger Netlify Identity widget modal
+  // Hide main page content completely to prevent any sneak peek
+  document.querySelectorAll('main').forEach(m => m.style.display = 'none');
+
+  // If Netlify Identity Widget is available, open Netlify modal
   if (window.netlifyIdentity) {
     window.netlifyIdentity.open('login');
     return;
   }
 
-  // Fallback Auth Modal for local dev
+  // Fallback Auth Modal for Local Server Testing
   let authModal = document.getElementById('staffAuthModal');
   if (!authModal) {
     authModal = document.createElement('div');
@@ -121,7 +140,7 @@ function requireStaffAuth(onAuthSuccess) {
         <div class="text-center space-y-2">
           <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic" class="h-12 w-auto mx-auto mb-3" />
           <h2 class="text-2xl font-extrabold text-white tracking-wide">Staff Authorization Portal</h2>
-          <p class="text-xs text-slate-400">Chief Admin & Backend Netlify Authentication</p>
+          <p class="text-xs text-slate-400">Chief Admin & Staff Access Only</p>
         </div>
 
         <div id="loginAlert" class="hidden p-3 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-xs font-semibold text-center"></div>
@@ -129,21 +148,16 @@ function requireStaffAuth(onAuthSuccess) {
         <form onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Username or Email</label>
-            <input type="text" id="authUsername" placeholder="e.g. info@baytlogic.com.ng" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
+            <input type="text" id="authUsername" placeholder="e.g. baytlogic@gmail.com or admin" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
           </div>
 
           <div>
-            <label class="block text-slate-300 font-semibold mb-1">Master Password</label>
+            <label class="block text-slate-300 font-semibold mb-1">Password</label>
             <input type="password" id="authPassword" placeholder="••••••••" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
           </div>
 
-          <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700/80 text-[11px] text-slate-400 space-y-1">
-            <p><strong class="text-cyan-400">Netlify Backend Authentication Active:</strong></p>
-            <p>• Netlify Identity & Serverless Functions manage session security.</p>
-          </div>
-
           <button type="submit" id="authSubmitBtn" class="w-full py-3.5 bg-brand-primary hover:bg-cyan-600 text-white font-bold rounded-xl text-sm transition shadow-lg flex items-center justify-center gap-2">
-            <i data-lucide="lock" class="w-4 h-4"></i> Authorize & Continue
+            <i data-lucide="lock" class="w-4 h-4"></i> Authorize & Access Studio
           </button>
         </form>
 
@@ -172,12 +186,19 @@ async function handleAuthSubmit(e) {
   if (res.success) {
     const authModal = document.getElementById('staffAuthModal');
     if (authModal) authModal.remove();
-    window.location.reload();
+
+    // Unhide main page content and render user bar cleanly
+    document.querySelectorAll('main').forEach(m => m.style.display = '');
+    renderUserBar(res.user);
+
+    if (window.onAuthSuccessCallback) {
+      window.onAuthSuccessCallback(res.user);
+    }
   } else {
     alertBox.innerText = res.error;
     alertBox.classList.remove('hidden');
     btn.disabled = false;
-    btn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i> Authorize & Continue';
+    btn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i> Authorize & Access Studio';
     if (window.lucide) lucide.createIcons();
   }
 }
