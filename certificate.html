@@ -356,41 +356,56 @@
     }
 
     async function downloadPDF() {
-      const element = document.getElementById('certPaper');
       const certId = document.getElementById('inId').value.trim().toUpperCase() || 'BLT-CERT';
+      const origCert = document.getElementById('certPaper');
       
-      // Store original inline style
-      const origStyle = element.getAttribute('style') || '';
-      
-      // Force exact A4 Landscape capture dimensions (1123px x 794px = 297mm x 210mm) to eliminate all extra margin space
-      element.style.width = '1123px';
-      element.style.height = '794px';
-      element.style.maxWidth = 'none';
-      element.style.margin = '0';
-      element.style.padding = '32px';
+      // Create a 100% isolated off-screen capture container at exact A4 Landscape (297mm x 210mm)
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.top = '0';
+      container.style.left = '0';
+      container.style.width = '297mm';
+      container.style.height = '210mm';
+      container.style.zIndex = '-9999';
+      container.style.background = '#fdfdfb';
+      container.style.overflow = 'hidden';
+      container.style.margin = '0';
+      container.style.padding = '0';
+
+      const clone = origCert.cloneNode(true);
+      clone.style.width = '100%';
+      clone.style.height = '100%';
+      clone.style.maxWidth = 'none';
+      clone.style.maxHeight = 'none';
+      clone.style.margin = '0';
+      clone.style.padding = '24px';
+      clone.style.boxSizing = 'border-box';
+      clone.style.borderRadius = '0';
+      clone.style.boxShadow = 'none';
+
+      container.appendChild(clone);
+      document.body.appendChild(container);
 
       const opt = {
         margin:       0,
         filename:     `BaytLogic_Certificate_${certId}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
+        image:        { type: 'jpeg', quality: 1.0 },
         html2canvas:  { 
-          scale: 2, 
+          scale: 3, 
           useCORS: true, 
           letterRendering: true,
-          width: 1123,
-          height: 794,
-          windowWidth: 1123,
           scrollX: 0,
           scrollY: 0
         },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape' }
+        jsPDF:        { unit: 'mm', format: [297, 210], orientation: 'landscape' }
       };
 
       try {
-        await html2pdf().set(opt).from(element).save();
+        await html2pdf().set(opt).from(clone).save();
       } finally {
-        // Restore original responsive screen styles
-        element.setAttribute('style', origStyle);
+        if (document.body.contains(container)) {
+          document.body.removeChild(container);
+        }
       }
     }
 
