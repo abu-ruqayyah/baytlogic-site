@@ -122,7 +122,7 @@
         </a>
         <span class="text-slate-700">|</span>
         <span class="text-xs text-amber-400 font-bold tracking-wider uppercase flex items-center gap-1">
-          <i data-lucide="shield-check" class="w-4 h-4"></i> Institutional Certificate Engine (A4 Landscape 297×210mm)
+          <i data-lucide="shield-check" class="w-4 h-4"></i> Official BaytLogic Certificate Engine (A4 Landscape 297×210mm)
         </span>
       </div>
 
@@ -155,15 +155,6 @@
         </div>
 
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Logo Theme Style</label>
-          <select id="inLogoStyle" onchange="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition">
-            <option value="NAVY">Deep Institutional Navy (#0f2847) - Recommended</option>
-            <option value="GOLD">Metallic Prestige Gold (#c59b27)</option>
-            <option value="CYAN">Brand Electric Cyan (Original)</option>
-          </select>
-        </div>
-
-        <div>
           <label class="block text-slate-300 font-semibold mb-1">Recipient Full Name</label>
           <input type="text" id="inName" value="Muhammad Ukasha Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold outline-none focus:border-amber-400 transition" />
         </div>
@@ -187,7 +178,7 @@
 
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Training Dates</label>
-            <input type="text" id="inDate" value="June 11 – June 17, 2026" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
+            <input type="text" id="inDate" value="June 11 – June 15, 2026" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
           </div>
         </div>
 
@@ -212,19 +203,19 @@
         <!-- Subtle Faint Circuit Watermark -->
         <div class="cert-watermark absolute inset-0 pointer-events-none"></div>
 
-        <!-- Very Subtle Central Emblem Watermark -->
-        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.03]">
-          <img src="assets/baytlogic-icon-cyan.png" alt="Watermark" class="w-80 h-80 object-contain grayscale" />
+        <!-- Very Subtle Central Emblem Watermark (3-4% Opacity) -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.035]">
+          <img src="assets/new_projects/logo.png" alt="Watermark" class="w-80 h-80 object-contain grayscale" />
         </div>
 
         <!-- Double-Line Institutional Border Frame -->
         <div class="cert-frame-outer relative z-10">
           <div class="cert-frame-inner p-6 sm:p-8 flex flex-col justify-between relative bg-transparent">
             
-            <!-- 1. Top Header: BaytLogic Logo & Institutional Branding -->
+            <!-- 1. Top Header: Original Official BaytLogic Logo & Institutional Branding -->
             <div class="text-center space-y-1">
-              <div class="flex justify-center items-center gap-2">
-                <img id="outLogoImg" src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-9 w-auto" style="filter: brightness(0) saturate(100%) invert(11%) sepia(38%) saturate(3015%) hue-rotate(193deg) brightness(92%) contrast(98%);" />
+              <div class="flex justify-center items-center">
+                <img id="outLogoImg" src="assets/new_projects/logo.png" alt="Official BaytLogic Logo" class="h-10 sm:h-12 w-auto object-contain mx-auto" />
               </div>
               <h2 class="font-sans text-xl sm:text-2xl font-bold tracking-[0.2em] text-brand-navy uppercase">BAYTLOGIC TECHNOLOGIES</h2>
               <p class="text-[10px] sm:text-xs text-brand-goldMuted font-medium tracking-[0.15em] uppercase">Where Intelligence Meets Security</p>
@@ -273,7 +264,7 @@
                 </div>
                 <div class="space-y-0.5">
                   <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Date of Issue</span>
-                  <strong id="outDate" class="text-brand-navy font-semibold text-xs block">June 11 – June 17, 2026</strong>
+                  <strong id="outDate" class="text-brand-navy font-semibold text-xs block">June 11 – June 15, 2026</strong>
                 </div>
               </div>
 
@@ -284,7 +275,7 @@
                   <strong id="outId" class="text-brand-navy font-mono font-bold text-xs block tracking-wide">BLT-2026-020</strong>
                 </div>
                 <div class="space-y-0.5">
-                  <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Contact & Verification</span>
+                  <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">CONTACT</span>
                   <span class="text-slate-600 text-[11px] block">+234 803 247 6476 • info@baytlogic.com.ng</span>
                 </div>
               </div>
@@ -294,11 +285,11 @@
                 
                 <!-- Director Name & Clean Whitespace for Manual Signature -->
                 <div class="w-full text-right space-y-1">
-                  <!-- Clean Whitespace reserved for manual signature -->
+                  <!-- Clean Whitespace reserved for manual pen signature -->
                   <div class="h-10 w-full"></div>
                   
                   <div class="border-t border-brand-navy/40 pt-1 inline-block text-right">
-                    <p id="outDirector" class="font-bold text-brand-navy text-xs">Yahaya Sulaiman Abdullahi</p>
+                    <p id="outDirector" class="font-bold text-brand-navy text-xs sm:text-sm">Yahaya Sulaiman Abdullahi</p>
                     <p class="text-[10px] text-slate-500 font-medium block">Founder & Director</p>
                     <p class="text-[9px] text-slate-400 font-semibold block">BaytLogic Technologies</p>
                   </div>
@@ -346,26 +337,13 @@
       const loc = document.getElementById('inLoc').value.trim();
       const date = document.getElementById('inDate').value.trim();
       const director = document.getElementById('inDirector').value.trim();
-      const logoStyle = document.getElementById('inLogoStyle') ? document.getElementById('inLogoStyle').value : 'NAVY';
 
       document.getElementById('outId').innerText = id || 'BLT-2026-000';
       document.getElementById('outName').innerText = name || 'Graduate Name';
       document.getElementById('outCourse').innerText = course || 'PROGRAMME SPECIALIZATION';
       document.getElementById('outLoc').innerText = loc || 'Bauchi, Nigeria';
-      document.getElementById('outDate').innerText = date || '2026';
+      document.getElementById('outDate').innerText = date || 'June 11 – June 15, 2026';
       document.getElementById('outDirector').innerText = director || 'Yahaya Sulaiman Abdullahi';
-
-      // Logo theme color filter
-      const logoImg = document.getElementById('outLogoImg');
-      if (logoImg) {
-        if (logoStyle === 'NAVY') {
-          logoImg.style.filter = 'brightness(0) saturate(100%) invert(11%) sepia(38%) saturate(3015%) hue-rotate(193deg) brightness(92%) contrast(98%)';
-        } else if (logoStyle === 'GOLD') {
-          logoImg.style.filter = 'brightness(0) saturate(100%) invert(67%) sepia(35%) saturate(1138%) hue-rotate(11deg) brightness(94%) contrast(89%)';
-        } else {
-          logoImg.style.filter = 'contrast(125%)';
-        }
-      }
 
       const verifyUrl = `https://baytlogic.com.ng/verify.html?id=${id}`;
       document.getElementById('outQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}`;
