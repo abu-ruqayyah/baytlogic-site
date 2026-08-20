@@ -155,6 +155,15 @@
         </div>
 
         <div>
+          <label class="block text-slate-300 font-semibold mb-1">Logo Theme Style</label>
+          <select id="inLogoStyle" onchange="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition">
+            <option value="NAVY">Deep Institutional Navy (#0f2847) - Recommended</option>
+            <option value="GOLD">Metallic Prestige Gold (#c59b27)</option>
+            <option value="CYAN">Brand Electric Cyan (Original)</option>
+          </select>
+        </div>
+
+        <div>
           <label class="block text-slate-300 font-semibold mb-1">Recipient Full Name</label>
           <input type="text" id="inName" value="Muhammad Ukasha Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold outline-none focus:border-amber-400 transition" />
         </div>
@@ -215,7 +224,7 @@
             <!-- 1. Top Header: BaytLogic Logo & Institutional Branding -->
             <div class="text-center space-y-1">
               <div class="flex justify-center items-center gap-2">
-                <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-9 w-auto filter contrast-125" />
+                <img id="outLogoImg" src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-9 w-auto" style="filter: brightness(0) saturate(100%) invert(11%) sepia(38%) saturate(3015%) hue-rotate(193deg) brightness(92%) contrast(98%);" />
               </div>
               <h2 class="font-sans text-xl sm:text-2xl font-bold tracking-[0.2em] text-brand-navy uppercase">BAYTLOGIC TECHNOLOGIES</h2>
               <p class="text-[10px] sm:text-xs text-brand-goldMuted font-medium tracking-[0.15em] uppercase">Where Intelligence Meets Security</p>
@@ -337,6 +346,7 @@
       const loc = document.getElementById('inLoc').value.trim();
       const date = document.getElementById('inDate').value.trim();
       const director = document.getElementById('inDirector').value.trim();
+      const logoStyle = document.getElementById('inLogoStyle') ? document.getElementById('inLogoStyle').value : 'NAVY';
 
       document.getElementById('outId').innerText = id || 'BLT-2026-000';
       document.getElementById('outName').innerText = name || 'Graduate Name';
@@ -344,6 +354,18 @@
       document.getElementById('outLoc').innerText = loc || 'Bauchi, Nigeria';
       document.getElementById('outDate').innerText = date || '2026';
       document.getElementById('outDirector').innerText = director || 'Yahaya Sulaiman Abdullahi';
+
+      // Logo theme color filter
+      const logoImg = document.getElementById('outLogoImg');
+      if (logoImg) {
+        if (logoStyle === 'NAVY') {
+          logoImg.style.filter = 'brightness(0) saturate(100%) invert(11%) sepia(38%) saturate(3015%) hue-rotate(193deg) brightness(92%) contrast(98%)';
+        } else if (logoStyle === 'GOLD') {
+          logoImg.style.filter = 'brightness(0) saturate(100%) invert(67%) sepia(35%) saturate(1138%) hue-rotate(11deg) brightness(94%) contrast(89%)';
+        } else {
+          logoImg.style.filter = 'contrast(125%)';
+        }
+      }
 
       const verifyUrl = `https://baytlogic.com.ng/verify.html?id=${id}`;
       document.getElementById('outQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}`;
