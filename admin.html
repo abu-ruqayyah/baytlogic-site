@@ -10,7 +10,6 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="assets/auth.js"></script>
   <script>
     tailwind.config = {
@@ -106,9 +105,11 @@
           <p class="text-xs text-slate-400 mt-1">Chief Admin Portal: Add or manage login credentials for field engineers and staff members.</p>
         </div>
 
-        <button onclick="openAddUserModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition shadow flex items-center gap-1.5">
-          <i data-lucide="user-plus" class="w-4 h-4"></i> Add Team Member
-        </button>
+        <div id="addUserBtnContainer">
+          <button onclick="openAddUserModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition shadow flex items-center gap-1.5">
+            <i data-lucide="user-plus" class="w-4 h-4"></i> Add Team Member
+          </button>
+        </div>
       </div>
 
       <!-- Accounts Table -->
@@ -648,7 +649,8 @@
 
     function getAccounts() {
       const defaultAccounts = [
-        { id: 'usr-1', name: 'Yahaya Abdullahi Sulaiman', username: 'admin', role: 'Chief Admin & Lead Engineer', password: 'BaytLogic2026' }
+        { id: 'usr-1', name: 'Yahaya Abdullahi Sulaiman', username: 'baytlogic@gmail.com', role: 'Chief Admin & Lead Engineer', password: 'BaytLogic@Master2026!' },
+        { id: 'usr-2', name: 'Abu Ruqayyah', username: 'aburuqayyah001@gmail.com', role: 'Chief Admin & Lead Engineer', password: 'BaytLogic@Master2026!' }
       ];
       const stored = localStorage.getItem('baytlogic_accounts');
       return stored ? JSON.parse(stored) : defaultAccounts;
@@ -673,6 +675,26 @@
 
     function renderAccounts() {
       const tbody = document.getElementById('accountsTbody');
+      const container = document.getElementById('addUserBtnContainer');
+      const currentUser = getCurrentUser();
+      const userIsChief = isChiefAdmin(currentUser);
+
+      if (container) {
+        if (userIsChief) {
+          container.innerHTML = `
+            <button onclick="openAddUserModal()" class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition shadow flex items-center gap-1.5">
+              <i data-lucide="user-plus" class="w-4 h-4"></i> Add Team Member
+            </button>
+          `;
+        } else {
+          container.innerHTML = `
+            <span class="px-3.5 py-2 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl text-xs font-semibold flex items-center gap-1.5">
+              <i data-lucide="lock" class="w-3.5 h-3.5"></i> Restricted to Chief Admins (baytlogic@gmail.com / aburuqayyah001@gmail.com)
+            </span>
+          `;
+        }
+      }
+
       if (!tbody) return;
       tbody.innerHTML = '';
       const accounts = getAccounts();
@@ -680,17 +702,24 @@
       accounts.forEach(a => {
         const tr = document.createElement('tr');
         tr.className = 'hover:bg-slate-700/50 transition';
-        const isMasterAdmin = a.username === 'admin';
+        const cleanU = a.username.toLowerCase();
+        const isMasterAdmin = (cleanU === 'admin' || cleanU === 'baytlogic@gmail.com' || cleanU === 'aburuqayyah001@gmail.com' || cleanU === 'info@baytlogic.com.ng');
+        
+        let actionHtml = '';
+        if (isMasterAdmin) {
+          actionHtml = '<span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider">Chief Admin</span>';
+        } else if (userIsChief) {
+          actionHtml = `<button onclick="deleteUserAccount('${a.id}')" class="py-1 px-2.5 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded transition">Delete</button>`;
+        } else {
+          actionHtml = '<span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Staff Account</span>';
+        }
+
         tr.innerHTML = `
           <td class="p-3 font-bold text-white">${a.name}</td>
           <td class="p-3 font-mono text-cyan-400 font-semibold">${a.username}</td>
           <td class="p-3 text-slate-300 font-medium">${a.role}</td>
           <td class="p-3 font-mono text-slate-400">••••••••</td>
-          <td class="p-3 text-right">
-            ${isMasterAdmin ? '<span class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Chief Admin</span>' : `
-              <button onclick="deleteUserAccount('${a.id}')" class="py-1 px-2.5 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded transition">Delete</button>
-            `}
-          </td>
+          <td class="p-3 text-right">${actionHtml}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -698,6 +727,10 @@
     }
 
     function openAddUserModal() {
+      if (!isChiefAdmin(getCurrentUser())) {
+        alert('Only Chief Admins (baytlogic@gmail.com / aburuqayyah001@gmail.com) are authorized to add staff accounts.');
+        return;
+      }
       editingAccId = null;
       document.getElementById('accName').value = '';
       document.getElementById('accUsername').value = '';
@@ -707,6 +740,10 @@
     }
 
     function saveUserAccount() {
+      if (!isChiefAdmin(getCurrentUser())) {
+        alert('Only Chief Admins (baytlogic@gmail.com / aburuqayyah001@gmail.com) are authorized to add staff accounts.');
+        return;
+      }
       const name = document.getElementById('accName').value.trim();
       const username = document.getElementById('accUsername').value.trim();
       const password = document.getElementById('accPassword').value.trim();
@@ -730,6 +767,10 @@
     }
 
     function deleteUserAccount(id) {
+      if (!isChiefAdmin(getCurrentUser())) {
+        alert('Only Chief Admins (baytlogic@gmail.com / aburuqayyah001@gmail.com) are authorized to delete staff accounts.');
+        return;
+      }
       if (confirm('Delete this team member login?')) {
         deleteAccount(id);
         renderAccounts();
@@ -824,13 +865,55 @@
 
     // Certificate Management
     const defaultCerts = [
-      { id: "BLT-2026-001", name: "Yahaya Abdullahi Sulaiman", course: "Smart Home Automation & Professional CCTV Installation", cohort: "Cohort 1 - Jan 2026", date: "2026-02-15" },
-      { id: "BLT-2026-002", name: "Kareem Shaheed", course: "Smart Home Automation & Professional CCTV Installation", cohort: "Cohort 1 - Jan 2026", date: "2026-02-15" },
-      { id: "BLT-2026-003", name: "Ibrahim Garba", course: "Smart Home Automation & Professional CCTV Installation", cohort: "Cohort 2 - Feb 2026", date: "2026-03-01" },
-      { id: "BLT-2026-004", name: "Fatima Abubakar", course: "Smart Home Automation & Professional CCTV Installation", cohort: "Cohort 2 - Feb 2026", date: "2026-03-01" }
+      { id: "BLT-2026-001", name: "Ahmad Adamu Zakari", course: "Smart Home Automation & CCTV Master Class", cohort: "Cohort 1 - Jan 2026", date: "2026-04-02" },
+      { id: "BLT-2026-002", name: "Abdulkadir Ahmed Tataru", course: "Smart Home Automation & CCTV Master Class", cohort: "Cohort 1 - Jan 2026", date: "2026-04-02" },
+      { id: "BLT-2026-003", name: "Sulaiman Jibril Babayo", course: "Smart Home Automation & CCTV Master Class", cohort: "Cohort 1 - Jan 2026", date: "2026-04-02" },
+      { id: "BLT-2026-004", name: "Dahiru Adamu", course: "Smart Home Automation & CCTV Master Class", cohort: "Cohort 1 - Jan 2026", date: "2026-04-02" },
+      { id: "BLT-2026-005", name: "Saeed Haruna Saeed", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-006", name: "Maryam Muhammad Ahmad", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-007", name: "Toyyibat Abiola Shittu", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-008", name: "Abdulshaheed Umar Chinade", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-009", name: "Muhammad Bello Abubakar", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-010", name: "Muhammad Ballo Mufty", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-011", name: "Niimatullah Abimbola Shittu", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-012", name: "Haleemat Suad Muhammad Ballo", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-013", name: "Shamsuddeen Muhammad Ishaq", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-014", name: "Ibrahim Muhammad Ballo", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-015", name: "Na'ima Muhammad Ishaq", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-016", name: "Abdullahi Rabi'u Muhammad", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-017", name: "Abubakar Muhammad Chinade", course: "Young Innovators Robotics Bootcamp - Level 1", cohort: "Robotics Cohort 1", date: "2026-04-24" },
+      { id: "BLT-2026-018", name: "Moshood Lukman Sekoni", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" },
+      { id: "BLT-2026-019", name: "Ismail Abdullahi", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" },
+      { id: "BLT-2026-020", name: "Muhammad Ukasha Abdullahi", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" },
+      { id: "BLT-2026-021", name: "Abdulquadir Folorunso Adeshina", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" },
+      { id: "BLT-2026-022", name: "Auwal Yahaya", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" },
+      { id: "BLT-2026-023", name: "Abdullahi Yusuf Umar", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" },
+      { id: "BLT-2026-024", name: "Fasilat Olopade Olawunmi", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" },
+      { id: "BLT-2026-025", name: "Kareem Saheed Adeniyi", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" },
+      { id: "BLT-2026-026", name: "Salihu Adamu Deba", course: "Smart Home Automation & CCTV Master Class", cohort: "Masterclass June 2026", date: "2026-06-17" }
     ];
 
     let certificates = JSON.parse(localStorage.getItem('baytlogic_certificates')) || defaultCerts;
+
+    function getHighestCertIdNum(certsList) {
+      let maxNum = 26;
+      const stored = localStorage.getItem('baytlogic_cert_counter');
+      if (stored) {
+        const val = parseInt(stored, 10);
+        if (!isNaN(val) && val > maxNum) maxNum = val;
+      }
+
+      certsList.forEach(c => {
+        if (c.id) {
+          const match = c.id.match(/(\d+)$/);
+          if (match) {
+            const num = parseInt(match[1], 10);
+            if (!isNaN(num) && num > maxNum) maxNum = num;
+          }
+        }
+      });
+      return maxNum;
+    }
 
     function renderCertificates() {
       const tbody = document.getElementById('certsTbody');
@@ -860,14 +943,14 @@
     }
 
     function openAddCertModal() {
-      const nextNum = certificates.length + 1;
+      const nextNum = getHighestCertIdNum(certificates) + 1;
       const nextId = `BLT-2026-${String(nextNum).padStart(3, '0')}`;
       const today = new Date().toISOString().split('T')[0];
 
       document.getElementById('certId').value = nextId;
       document.getElementById('certName').value = '';
-      document.getElementById('certCourse').value = 'Young Innovators Robotics & STEM Bootcamp';
-      document.getElementById('certCohort').value = 'Cohort 3 - March 2026';
+      document.getElementById('certCourse').value = 'Smart Home Automation & CCTV Master Class';
+      document.getElementById('certCohort').value = 'Cohort 4 - 2026';
       if (document.getElementById('certPartners')) document.getElementById('certPartners').value = '';
       document.getElementById('certDate').value = today;
 
@@ -894,6 +977,14 @@
         certificates[existingIndex] = rec;
       } else {
         certificates.push(rec);
+        const match = id.match(/(\d+)$/);
+        if (match) {
+          const num = parseInt(match[1], 10);
+          const currentCounter = getHighestCertIdNum(certificates);
+          if (!isNaN(num) && num >= currentCounter) {
+            localStorage.setItem('baytlogic_cert_counter', num.toString());
+          }
+        }
       }
 
       closeModal('certModal');

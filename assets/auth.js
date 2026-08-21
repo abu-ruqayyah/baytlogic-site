@@ -1,6 +1,7 @@
 /**
  * BaytLogic Technologies - Secure Staff & Admin Authentication Module
  * Enforces strict access control: Unauthenticated users are blocked and redirected.
+ * PUBLIC SIGNUPS ARE DISABLED COMPLETELY. Staff accounts are managed exclusively by Chief Admins.
  */
 
 // Automatically set Netlify site URL for local development testing
@@ -10,19 +11,24 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
   }
 }
 
+// Authorized Chief Admin email list
+const CHIEF_ADMIN_EMAILS = [
+  'baytlogic@gmail.com',
+  'aburuqayyah001@gmail.com',
+  'info@baytlogic.com.ng',
+  'admin'
+];
+
+function isChiefAdmin(user) {
+  if (!user) return false;
+  const identifier = (user.email || user.username || '').toLowerCase().trim();
+  if (CHIEF_ADMIN_EMAILS.includes(identifier)) return true;
+  if (user.role && user.role.toLowerCase().includes('chief admin')) return true;
+  return false;
+}
+
 // Master session getter
 function getCurrentUser() {
-  // Check Netlify Identity session first
-  if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
-    const u = window.netlifyIdentity.currentUser();
-    return {
-      name: u.user_metadata?.full_name || u.email.split('@')[0],
-      email: u.email,
-      role: u.app_metadata?.roles?.[0] || 'Chief Admin & Lead Engineer'
-    };
-  }
-
-  // Check local session
   const sess = sessionStorage.getItem('baytlogic_current_user') || localStorage.getItem('baytlogic_remember_user');
   return sess ? JSON.parse(sess) : null;
 }
@@ -37,84 +43,56 @@ function setCurrentUser(user, remember = true) {
 function logoutUser() {
   sessionStorage.removeItem('baytlogic_current_user');
   localStorage.removeItem('baytlogic_remember_user');
-  if (window.netlifyIdentity && window.netlifyIdentity.currentUser()) {
-    window.netlifyIdentity.logout();
-  }
   window.location.href = "index.html";
-}
-
-// Initialize Netlify Identity listeners if available
-if (window.netlifyIdentity) {
-  window.netlifyIdentity.on("login", user => {
-    const formattedUser = {
-      name: user.user_metadata?.full_name || user.email.split('@')[0],
-      email: user.email,
-      role: user.app_metadata?.roles?.[0] || 'Chief Admin'
-    };
-    setCurrentUser(formattedUser);
-    
-    // Unhide page and render user bar without endless reload loops
-    document.querySelectorAll('main').forEach(m => m.style.display = '');
-    renderUserBar(formattedUser);
-
-    const modal = document.getElementById('staffAuthModal');
-    if (modal) modal.remove();
-  });
-
-  window.netlifyIdentity.on("logout", () => {
-    sessionStorage.removeItem('baytlogic_current_user');
-    localStorage.removeItem('baytlogic_remember_user');
-    window.location.href = "index.html";
-  });
-
-  window.netlifyIdentity.on("close", () => {
-    // If user closes Netlify dialog without being logged in, redirect away to index.html!
-    if (!getCurrentUser()) {
-      window.location.href = "index.html";
-    }
-  });
 }
 
 // Backend Serverless Authentication call for local or custom auth
 async function authenticateBackend(username, password) {
+  const cleanUser = username.trim().toLowerCase();
+
   try {
     const response = await fetch('/.netlify/functions/staff-auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username: cleanUser, password })
     });
     const data = await response.json();
     if (response.ok && data.user) {
       setCurrentUser(data.user);
       return { success: true, user: data.user };
     }
-    return { success: false, error: data.error || 'Invalid credentials' };
   } catch (err) {
-    // Check localStorage custom staff accounts created in Admin Studio first
-    const storedAccounts = JSON.parse(localStorage.getItem('baytlogic_accounts') || '[]');
-    const customMatch = storedAccounts.find(a => (a.username.toLowerCase() === username.trim().toLowerCase() || (a.email && a.email.toLowerCase() === username.trim().toLowerCase())) && a.password === password);
-    if (customMatch) {
-      const u = { name: customMatch.name, email: customMatch.username, role: customMatch.role };
-      setCurrentUser(u);
-      return { success: true, user: u };
-    }
-
-    // Fallback default admin credentials
-    const validUsers = [
-      { user: 'baytlogic@gmail.com', pass: 'BaytLogic@Master2026!', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-      { user: 'admin', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-      { user: 'info@baytlogic.com.ng', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-      { user: 'amzak', pass: 'amzak@2025', name: 'Ahmad Adamu Zakari', role: 'Field Operations Engineer' }
-    ];
-
-    const match = validUsers.find(v => (v.user.toLowerCase() === username.trim().toLowerCase()) && v.pass === password);
-    if (match) {
-      const u = { name: match.name, email: match.user, role: match.role };
-      setCurrentUser(u);
-      return { success: true, user: u };
-    }
-    return { success: false, error: 'Invalid username or password.' };
+    // Backend endpoint offline/unreachable, fallback to local database
   }
+
+  // Check localStorage custom staff accounts created in Admin Studio by Chief Admin
+  const storedAccounts = JSON.parse(localStorage.getItem('baytlogic_accounts') || '[]');
+  const customMatch = storedAccounts.find(a => 
+    (a.username.toLowerCase() === cleanUser || (a.email && a.email.toLowerCase() === cleanUser)) && 
+    a.password === password
+  );
+  if (customMatch) {
+    const u = { name: customMatch.name, email: customMatch.username, role: customMatch.role };
+    setCurrentUser(u);
+    return { success: true, user: u };
+  }
+
+  // Fallback default Chief Admin & staff credentials
+  const validUsers = [
+    { user: 'baytlogic@gmail.com', pass: 'BaytLogic@Master2026!', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
+    { user: 'aburuqayyah001@gmail.com', pass: 'BaytLogic@Master2026!', name: 'Abu Ruqayyah', role: 'Chief Admin & Lead Engineer' },
+    { user: 'admin', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
+    { user: 'info@baytlogic.com.ng', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
+    { user: 'amzak', pass: 'amzak@2025', name: 'Ahmad Adamu Zakari', role: 'Field Operations Engineer' }
+  ];
+
+  const match = validUsers.find(v => (v.user.toLowerCase() === cleanUser) && v.pass === password);
+  if (match) {
+    const u = { name: match.name, email: match.user, role: match.role };
+    setCurrentUser(u);
+    return { success: true, user: u };
+  }
+  return { success: false, error: 'Invalid username or password.' };
 }
 
 // Strict Authorization Gate: Hides page content until authenticated
@@ -132,12 +110,6 @@ function requireStaffAuth(onAuthSuccess) {
   // Hide main page content completely to prevent any sneak peek
   document.querySelectorAll('main').forEach(m => m.style.display = 'none');
 
-  // If Netlify Identity Widget is available, open Netlify modal
-  if (window.netlifyIdentity) {
-    window.netlifyIdentity.open('login');
-    return;
-  }
-
   // Fallback Auth Modal for Local Server Testing
   let authModal = document.getElementById('staffAuthModal');
   if (!authModal) {
@@ -153,12 +125,16 @@ function requireStaffAuth(onAuthSuccess) {
           <p class="text-xs text-slate-400">Chief Admin & Staff Access Only</p>
         </div>
 
+        <div class="p-3 bg-amber-950/40 border border-amber-500/40 rounded-xl text-[11px] text-amber-200 text-center leading-relaxed">
+          🔒 <strong>Strict Security Notice:</strong> Public sign-ups are disabled. Staff accounts are created & managed exclusively by Chief Admins (<code class="text-amber-300">baytlogic@gmail.com</code> / <code class="text-amber-300">aburuqayyah001@gmail.com</code>).
+        </div>
+
         <div id="loginAlert" class="hidden p-3 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-xs font-semibold text-center"></div>
 
         <form onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Username or Email</label>
-            <input type="text" id="authUsername" placeholder="e.g. baytlogic@gmail.com or admin" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
+            <input type="text" id="authUsername" placeholder="e.g. baytlogic@gmail.com or aburuqayyah001@gmail.com" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
           </div>
 
           <div>

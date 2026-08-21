@@ -10,7 +10,6 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="assets/auth.js"></script>
   <script>
     tailwind.config = {
@@ -96,7 +95,12 @@
             </div>
             <div>
               <label class="block text-slate-400 font-semibold mb-1">Reference ID</label>
-              <input type="text" id="boqRef" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition uppercase font-mono" oninput="updatePreview()" />
+              <div class="flex gap-1.5">
+                <input type="text" id="boqRef" class="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition uppercase font-mono text-xs" oninput="updatePreview()" />
+                <button type="button" onclick="generateNextBoqRefManual()" title="Generate Next Incremental BOQ Ref" class="px-2.5 py-1 bg-brand-primary hover:bg-cyan-600 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shrink-0">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Next
+                </button>
+              </div>
             </div>
           </div>
 
@@ -371,6 +375,24 @@
       });
     }
 
+    function getStoredBoqCounter() {
+      const stored = localStorage.getItem('baytlogic_boq_counter');
+      return stored ? parseInt(stored, 10) : 1;
+    }
+
+    function getNextBoqRef() {
+      const counter = getStoredBoqCounter();
+      return `BLT-BOQ-2026-${String(counter).padStart(3, '0')}`;
+    }
+
+    function generateNextBoqRefManual() {
+      const current = getStoredBoqCounter();
+      const next = current + 1;
+      localStorage.setItem('baytlogic_boq_counter', next.toString());
+      document.getElementById('boqRef').value = `BLT-BOQ-2026-${String(next).padStart(3, '0')}`;
+      updatePreview();
+    }
+
     function init() {
       requireStaffAuth((user) => {
         document.getElementById('staffName').value = user.name;
@@ -379,9 +401,13 @@
 
       loadCatalogDropdown();
 
-      // Auto-generate BOQ Ref
-      const randomId = Math.floor(1000 + Math.random() * 9000);
-      document.getElementById('boqRef').value = `BLT-BOQ-2026-${randomId}`;
+      // Auto-generate incremental BOQ Ref
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('ref')) {
+        document.getElementById('boqRef').value = params.get('ref');
+      } else {
+        document.getElementById('boqRef').value = getNextBoqRef();
+      }
       
       // Auto-set Date to today
       const today = new Date().toISOString().split('T')[0];

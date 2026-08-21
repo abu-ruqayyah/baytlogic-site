@@ -151,7 +151,12 @@
       <div class="space-y-4 text-xs">
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Certificate ID</label>
-          <input type="text" id="inId" value="BLT-2026-020" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-amber-400 font-mono font-bold outline-none focus:border-amber-400 transition" />
+          <div class="flex gap-1.5">
+            <input type="text" id="inId" value="BLT-2026-027" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-amber-400 font-mono font-bold outline-none focus:border-amber-400 transition text-xs" />
+            <button type="button" onclick="generateNextCertIdManual()" title="Generate Next Incremental Certificate ID" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0">
+              <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Next
+            </button>
+          </div>
         </div>
 
         <div>
@@ -409,10 +414,44 @@
       }
     }
 
+    function getHighestCertIdNum() {
+      let maxNum = 26;
+      const stored = localStorage.getItem('baytlogic_cert_counter');
+      if (stored) {
+        const val = parseInt(stored, 10);
+        if (!isNaN(val) && val > maxNum) maxNum = val;
+      }
+
+      const customCerts = JSON.parse(localStorage.getItem('baytlogic_certificates')) || [];
+      customCerts.forEach(c => {
+        if (c.id) {
+          const match = c.id.match(/(\d+)$/);
+          if (match) {
+            const num = parseInt(match[1], 10);
+            if (!isNaN(num) && num > maxNum) maxNum = num;
+          }
+        }
+      });
+      return maxNum;
+    }
+
+    function generateNextCertIdManual() {
+      const nextNum = getHighestCertIdNum() + 1;
+      localStorage.setItem('baytlogic_cert_counter', nextNum.toString());
+      const nextId = `BLT-2026-${String(nextNum).padStart(3, '0')}`;
+      document.getElementById('inId').value = nextId;
+      updateCert();
+    }
+
     // Auto load URL parameters if passed from admin.html
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
-      if (params.get('id')) document.getElementById('inId').value = params.get('id');
+      if (params.get('id')) {
+        document.getElementById('inId').value = params.get('id');
+      } else {
+        const nextNum = getHighestCertIdNum() + 1;
+        document.getElementById('inId').value = `BLT-2026-${String(nextNum).padStart(3, '0')}`;
+      }
       if (params.get('name')) document.getElementById('inName').value = params.get('name');
       if (params.get('course')) {
         document.getElementById('inCourse').value = params.get('course');
