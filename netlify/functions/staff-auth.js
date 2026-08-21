@@ -8,37 +8,22 @@ exports.handler = async (event) => {
     const { username, password } = JSON.parse(event.body || "{}");
 
     const cleanUser = (username || "").trim().toLowerCase();
-    const validPasses = [process.env.ADMIN_PASSWORD || "BaytLogic2026", "BaytLogic2026", "BaytLogic@Master2026!"];
 
-    const chiefAdmins = {
-      "aburuqayyah001@gmail.com": { name: "Abu Ruqayyah" }
-    };
+    // Read Chief Admin credentials directly from Netlify Environment Variables
+    const envAdminUser = (process.env.ADMIN_USERNAME || "").trim().toLowerCase();
+    const envAdminPass = process.env.ADMIN_PASSWORD;
 
-    if (chiefAdmins[cleanUser] && validPasses.includes(password)) {
+    // Validate against Netlify Environment Variables
+    if (envAdminUser && envAdminPass && cleanUser === envAdminUser && password === envAdminPass) {
       return {
         statusCode: 200,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           token: "jwt_token_" + Date.now(),
           user: {
-            name: chiefAdmins[cleanUser].name,
-            email: cleanUser,
+            name: "Chief Admin",
+            email: envAdminUser,
             role: "Chief Admin & Lead Engineer"
-          }
-        })
-      };
-    }
-
-    if (cleanUser === "amzak" && password === "amzak@2025") {
-      return {
-        statusCode: 200,
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          token: "jwt_token_" + Date.now(),
-          user: {
-            name: "Ahmad Adamu Zakari",
-            email: "amzak",
-            role: "Field Operations Engineer"
           }
         })
       };

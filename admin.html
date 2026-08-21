@@ -648,11 +648,8 @@
     let editingAccId = null;
 
     function getAccounts() {
-      const defaultAccounts = [
-        { id: 'usr-1', name: 'Abu Ruqayyah', username: 'aburuqayyah001@gmail.com', role: 'Chief Admin & Lead Engineer', password: 'BaytLogic@Master2026!' }
-      ];
       const stored = localStorage.getItem('baytlogic_accounts');
-      return stored ? JSON.parse(stored) : defaultAccounts;
+      return stored ? JSON.parse(stored) : [];
     }
 
     function saveAccount(acc) {

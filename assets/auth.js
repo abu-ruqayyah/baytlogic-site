@@ -11,15 +11,8 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
   }
 }
 
-// Authorized Chief Admin email list
-const CHIEF_ADMIN_EMAILS = [
-  'aburuqayyah001@gmail.com'
-];
-
 function isChiefAdmin(user) {
   if (!user) return false;
-  const identifier = (user.email || user.username || '').toLowerCase().trim();
-  if (CHIEF_ADMIN_EMAILS.includes(identifier)) return true;
   if (user.role && user.role.toLowerCase().includes('chief admin')) return true;
   return false;
 }
@@ -72,26 +65,6 @@ async function authenticateBackend(username, password) {
   );
   if (customMatch) {
     const u = { name: customMatch.name, email: customMatch.username, role: customMatch.role };
-    setCurrentUser(u);
-    return { success: true, user: u };
-  }
-
-  // Fallback default Chief Admin & staff credentials (accepting both master passwords)
-  const validPasses = ['BaytLogic2026', 'BaytLogic@Master2026!'];
-
-  const validUsers = [
-    { user: 'aburuqayyah001@gmail.com', name: 'Abu Ruqayyah', role: 'Chief Admin & Lead Engineer' }
-  ];
-
-  const match = validUsers.find(v => v.user.toLowerCase() === cleanUser);
-  if (match && validPasses.includes(password)) {
-    const u = { name: match.name, email: match.user, role: match.role };
-    setCurrentUser(u);
-    return { success: true, user: u };
-  }
-
-  if (cleanUser === 'amzak' && password === 'amzak@2025') {
-    const u = { name: 'Ahmad Adamu Zakari', email: 'amzak', role: 'Field Operations Engineer' };
     setCurrentUser(u);
     return { success: true, user: u };
   }
