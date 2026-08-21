@@ -127,18 +127,12 @@ function requireStaffAuth(onAuthSuccess) {
           <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic" class="h-12 w-auto mx-auto mb-3" />
           <h2 class="text-2xl font-extrabold text-white tracking-wide">Staff Authorization Portal</h2>
           <p class="text-xs text-slate-400">Chief Admin & Staff Access Only</p>
-        </div>
-
-        <div class="p-3 bg-amber-950/40 border border-amber-500/40 rounded-xl text-[11px] text-amber-200 text-center leading-relaxed">
-          🔒 <strong>Strict Security Notice:</strong> Public sign-ups are disabled. Staff accounts are created & managed exclusively by Chief Admin (<code class="text-amber-300">aburuqayyah001@gmail.com</code>).
-        </div>
-
         <div id="loginAlert" class="hidden p-3 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-xs font-semibold text-center"></div>
 
         <form onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Username or Email</label>
-            <input type="text" id="authUsername" placeholder="e.g. baytlogic@gmail.com or aburuqayyah001@gmail.com" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
+            <input type="text" id="authUsername" placeholder="e.g. aburuqayyah001@gmail.com" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
           </div>
 
           <div>
