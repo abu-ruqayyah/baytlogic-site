@@ -11,10 +11,7 @@ exports.handler = async (event) => {
     const validPasses = [process.env.ADMIN_PASSWORD || "BaytLogic2026", "BaytLogic2026", "BaytLogic@Master2026!"];
 
     const chiefAdmins = {
-      "baytlogic@gmail.com": { name: "Yahaya Abdullahi Sulaiman" },
-      "aburuqayyah001@gmail.com": { name: "Abu Ruqayyah" },
-      "info@baytlogic.com.ng": { name: "Yahaya Abdullahi Sulaiman" },
-      "admin": { name: "Yahaya Abdullahi Sulaiman" }
+      "aburuqayyah001@gmail.com": { name: "Abu Ruqayyah" }
     };
 
     if (chiefAdmins[cleanUser] && validPasses.includes(password)) {

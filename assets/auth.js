@@ -13,10 +13,7 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 
 // Authorized Chief Admin email list
 const CHIEF_ADMIN_EMAILS = [
-  'baytlogic@gmail.com',
-  'aburuqayyah001@gmail.com',
-  'info@baytlogic.com.ng',
-  'admin'
+  'aburuqayyah001@gmail.com'
 ];
 
 function isChiefAdmin(user) {
@@ -83,10 +80,7 @@ async function authenticateBackend(username, password) {
   const validPasses = ['BaytLogic2026', 'BaytLogic@Master2026!'];
 
   const validUsers = [
-    { user: 'baytlogic@gmail.com', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-    { user: 'aburuqayyah001@gmail.com', name: 'Abu Ruqayyah', role: 'Chief Admin & Lead Engineer' },
-    { user: 'admin', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-    { user: 'info@baytlogic.com.ng', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' }
+    { user: 'aburuqayyah001@gmail.com', name: 'Abu Ruqayyah', role: 'Chief Admin & Lead Engineer' }
   ];
 
   const match = validUsers.find(v => v.user.toLowerCase() === cleanUser);
@@ -136,7 +130,7 @@ function requireStaffAuth(onAuthSuccess) {
         </div>
 
         <div class="p-3 bg-amber-950/40 border border-amber-500/40 rounded-xl text-[11px] text-amber-200 text-center leading-relaxed">
-          🔒 <strong>Strict Security Notice:</strong> Public sign-ups are disabled. Staff accounts are created & managed exclusively by Chief Admins (<code class="text-amber-300">baytlogic@gmail.com</code> / <code class="text-amber-300">aburuqayyah001@gmail.com</code>).
+          🔒 <strong>Strict Security Notice:</strong> Public sign-ups are disabled. Staff accounts are created & managed exclusively by Chief Admin (<code class="text-amber-300">aburuqayyah001@gmail.com</code>).
         </div>
 
         <div id="loginAlert" class="hidden p-3 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-xs font-semibold text-center"></div>
