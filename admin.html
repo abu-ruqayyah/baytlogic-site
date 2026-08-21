@@ -199,6 +199,26 @@
       </div>
     </section>
 
+    <!-- Section 6: Trainee Testimonials & Kids Robotics Videos -->
+    <section class="bg-slate-800/90 border border-slate-700 rounded-3xl p-6 sm:p-8 shadow-xl space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-700 pb-4">
+        <div>
+          <h2 class="text-xl font-extrabold text-white flex items-center gap-2">
+            <i data-lucide="video" class="w-6 h-6 text-cyan-400"></i> Trainee Showcase & Kids Robotics Videos
+          </h2>
+          <p class="text-xs text-slate-400">Upload and manage video testimonials of Kareem Shaheed, past trainees, and Kids Robotics Bootcamps.</p>
+        </div>
+        <button onclick="openAddVideoModal()" class="px-4 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold transition flex items-center gap-2 shadow-lg">
+          <i data-lucide="plus-circle" class="w-4 h-4"></i> Add Trainee / Robotics Video
+        </button>
+      </div>
+
+      <!-- Videos Grid -->
+      <div id="videosGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
   </main>
 
   <!-- Modal for Adding / Editing Project -->
@@ -387,6 +407,44 @@
       <div class="flex justify-end gap-3 pt-2">
         <button onclick="closeModal('userModal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-bold transition">Cancel</button>
         <button onclick="saveUserAccount()" class="px-5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold transition">Create Staff Login</button>
+  <!-- Modal for Adding Trainee / Robotics Video -->
+  <div id="videoModal" class="hidden fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+      <h3 id="videoModalTitle" class="text-lg font-bold text-white flex items-center gap-2">
+        <i data-lucide="video" class="w-5 h-5 text-cyan-400"></i> Add Trainee Video / Robotics Showcase
+      </h3>
+      
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Trainee / Student Name</label>
+          <input type="text" id="vidName" placeholder="e.g. Kareem Shaheed OR Young Innovators Team" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-cyan-500 font-bold" />
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Training Program / Category</label>
+          <select id="vidCategory" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-cyan-500 font-semibold">
+            <option value="Kids Robotics & STEM">Kids Robotics & STEM Bootcamp</option>
+            <option value="Smart Home Automation">Smart Home Automation Masterclass</option>
+            <option value="CCTV & Security">CCTV & Security Systems</option>
+            <option value="Embedded AI">Embedded AI & Edge Computing</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Video Source URL or Path</label>
+          <input type="text" id="vidUrl" placeholder="https://www.youtube.com/embed/... OR assets/videos/kareem_demo.mp4" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white font-mono outline-none focus:border-cyan-500" />
+          <p class="text-[10px] text-slate-500 mt-1">Supports YouTube embed links, MP4 video links, or uploaded local assets.</p>
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-semibold mb-1">Video Title / Short Description</label>
+          <textarea id="vidDesc" rows="3" placeholder="Kareem presenting his autonomous obstacle-avoiding smart robot at BaytLogic Academy..." class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-white outline-none focus:border-cyan-500"></textarea>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <button onclick="closeModal('videoModal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-xl text-xs font-bold transition">Cancel</button>
+        <button onclick="saveVideoItem()" class="px-5 py-2 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl text-xs font-bold transition">Save & Publish Video</button>
       </div>
     </div>
   </div>
@@ -587,6 +645,31 @@
 
     // Accounts Management
     let editingAccId = null;
+
+    function getAccounts() {
+      const defaultAccounts = [
+        { id: 'usr-1', name: 'Yahaya Abdullahi Sulaiman', username: 'admin', role: 'Chief Admin & Lead Engineer', password: 'BaytLogic2026' }
+      ];
+      const stored = localStorage.getItem('baytlogic_accounts');
+      return stored ? JSON.parse(stored) : defaultAccounts;
+    }
+
+    function saveAccount(acc) {
+      const accounts = getAccounts();
+      const existingIdx = accounts.findIndex(a => a.id === acc.id || a.username.toLowerCase() === acc.username.toLowerCase());
+      if (existingIdx >= 0) {
+        accounts[existingIdx] = acc;
+      } else {
+        accounts.push(acc);
+      }
+      localStorage.setItem('baytlogic_accounts', JSON.stringify(accounts));
+    }
+
+    function deleteAccount(id) {
+      let accounts = getAccounts();
+      accounts = accounts.filter(a => a.id !== id);
+      localStorage.setItem('baytlogic_accounts', JSON.stringify(accounts));
+    }
 
     function renderAccounts() {
       const tbody = document.getElementById('accountsTbody');
@@ -824,6 +907,103 @@
       }
     }
 
+    // Video Testimonials & Robotics Showcase Management
+    const defaultVideos = [
+      {
+        id: 1,
+        name: "Kareem Shaheed",
+        category: "Kids Robotics & STEM",
+        url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        desc: "Kareem demonstrating his autonomous obstacle-avoiding mobile robot designed and programmed at BaytLogic Young Innovators Bootcamp."
+      },
+      {
+        id: 2,
+        name: "Muhammad Ukasha Abdullahi",
+        category: "Smart Home Automation",
+        url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+        desc: "Ukasha presenting his live automated Tuya Zigbee Relay & CCTV integration project during the June 2026 Masterclass."
+      }
+    ];
+
+    let videos = JSON.parse(localStorage.getItem('baytlogic_videos')) || defaultVideos;
+
+    function renderVideos() {
+      const grid = document.getElementById('videosGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      videos.forEach(v => {
+        const card = document.createElement('div');
+        card.className = 'bg-slate-900 border border-slate-700/80 rounded-2xl overflow-hidden shadow-lg space-y-3 p-4 flex flex-col justify-between';
+        
+        let mediaHtml = '';
+        if (v.url.includes('youtube.com') || v.url.includes('youtu.be')) {
+          const embedUrl = v.url.replace('watch?v=', 'embed/');
+          mediaHtml = `<iframe src="${embedUrl}" class="w-full h-44 rounded-xl border border-slate-800" allowfullscreen></iframe>`;
+        } else {
+          mediaHtml = `<video src="${v.url}" controls class="w-full h-44 rounded-xl border border-slate-800 bg-black object-cover"></video>`;
+        }
+
+        card.innerHTML = `
+          <div>
+            ${mediaHtml}
+            <div class="pt-3 space-y-1">
+              <div class="flex items-center justify-between">
+                <span class="px-2 py-0.5 bg-cyan-950 text-cyan-300 border border-cyan-800 rounded text-[10px] font-bold">${v.category}</span>
+                <strong class="text-xs text-white">${v.name}</strong>
+              </div>
+              <p class="text-xs text-slate-300 font-medium">${v.desc}</p>
+            </div>
+          </div>
+          <div class="flex justify-end pt-2 border-t border-slate-800">
+            <button onclick="deleteVideoItem(${v.id})" class="px-3 py-1 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded transition">Delete Video</button>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      localStorage.setItem('baytlogic_videos', JSON.stringify(videos));
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function openAddVideoModal() {
+      document.getElementById('vidName').value = '';
+      document.getElementById('vidUrl').value = '';
+      document.getElementById('vidDesc').value = '';
+      document.getElementById('vidCategory').value = 'Kids Robotics & STEM';
+      document.getElementById('videoModal').classList.remove('hidden');
+    }
+
+    function saveVideoItem() {
+      const name = document.getElementById('vidName').value.trim();
+      const url = document.getElementById('vidUrl').value.trim();
+      const desc = document.getElementById('vidDesc').value.trim();
+      const category = document.getElementById('vidCategory').value;
+
+      if (!name || !url) {
+        alert('Please fill in Trainee Name and Video URL / Path.');
+        return;
+      }
+
+      videos.push({
+        id: Date.now(),
+        name,
+        category,
+        url,
+        desc: desc || `${name} project video demonstration at BaytLogic Academy.`
+      });
+
+      closeModal('videoModal');
+      renderVideos();
+    }
+
+    function deleteVideoItem(id) {
+      if (confirm('Delete this video from the trainee showcase?')) {
+        videos = videos.filter(v => v.id !== id);
+        renderVideos();
+      }
+    }
+
     function closeModal(id) {
       document.getElementById(id).classList.add('hidden');
     }
@@ -835,6 +1015,7 @@
       renderAccounts();
       renderCatalog();
       renderCertificates();
+      renderVideos();
     });
   </script>
 </body>

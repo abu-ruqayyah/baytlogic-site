@@ -90,11 +90,21 @@ async function authenticateBackend(username, password) {
     }
     return { success: false, error: data.error || 'Invalid credentials' };
   } catch (err) {
-    // Fallback authentication for local dev server
+    // Check localStorage custom staff accounts created in Admin Studio first
+    const storedAccounts = JSON.parse(localStorage.getItem('baytlogic_accounts') || '[]');
+    const customMatch = storedAccounts.find(a => (a.username.toLowerCase() === username.trim().toLowerCase() || (a.email && a.email.toLowerCase() === username.trim().toLowerCase())) && a.password === password);
+    if (customMatch) {
+      const u = { name: customMatch.name, email: customMatch.username, role: customMatch.role };
+      setCurrentUser(u);
+      return { success: true, user: u };
+    }
+
+    // Fallback default admin credentials
     const validUsers = [
       { user: 'baytlogic@gmail.com', pass: 'BaytLogic@Master2026!', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
       { user: 'admin', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-      { user: 'info@baytlogic.com.ng', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' }
+      { user: 'info@baytlogic.com.ng', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
+      { user: 'amzak', pass: 'amzak@2025', name: 'Ahmad Adamu Zakari', role: 'Field Operations Engineer' }
     ];
 
     const match = validUsers.find(v => (v.user.toLowerCase() === username.trim().toLowerCase()) && v.pass === password);
