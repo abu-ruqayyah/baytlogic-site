@@ -56,10 +56,12 @@ async function authenticateBackend(username, password) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username: cleanUser, password })
     });
-    const data = await response.json();
-    if (response.ok && data.user) {
-      setCurrentUser(data.user);
-      return { success: true, user: data.user };
+    if (response.ok) {
+      const data = await response.json();
+      if (data.user) {
+        setCurrentUser(data.user);
+        return { success: true, user: data.user };
+      }
     }
   } catch (err) {
     // Backend endpoint offline/unreachable, fallback to local database
@@ -77,21 +79,29 @@ async function authenticateBackend(username, password) {
     return { success: true, user: u };
   }
 
-  // Fallback default Chief Admin & staff credentials
+  // Fallback default Chief Admin & staff credentials (accepting both master passwords)
+  const validPasses = ['BaytLogic2026', 'BaytLogic@Master2026!'];
+
   const validUsers = [
-    { user: 'baytlogic@gmail.com', pass: 'BaytLogic@Master2026!', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-    { user: 'aburuqayyah001@gmail.com', pass: 'BaytLogic@Master2026!', name: 'Abu Ruqayyah', role: 'Chief Admin & Lead Engineer' },
-    { user: 'admin', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-    { user: 'info@baytlogic.com.ng', pass: 'BaytLogic2026', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
-    { user: 'amzak', pass: 'amzak@2025', name: 'Ahmad Adamu Zakari', role: 'Field Operations Engineer' }
+    { user: 'baytlogic@gmail.com', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
+    { user: 'aburuqayyah001@gmail.com', name: 'Abu Ruqayyah', role: 'Chief Admin & Lead Engineer' },
+    { user: 'admin', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' },
+    { user: 'info@baytlogic.com.ng', name: 'Yahaya Abdullahi Sulaiman', role: 'Chief Admin & Lead Engineer' }
   ];
 
-  const match = validUsers.find(v => (v.user.toLowerCase() === cleanUser) && v.pass === password);
-  if (match) {
+  const match = validUsers.find(v => v.user.toLowerCase() === cleanUser);
+  if (match && validPasses.includes(password)) {
     const u = { name: match.name, email: match.user, role: match.role };
     setCurrentUser(u);
     return { success: true, user: u };
   }
+
+  if (cleanUser === 'amzak' && password === 'amzak@2025') {
+    const u = { name: 'Ahmad Adamu Zakari', email: 'amzak', role: 'Field Operations Engineer' };
+    setCurrentUser(u);
+    return { success: true, user: u };
+  }
+
   return { success: false, error: 'Invalid username or password.' };
 }
 
