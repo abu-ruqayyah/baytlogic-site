@@ -114,33 +114,45 @@
 
     // Client-side fallback database for offline / local preview testing
     const localDb = {
-      "BLT-2026-001": { name: "Ahmad Adamu Zakari", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", status: "Valid" },
-      "BLT-2026-002": { name: "Abdulkadir Ahmed Tataru", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", status: "Valid" },
-      "BLT-2026-003": { name: "Sulaiman Jibril Babayo", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", status: "Valid" },
-      "BLT-2026-004": { name: "Dahiru Adamu", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", status: "Valid" },
-      "BLT-2026-005": { name: "Saeed Haruna Saeed", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-006": { name: "Maryam Muhammad Ahmad", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-007": { name: "Toyyibat Abiola Shittu", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-008": { name: "Abdulshaheed Umar Chinade", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-009": { name: "Muhammad Bello Abubakar", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-010": { name: "Muhammad Ballo Mufty", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-011": { name: "Niimatullah Abimbola Shittu", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-012": { name: "Haleemat Suad Muhammad Ballo", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-013": { name: "Shamsuddeen Muhammad Ishaq", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-014": { name: "Ibrahim Muhammad Ballo", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-015": { name: "Na'ima Muhammad Ishaq", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-016": { name: "Abdullahi Rabi'u Muhammad", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-017": { name: "Abubakar Muhammad Chinade", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", status: "Valid" },
-      "BLT-2026-018": { name: "Moshood Lukman Sekoni", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
-      "BLT-2026-019": { name: "Ismail Abdullahi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
-      "BLT-2026-020": { name: "Muhammad Ukasha Abdullahi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
-      "BLT-2026-021": { name: "Abdulquadir Folorunso Adeshina", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
-      "BLT-2026-022": { name: "Auwal Yahaya", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
-      "BLT-2026-023": { name: "Abdullahi Yusuf Umar", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
-      "BLT-2026-024": { name: "Fasilat Olopade Olawunmi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
-      "BLT-2026-025": { name: "Kareem Saheed Adeniyi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" },
-      "BLT-2026-026": { name: "Salihu Adamu Deba", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", status: "Valid" }
+      "BLT-2026-001": { name: "Ahmad Adamu Zakari", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", partner: "Nurtureroots Foundation", status: "Valid" },
+      "BLT-2026-002": { name: "Abdulkadir Ahmed Tataru", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", partner: "Nurtureroots Foundation", status: "Valid" },
+      "BLT-2026-003": { name: "Sulaiman Jibril Babayo", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", partner: "Nurtureroots Foundation", status: "Valid" },
+      "BLT-2026-004": { name: "Dahiru Adamu", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", partner: "Nurtureroots Foundation", status: "Valid" },
+      "BLT-2026-005": { name: "Saeed Haruna Saeed", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-006": { name: "Maryam Muhammad Ahmad", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-007": { name: "Toyyibat Abiola Shittu", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-008": { name: "Abdulshaheed Umar Chinade", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-009": { name: "Muhammad Bello Abubakar", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-010": { name: "Muhammad Ballo Mufty", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-011": { name: "Niimatullah Abimbola Shittu", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-012": { name: "Haleemat Suad Muhammad Ballo", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-013": { name: "Shamsuddeen Muhammad Ishaq", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-014": { name: "Ibrahim Muhammad Ballo", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-015": { name: "Na'ima Muhammad Ishaq", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-016": { name: "Abdullahi Rabi'u Muhammad", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-017": { name: "Abubakar Muhammad Chinade", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
+      "BLT-2026-018": { name: "Moshood Lukman Sekoni", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
+      "BLT-2026-019": { name: "Ismail Abdullahi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
+      "BLT-2026-020": { name: "Muhammad Ukasha Abdullahi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
+      "BLT-2026-021": { name: "Abdulquadir Folorunso Adeshina", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
+      "BLT-2026-022": { name: "Auwal Yahaya", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
+      "BLT-2026-023": { name: "Abdullahi Yusuf Umar", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
+      "BLT-2026-024": { name: "Fasilat Olopade Olawunmi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
+      "BLT-2026-025": { name: "Kareem Saheed Adeniyi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
+      "BLT-2026-026": { name: "Salihu Adamu Deba", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" }
     };
+
+    function getPartnerByCertId(certId) {
+      if (!certId) return "Hamjik Care Initiative";
+      const match = certId.match(/(\d+)$/);
+      if (!match) return "Hamjik Care Initiative";
+      const num = parseInt(match[1], 10);
+      if (num >= 1 && num <= 4) return "Nurtureroots Foundation";
+      if (num >= 5 && num <= 17) return "Nasscomsoft";
+      if (num >= 18 && num <= 26) return "None";
+      if (num >= 27 && num <= 67) return "Hamjik Care Initiative";
+      return "Hamjik Care Initiative";
+    }
 
     function normalizeCertId(id) {
       let searchId = id.replace(/\s+/g, "").toUpperCase();
@@ -196,16 +208,20 @@
 
         if (customMatch) {
           showResult({
+            id: customMatch.id,
             name: customMatch.name,
             course: customMatch.course,
             issueDate: customMatch.date,
+            partner: customMatch.partners || getPartnerByCertId(customMatch.id),
             cohort: customMatch.cohort || 'BaytLogic Academy Graduate',
             status: 'Valid Record'
           });
         } else if (data && data.success) {
           showResult(data.data);
         } else if (localDb[normalizedKey]) {
-          showResult(localDb[normalizedKey]);
+          const rec = localDb[normalizedKey];
+          rec.id = normalizedKey;
+          showResult(rec);
         } else {
           errorText.innerText = (data && data.error) ? data.error : "Invalid or unrecognized certificate number.";
           errorMsg.classList.remove('hidden');
@@ -217,14 +233,18 @@
 
         if (customMatch) {
           showResult({
+            id: customMatch.id,
             name: customMatch.name,
             course: customMatch.course,
             issueDate: customMatch.date,
+            partner: customMatch.partners || getPartnerByCertId(customMatch.id),
             cohort: customMatch.cohort || 'BaytLogic Academy Graduate',
             status: 'Valid Record'
           });
         } else if (localDb[normalizedKey]) {
-          showResult(localDb[normalizedKey]);
+          const rec = localDb[normalizedKey];
+          rec.id = normalizedKey;
+          showResult(rec);
         } else {
           errorText.innerText = "Invalid or unrecognized certificate number.";
           errorMsg.classList.remove('hidden');
@@ -242,7 +262,12 @@
       document.getElementById('resCourse').innerText = record.course;
       document.getElementById('resDate').innerText = record.issueDate || record.date;
       if (document.getElementById('resPartner')) {
-        document.getElementById('resPartner').innerText = record.partner || record.partners || "Hamjik Care Initiative";
+        const p = record.partner || record.partners || getPartnerByCertId(record.id || '');
+        if (p === 'None' || p === 'No Collaborators' || p === 'Self-Sponsored' || p === 'N/A') {
+          document.getElementById('resPartner').innerText = "Direct Training (No External Collaborators)";
+        } else {
+          document.getElementById('resPartner').innerText = p;
+        }
       }
       document.getElementById('resStatus').innerText = record.status || "Valid Record";
       document.getElementById('resultCard').classList.remove('hidden');

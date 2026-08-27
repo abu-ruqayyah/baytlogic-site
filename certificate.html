@@ -42,11 +42,16 @@
 
   <style>
     @page {
-      size: 297mm 210mm landscape;
-      margin: 0;
+      size: A4 landscape;
+      margin: 0mm;
     }
 
     @media print {
+      @page {
+        size: A4 landscape;
+        margin: 0mm;
+      }
+
       .no-print, header, #controlsSidebar {
         display: none !important;
       }
@@ -58,6 +63,8 @@
         padding: 0 !important;
         width: 297mm !important;
         height: 210mm !important;
+        max-width: 297mm !important;
+        max-height: 210mm !important;
         overflow: hidden !important;
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
@@ -68,12 +75,13 @@
         width: 297mm !important;
         height: 210mm !important;
         max-width: 297mm !important;
+        max-height: 210mm !important;
         margin: 0 !important;
         padding: 0 !important;
       }
 
       #certPaper {
-        position: fixed !important;
+        position: absolute !important;
         top: 0 !important;
         left: 0 !important;
         width: 297mm !important;
@@ -385,6 +393,18 @@
   <script>
     lucide.createIcons();
 
+    function getPartnerByCertId(certId) {
+      if (!certId) return "Hamjik Care Initiative";
+      const match = certId.match(/(\d+)$/);
+      if (!match) return "Hamjik Care Initiative";
+      const num = parseInt(match[1], 10);
+      if (num >= 1 && num <= 4) return "Nurtureroots Foundation";
+      if (num >= 5 && num <= 17) return "Nasscomsoft";
+      if (num >= 18 && num <= 26) return "None";
+      if (num >= 27 && num <= 67) return "Hamjik Care Initiative";
+      return "Hamjik Care Initiative";
+    }
+
     function applyPresetCourse() {
       const preset = document.getElementById('inCoursePreset').value;
       if (preset !== 'CUSTOM') {
@@ -398,15 +418,32 @@
       const name = document.getElementById('inName').value.trim();
       const course = document.getElementById('inCourse').value.trim();
       const date = document.getElementById('inDate').value.trim();
-      const partner = document.getElementById('inPartner').value.trim();
+      let partner = document.getElementById('inPartner').value.trim();
       const ceo = document.getElementById('inCeo').value.trim();
       const facilitator = document.getElementById('inFacilitator').value.trim();
+
+      if (!partner) {
+        partner = getPartnerByCertId(id);
+        document.getElementById('inPartner').value = partner;
+      }
 
       document.getElementById('outId').innerText = id || 'BLT-2026-000';
       document.getElementById('outName').innerText = name || 'Graduate Name';
       document.getElementById('outCourse').innerText = course || 'PROGRAMME SPECIALIZATION';
       document.getElementById('outDate').innerText = date || 'June 11 – June 17, 2026';
-      document.getElementById('outPartner').innerText = partner || 'HAMJIK CARE INITIATIVE';
+      
+      const isDirect = (partner.toUpperCase() === 'NONE' || partner.toUpperCase() === 'NO COLLABORATORS' || partner.toUpperCase() === 'SELF-SPONSORED' || partner.toUpperCase() === 'N/A');
+      const partnerTextSpan = document.getElementById('outPartner').previousElementSibling;
+      if (partnerTextSpan) {
+        partnerTextSpan.innerText = isDirect ? "Programme Delivery:" : "In Collaboration With Sponsoring Partner:";
+      }
+      document.getElementById('outPartner').innerText = isDirect ? 'BAYTLOGIC ACADEMY DIRECT' : partner.toUpperCase();
+      
+      const footerBar = document.querySelector('.border-t.border-slate-200.text-\\[9px\\]');
+      if (footerBar && footerBar.children.length >= 2) {
+        footerBar.children[1].innerText = isDirect ? 'BaytLogic Technologies' : `BaytLogic Technologies & ${partner}`;
+      }
+
       document.getElementById('outCeo').innerText = ceo || 'Engr. Yahaya Sulaiman Abdullahi';
       document.getElementById('outFacilitator').innerText = facilitator || 'Engr. Ahmad Adamu Zakari';
 
@@ -461,7 +498,7 @@
           scrollX: 0,
           scrollY: 0
         },
-        jsPDF:        { unit: 'mm', format: [297, 210], orientation: 'landscape' }
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'landscape', compress: true }
       };
 
       try {
@@ -499,17 +536,21 @@
       localStorage.setItem('baytlogic_cert_counter', nextNum.toString());
       const nextId = `BLT-2026-${String(nextNum).padStart(3, '0')}`;
       document.getElementById('inId').value = nextId;
+      document.getElementById('inPartner').value = getPartnerByCertId(nextId);
       updateCert();
     }
 
     // Auto load URL parameters if passed from admin.html
     window.addEventListener('DOMContentLoaded', () => {
       const params = new URLSearchParams(window.location.search);
+      let certId = '';
       if (params.get('id')) {
-        document.getElementById('inId').value = params.get('id');
+        certId = params.get('id');
+        document.getElementById('inId').value = certId;
       } else {
         const nextNum = getHighestCertIdNum() + 1;
-        document.getElementById('inId').value = `BLT-2026-${String(nextNum).padStart(3, '0')}`;
+        certId = `BLT-2026-${String(nextNum).padStart(3, '0')}`;
+        document.getElementById('inId').value = certId;
       }
       if (params.get('name')) document.getElementById('inName').value = params.get('name');
       if (params.get('course')) {
@@ -517,7 +558,15 @@
         document.getElementById('inCoursePreset').value = 'CUSTOM';
       }
       if (params.get('date')) document.getElementById('inDate').value = params.get('date');
-      if (params.get('partner')) document.getElementById('inPartner').value = params.get('partner');
+
+      if (params.get('partner')) {
+        document.getElementById('inPartner').value = params.get('partner');
+      } else if (params.get('partners')) {
+        document.getElementById('inPartner').value = params.get('partners');
+      } else {
+        document.getElementById('inPartner').value = getPartnerByCertId(certId);
+      }
+
       if (params.get('ceo')) document.getElementById('inCeo').value = params.get('ceo');
       if (params.get('facilitator')) document.getElementById('inFacilitator').value = params.get('facilitator');
 

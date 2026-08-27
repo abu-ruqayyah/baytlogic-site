@@ -407,7 +407,7 @@
         <div class="text-center mb-8" data-aos="fade-up">
           <p class="text-sm font-semibold text-gray-500 tracking-widest uppercase">Trusted By & Partnered With</p>
         </div>
-        <div class="flex flex-wrap justify-center items-center gap-12 md:gap-24">
+        <div class="flex flex-wrap justify-center items-center gap-12 md:gap-20">
           <!-- Nurture Roots -->
           <div class="flex items-center group cursor-pointer grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500" data-aos="fade-up" data-aos-delay="0">
              <img src="assets/partners/nurture-roots.png" alt="Nurture Roots Foundation" class="h-16 md:h-20 object-contain drop-shadow-sm transition-transform duration-300 group-hover:scale-105">
@@ -419,6 +419,14 @@
              <div class="flex flex-col border-l-2 border-slate-200 pl-3 group-hover:border-brand-primary transition-colors duration-500">
                 <span class="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight transition">NASSCOMSOFT</span>
                 <span class="text-xs font-semibold tracking-widest text-brand-primary uppercase">Embedded</span>
+             </div>
+          </div>
+
+          <!-- Hamjik Care Initiative -->
+          <div class="flex items-center space-x-3 group cursor-pointer grayscale opacity-70 hover:grayscale-0 hover:opacity-100 transition-all duration-500" data-aos="fade-up" data-aos-delay="200">
+             <div class="flex flex-col border-l-2 border-slate-200 pl-3 group-hover:border-amber-500 transition-colors duration-500">
+                <span class="text-xl md:text-2xl font-extrabold text-slate-800 tracking-tight transition">HAMJIK CARE</span>
+                <span class="text-xs font-semibold tracking-widest text-amber-500 uppercase">Initiative</span>
              </div>
           </div>
         </div>
@@ -1451,7 +1459,7 @@
         }
       }
 
-      // Google Drive & YouTube URL Parser helper
+      // Google Drive, YouTube, & Direct Video URL Parser helper
       window.getFormattedEmbedUrl = function(url) {
         if (!url) return { type: 'video', src: '' };
         url = url.trim();
@@ -1465,8 +1473,8 @@
           };
         }
 
-        // YouTube support
-        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]+)/);
+        // YouTube Shorts & standard YouTube support (watch?v=, embed/, shorts/, youtu.be/)
+        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([a-zA-Z0-9_-]+)/);
         if (ytMatch && ytMatch[1]) {
           return {
             type: 'iframe',
@@ -1480,32 +1488,55 @@
         };
       };
 
+      // Fetch public video stories dynamically from remote endpoint or assets/videos.json
+      async function loadPublicVideos() {
+        try {
+          let response = await fetch('/.netlify/functions/videos').catch(() => null);
+          if (!response || !response.ok) {
+            response = await fetch('assets/videos.json').catch(() => null);
+          }
+          if (response && response.ok) {
+            const data = await response.json();
+            const fetched = data.videos || data;
+            if (Array.isArray(fetched) && fetched.length > 0) {
+              window.publicVideos = fetched;
+              renderPublicVideos('ALL');
+              return;
+            }
+          }
+        } catch (e) {
+          console.warn("Could not fetch remote video showcase, using local data.");
+        }
+      }
+
       // Render Trainee Video Showcase
-      window.publicVideos = JSON.parse(localStorage.getItem('baytlogic_videos')) || [
+      const savedVids = JSON.parse(localStorage.getItem('baytlogic_videos')) || [];
+      window.publicVideos = (savedVids.length > 0) ? savedVids : [
         {
           id: 1,
           name: "Kareem Shaheed — YuNu Technologies",
           category: "Smart Home Automation",
-          url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+          url: "",
           desc: "Kareem Shaheed demonstrating a live CCTV installation & Smart Home automation system deployed by his startup, YuNu Technologies in Kwara State."
         },
         {
           id: 2,
           name: "Muhammad Ukasha Abdullahi",
           category: "Smart Home Automation",
-          url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+          url: "",
           desc: "Ukasha presenting his live automated Tuya Zigbee Relay & CCTV integration project during the June 2026 Masterclass."
         },
         {
           id: 3,
           name: "Fasilat Olopade Olawunmi",
           category: "CCTV & Security",
-          url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+          url: "",
           desc: "Fasilat demonstrating remote IP CCTV live feed setup and mobile NVR monitoring during the BaytLogic professional training."
         }
       ];
 
       renderPublicVideos('ALL');
+      loadPublicVideos();
     });
 
     function filterPublicVideos(category) {
