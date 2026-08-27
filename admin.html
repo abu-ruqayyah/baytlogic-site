@@ -1089,8 +1089,8 @@
             </div>
           </div>
           <div class="flex justify-end gap-2 pt-2 border-t border-slate-800">
-            <button onclick="openEditVideoModal(${v.id})" class="px-3 py-1 bg-cyan-900/60 hover:bg-cyan-800 text-cyan-200 text-xs font-bold rounded transition">Edit Link</button>
-            <button onclick="deleteVideoItem(${v.id})" class="px-3 py-1 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded transition">Delete Video</button>
+            <button type="button" onclick="openEditVideoModal('${v.id}')" class="px-3 py-1 bg-cyan-900/60 hover:bg-cyan-800 text-cyan-200 text-xs font-bold rounded transition">Edit Link</button>
+            <button type="button" onclick="deleteVideoItem('${v.id}')" class="px-3 py-1 bg-red-900/50 hover:bg-red-800 text-red-200 text-xs font-bold rounded transition">Delete Video</button>
           </div>
         `;
         grid.appendChild(card);
@@ -1111,12 +1111,12 @@
     }
 
     function openEditVideoModal(id) {
-      const item = videos.find(v => v.id === id);
+      const item = videos.find(v => v.id == id);
       if (!item) return;
       document.getElementById('editingVideoId').value = item.id;
-      document.getElementById('vidName').value = item.name;
-      document.getElementById('vidUrl').value = item.url;
-      document.getElementById('vidDesc').value = item.desc;
+      document.getElementById('vidName').value = item.name || '';
+      document.getElementById('vidUrl').value = item.url || '';
+      document.getElementById('vidDesc').value = item.desc || '';
       document.getElementById('vidCategory').value = item.category || 'Smart Home Automation';
       document.getElementById('videoModalTitle').innerText = `Edit Video — ${item.name}`;
       document.getElementById('videoModal').classList.remove('hidden');
@@ -1158,10 +1158,16 @@
 
     function deleteVideoItem(id) {
       if (confirm('Delete this video from the trainee showcase?')) {
-        videos = videos.filter(v => v.id !== id);
+        videos = videos.filter(v => v.id != id);
         renderVideos();
       }
     }
+
+    // Expose functions globally for inline onclick handlers
+    window.openAddVideoModal = openAddVideoModal;
+    window.openEditVideoModal = openEditVideoModal;
+    window.saveVideoItem = saveVideoItem;
+    window.deleteVideoItem = deleteVideoItem;
 
     function closeModal(id) {
       document.getElementById(id).classList.add('hidden');
