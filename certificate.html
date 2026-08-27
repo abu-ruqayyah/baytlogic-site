@@ -211,8 +211,8 @@
           </div>
 
           <div>
-            <label class="block text-slate-300 font-semibold mb-1">Facilitator Name</label>
-            <input type="text" id="inFacilitator" value="Engr. Auwal Yahaya" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
+            <label class="block text-slate-300 font-semibold mb-1">Lead Facilitator Name</label>
+            <input type="text" id="inFacilitator" value="Engr. Ahmad Adamu Zakari" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
           </div>
         </div>
 
@@ -241,7 +241,7 @@
             <!-- 1. Header: BaytLogic Logo, Title & Tagline -->
             <div class="text-center space-y-1">
               <div class="flex justify-center items-center pb-0.5">
-                <img id="outLogoImg" src="assets/baytlogic-logo.png" onerror="this.src='assets/baytlogic-icon-cyan.png'" alt="BaytLogic Logo" class="h-12 sm:h-14 w-auto object-contain mx-auto" />
+                <img id="outLogoImg" src="assets/baytlogic-logo.svg" onerror="this.src='assets/baytlogic-logo.png'" alt="BaytLogic Logo" class="h-14 sm:h-16 w-auto object-contain mx-auto" />
               </div>
               
               <!-- Decorative Line with Gold Diamonds -->
@@ -325,13 +325,13 @@
                   </div>
                 </div>
 
-                <!-- CENTER & RIGHT: Dual Signatures (CEO/Founder on Left, Facilitator on Right) -->
+                <!-- CENTER & RIGHT: Dual Signatures (CEO/Founder on Left, Lead Facilitator on Right) -->
                 <div class="col-span-6 grid grid-cols-2 gap-4 text-center">
                   
-                  <!-- CEO / Founder Signature Block -->
+                  <!-- CEO / Founder Signature Block (Clean space for manual physical signature) -->
                   <div class="space-y-0.5">
-                    <div class="h-9 flex items-end justify-center">
-                      <span id="outCeoSig" class="font-signature text-2xl text-slate-800 leading-none">Yahaya S. A.</span>
+                    <div class="h-10 flex items-end justify-center">
+                      <!-- Blank signature area for physical pen signature -->
                     </div>
                     <div class="border-t border-slate-700/80 pt-1">
                       <p id="outCeo" class="font-bold text-brand-navy text-xs">Engr. Yahaya Sulaiman Abdullahi</p>
@@ -340,15 +340,15 @@
                     </div>
                   </div>
 
-                  <!-- Facilitator Signature Block -->
+                  <!-- Lead Training Facilitator Signature Block (Clean space for manual physical signature) -->
                   <div class="space-y-0.5">
-                    <div class="h-9 flex items-end justify-center">
-                      <span id="outFacilitatorSig" class="font-signature text-2xl text-slate-800 leading-none">Auwal Yahaya</span>
+                    <div class="h-10 flex items-end justify-center">
+                      <!-- Blank signature area for physical pen signature -->
                     </div>
                     <div class="border-t border-slate-700/80 pt-1">
-                      <p id="outFacilitator" class="font-bold text-brand-navy text-xs">Engr. Auwal Yahaya</p>
+                      <p id="outFacilitator" class="font-bold text-brand-navy text-xs">Engr. Ahmad Adamu Zakari</p>
                       <p class="text-[10px] text-slate-600 font-medium">Lead Training Facilitator</p>
-                      <p class="text-[9px] text-slate-400 font-semibold">Hamjik Care Initiative / BaytLogic</p>
+                      <p class="text-[9px] text-slate-400 font-semibold">BaytLogic Technologies</p>
                     </div>
                   </div>
 
@@ -408,11 +408,7 @@
       document.getElementById('outDate').innerText = date || 'June 11 – June 17, 2026';
       document.getElementById('outPartner').innerText = partner || 'HAMJIK CARE INITIATIVE';
       document.getElementById('outCeo').innerText = ceo || 'Engr. Yahaya Sulaiman Abdullahi';
-      document.getElementById('outFacilitator').innerText = facilitator || 'Engr. Auwal Yahaya';
-
-      // Update Signatures
-      document.getElementById('outCeoSig').innerText = ceo ? ceo.replace('Engr. ', '') : 'Yahaya S. A.';
-      document.getElementById('outFacilitatorSig').innerText = facilitator ? facilitator.replace('Engr. ', '') : 'Auwal Yahaya';
+      document.getElementById('outFacilitator').innerText = facilitator || 'Engr. Ahmad Adamu Zakari';
 
       const verifyUrl = `https://baytlogic.com.ng/verify.html?id=${id}`;
       document.getElementById('outQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}`;
