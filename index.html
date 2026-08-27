@@ -107,6 +107,9 @@
           <a href="#projects" class="hover:text-brand-accent transition text-sm font-medium">Portfolio</a>
           <a href="#edtech" class="hover:text-brand-accent transition text-sm font-medium">EdTech</a>
           <a href="#training" class="hover:text-brand-accent transition text-sm font-medium text-brand-accent">Academy</a>
+          <a href="#testimonies" class="hover:text-brand-accent transition text-sm font-medium text-purple-300 font-semibold flex items-center gap-1">
+            <i data-lucide="video" class="w-3.5 h-3.5"></i> Success Stories
+          </a>
           <a href="#sponsorship" class="hover:text-brand-accent transition text-sm font-medium text-purple-400 font-semibold flex items-center gap-1">
             <i data-lucide="heart-handshake" class="w-3.5 h-3.5"></i> Sponsorship
           </a>
@@ -752,14 +755,14 @@
                 <div class="inline-block px-3 py-1 bg-purple-500/10 text-purple-400 border border-purple-500/30 rounded-full text-xs font-bold mb-4">
                   Entrepreneurship Outcome
                 </div>
-                <h4 class="text-2xl font-bold text-white mb-3">Kareem Shaheed — Kwara State</h4>
+                <h4 class="text-2xl font-bold text-white mb-3">Kareem Shaheed — YuNu Technologies (Kwara State)</h4>
                 <p class="text-sm text-slate-300 leading-relaxed mb-6">
-                  Kareem Shaheed is an alumnus who has gone on to establish his own startup in Kwara State, applying the practical smart automation and security installation skills gained during his training.
+                  Kareem Shaheed is an alumnus of our Smart Home Automation &amp; CCTV Master Class who went on to establish his own tech installation startup, <strong class="text-cyan-300">YuNu Technologies</strong>, in Kwara State.
                 </p>
               </div>
               <div class="pt-4 border-t border-slate-700/80 flex items-center justify-between">
                 <span class="text-xs text-slate-400">Independent Venture Launch</span>
-                <button type="button" onclick="alert('Alumni story video coming soon!')" class="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5">
+                <button type="button" onclick="openPublicVideoModal(window.publicVideos[0].url, window.publicVideos[0].name, window.publicVideos[0].category)" class="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-md hover:shadow-purple-500/20">
                   <i data-lucide="play-circle" class="w-3.5 h-3.5"></i> Watch Alumni Story
                 </button>
               </div>
@@ -767,66 +770,27 @@
           </div>
         </div>
 
-        <!-- 7. TESTIMONIALS & EVIDENCE GALLERY -->
-        <div class="mb-24" data-aos="fade-up">
-          <div class="text-center mb-12">
-            <h3 class="text-2xl sm:text-3xl font-extrabold text-white">Evidence & Trainee Feedback</h3>
-            <p class="text-sm text-slate-400 mt-2">Authentic student reviews, training photographs and documented video feedback</p>
+        <!-- 7. ALUMNI SUCCESS STORIES & PROJECT SHOWCASE GALLERY -->
+        <div id="testimonies" class="mb-24 scroll-mt-24" data-aos="fade-up">
+          <div class="text-center mb-10">
+            <span class="px-4 py-1.5 bg-purple-500/10 border border-purple-500/30 text-purple-300 rounded-full text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 mb-3">
+              <i data-lucide="video" class="w-4 h-4 text-purple-400"></i> Alumni Success Showcase
+            </span>
+            <h3 class="text-2xl sm:text-4xl font-extrabold text-white">Success Stories &amp; Trainee Project Videos</h3>
+            <p class="text-sm text-slate-400 mt-2 max-w-2xl mx-auto">Watch real project showcases and success stories from our CCTV, Smart Home Automation, and Kids Robotics graduates across Nigeria.</p>
           </div>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            <!-- Trainee Video Card 1 -->
-            <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-10 h-10 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center font-bold text-sm">AS</div>
-                  <div>
-                    <h5 class="text-base font-bold text-white">Ahmad Adamu Zakari</h5>
-                    <p class="text-xs text-cyan-400">Cohort 1 Alumnus</p>
-                  </div>
-                </div>
-                <p class="text-xs text-slate-300 leading-relaxed mb-6">
-                  "Completed hands-on masterclass in Smart Home Automation and IP CCTV networking. Gained real installation experience working with physical devices."
-                </p>
-              </div>
-              <button type="button" onclick="alert('Video testimony player: Ahmad Adamu Zakari')" class="w-full py-2.5 bg-slate-700/80 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
-                <i data-lucide="play" class="w-3.5 h-3.5 text-cyan-400"></i> Watch Testimonial
-              </button>
-            </div>
+          <!-- Category Filter Tabs -->
+          <div class="flex flex-wrap justify-center gap-2 mb-8">
+            <button onclick="filterPublicVideos('ALL')" class="vid-tab-btn active px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl text-xs font-bold transition">All Videos</button>
+            <button onclick="filterPublicVideos('Kids Robotics & STEM')" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition">Kids Robotics &amp; STEM</button>
+            <button onclick="filterPublicVideos('Smart Home Automation')" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition">Smart Home Automation</button>
+            <button onclick="filterPublicVideos('CCTV & Security')" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition">CCTV &amp; Security</button>
+          </div>
 
-            <!-- Trainee Video Card 2 -->
-            <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 flex flex-col justify-between">
-              <div>
-                <div class="flex items-center gap-3 mb-4">
-                  <div class="w-10 h-10 rounded-full bg-purple-500/20 text-purple-400 flex items-center justify-center font-bold text-sm">KS</div>
-                  <div>
-                    <h5 class="text-base font-bold text-white">Kareem Shaheed</h5>
-                    <p class="text-xs text-purple-400">Cohort 2 Alumnus (Kwara)</p>
-                  </div>
-                </div>
-                <p class="text-xs text-slate-300 leading-relaxed mb-6">
-                  "The practical exercises gave me the technical confidence to offer smart home and security installation services independently."
-                </p>
-              </div>
-              <button type="button" onclick="alert('Video testimony player: Kareem Shaheed')" class="w-full py-2.5 bg-slate-700/80 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2">
-                <i data-lucide="play" class="w-3.5 h-3.5 text-purple-400"></i> Watch Testimonial
-              </button>
-            </div>
-
-            <!-- Training in Action Photo Card -->
-            <div class="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 flex flex-col justify-between overflow-hidden">
-              <div>
-                <div class="rounded-xl overflow-hidden mb-4 border border-slate-700 h-36 relative">
-                  <img src="assets/training/lv_0_20260312113248.png" alt="BaytLogic Practical Training in Action" class="w-full h-full object-cover" />
-                  <div class="absolute bottom-2 left-2 bg-slate-900/80 text-white text-[10px] font-bold px-2 py-0.5 rounded">Training In Action</div>
-                </div>
-                <h5 class="text-base font-bold text-white mb-1">Hands-on Lab Exercises</h5>
-                <p class="text-xs text-slate-300 leading-relaxed mb-4">Real equipment wiring, crimping and IP configuration exercises.</p>
-              </div>
-              <a href="https://share.google/YCzL64jy6P3d9g93H" target="_blank" rel="noopener" class="w-full py-2.5 bg-white text-slate-900 hover:bg-slate-100 rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow">
-                <i data-lucide="external-link" class="w-3.5 h-3.5 text-cyan-600"></i> Read Independent Reviews
-              </a>
-            </div>
+          <!-- Dynamic Video Cards Grid -->
+          <div id="publicVideosGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            <!-- Rendered dynamically -->
           </div>
         </div>
 
@@ -1486,8 +1450,157 @@
           lucide.createIcons();
         }
       }
+
+      // Google Drive & YouTube URL Parser helper
+      window.getFormattedEmbedUrl = function(url) {
+        if (!url) return { type: 'video', src: '' };
+        url = url.trim();
+
+        // Google Drive support (file/d/... or id=...)
+        const gdriveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        if (gdriveMatch && gdriveMatch[1]) {
+          return {
+            type: 'iframe',
+            src: `https://drive.google.com/file/d/${gdriveMatch[1]}/preview`
+          };
+        }
+
+        // YouTube support
+        const ytMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]+)/);
+        if (ytMatch && ytMatch[1]) {
+          return {
+            type: 'iframe',
+            src: `https://www.youtube.com/embed/${ytMatch[1]}`
+          };
+        }
+
+        return {
+          type: 'video',
+          src: url
+        };
+      };
+
+      // Render Trainee Video Showcase
+      window.publicVideos = JSON.parse(localStorage.getItem('baytlogic_videos')) || [
+        {
+          id: 1,
+          name: "Kareem Shaheed — YuNu Technologies",
+          category: "Smart Home Automation",
+          url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+          desc: "Kareem Shaheed demonstrating a live CCTV installation & Smart Home automation system deployed by his startup, YuNu Technologies in Kwara State."
+        },
+        {
+          id: 2,
+          name: "Muhammad Ukasha Abdullahi",
+          category: "Smart Home Automation",
+          url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+          desc: "Ukasha presenting his live automated Tuya Zigbee Relay & CCTV integration project during the June 2026 Masterclass."
+        },
+        {
+          id: 3,
+          name: "Fasilat Olopade Olawunmi",
+          category: "CCTV & Security",
+          url: "https://www.youtube.com/embed/dQw4w9WgXcQ",
+          desc: "Fasilat demonstrating remote IP CCTV live feed setup and mobile NVR monitoring during the BaytLogic professional training."
+        }
+      ];
+
+      renderPublicVideos('ALL');
     });
+
+    function filterPublicVideos(category) {
+      document.querySelectorAll('.vid-tab-btn').forEach(btn => {
+        btn.classList.remove('bg-purple-600', 'text-white');
+        btn.classList.add('bg-slate-800', 'text-slate-300');
+      });
+      if (event && event.target) {
+        event.target.classList.remove('bg-slate-800', 'text-slate-300');
+        event.target.classList.add('bg-purple-600', 'text-white');
+      }
+      renderPublicVideos(category);
+    }
+
+    function renderPublicVideos(categoryFilter = 'ALL') {
+      const grid = document.getElementById('publicVideosGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const vids = window.publicVideos.filter(v => categoryFilter === 'ALL' || v.category === categoryFilter);
+
+      vids.forEach(v => {
+        const card = document.createElement('div');
+        card.className = 'bg-slate-800/80 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl space-y-4 p-5 flex flex-col justify-between hover:border-purple-500/50 transition group';
+
+        const safeName = v.name.replace(/'/g, "\\'");
+        const thumbnailHtml = `
+          <div class="relative h-44 bg-slate-900 rounded-xl overflow-hidden border border-slate-700/80 flex items-center justify-center cursor-pointer" onclick="openPublicVideoModal('${v.url}', '${safeName}', '${v.category}')">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/40 to-transparent"></div>
+            <div class="w-12 h-12 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition z-10">
+              <i data-lucide="play" class="w-5 h-5 ml-0.5"></i>
+            </div>
+            <span class="absolute bottom-2 left-2 text-[10px] bg-slate-950/90 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded font-bold uppercase z-10">${v.category}</span>
+          </div>
+        `;
+
+        card.innerHTML = `
+          <div>
+            ${thumbnailHtml}
+            <div class="pt-2 space-y-2">
+              <h5 class="text-base font-bold text-white flex items-center justify-between">
+                <span>${v.name}</span>
+              </h5>
+              <p class="text-xs text-slate-300 leading-relaxed font-normal">${v.desc}</p>
+            </div>
+          </div>
+          <button type="button" onclick="openPublicVideoModal('${v.url}', '${safeName}', '${v.category}')" class="w-full py-2.5 bg-purple-600/90 hover:bg-purple-600 text-white rounded-xl text-xs font-bold transition flex items-center justify-center gap-2 shadow">
+            <i data-lucide="play-circle" class="w-4 h-4"></i> Watch Video Story
+          </button>
+        `;
+        grid.appendChild(card);
+      });
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function openPublicVideoModal(url, name, category) {
+      const modal = document.getElementById('publicVideoModal');
+      const titleEl = document.getElementById('pubVidTitle');
+      const containerEl = document.getElementById('pubVidContainer');
+
+      titleEl.innerText = `${name} — ${category}`;
+
+      const embedInfo = window.getFormattedEmbedUrl(url);
+
+      if (embedInfo.type === 'iframe') {
+        const autoSrc = embedInfo.src.includes('?') ? `${embedInfo.src}&autoplay=1` : `${embedInfo.src}?autoplay=1`;
+        containerEl.innerHTML = `<iframe src="${autoSrc}" class="w-full h-80 sm:h-[450px] rounded-xl border border-slate-700 bg-black" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
+      } else {
+        containerEl.innerHTML = `<video src="${embedInfo.src}" controls autoplay class="w-full h-80 sm:h-[450px] rounded-xl border border-slate-700 bg-black object-cover"></video>`;
+      }
+
+      modal.classList.remove('hidden');
+    }
+
+    function closePublicVideoModal() {
+      const modal = document.getElementById('publicVideoModal');
+      const containerEl = document.getElementById('pubVidContainer');
+      containerEl.innerHTML = '';
+      modal.classList.add('hidden');
+    }
   </script>
+
+  <!-- Modal Popup for Trainee Video Testimonies -->
+  <div id="publicVideoModal" class="hidden fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-3xl w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 id="pubVidTitle" class="text-base font-bold text-white flex items-center gap-2">
+          <i data-lucide="video" class="w-5 h-5 text-purple-400"></i> Trainee Video Showcase
+        </h3>
+        <button onclick="closePublicVideoModal()" class="px-3 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-bold transition">&times; Close</button>
+      </div>
+      <div id="pubVidContainer" class="w-full"></div>
+    </div>
+  </div>
 
 </body>
 </html>

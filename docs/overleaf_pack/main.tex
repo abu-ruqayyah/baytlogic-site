@@ -1,0 +1,702 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.75in,top=1.0in,bottom=0.9in,headheight=65pt]{geometry}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{fontawesome5}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{titlesec}
+\usepackage{tcolorbox}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{hyperref}
+
+% --- Brand Colors (BaytLogic Palette) ---
+\definecolor{baytnavy}{HTML}{0F2C59}       % Primary Navy
+\definecolor{baytblue}{HTML}{00A8E8}       % Cyan / Bright Accent
+\definecolor{baytdarkblue}{HTML}{1E3A8A}   % Deep Blue Accent
+\definecolor{baytgray}{HTML}{475569}       % Muted Text Gray
+\definecolor{baytlight}{HTML}{F8FAFC}      % Box Light Gray/Blue
+\definecolor{baytborder}{HTML}{CBD5E1}     % Border Neutral
+\definecolor{baytgold}{HTML}{D97706}       % Highlight Amber
+
+% --- Custom Macros ---
+\newcommand{\naira}{\textbf{N}\kern-0.8em=\kern0.2em}
+\newcommand{\checkicon}{\textcolor{baytblue}{\faCheckCircle}\ }
+
+% --- Page Setup & Header/Footer ---
+\pagestyle{fancy}
+\fancyhf{}
+% Running Header (Pages 2+)
+\fancyhead[L]{\small\color{baytgray}\textbf{BaytLogic Technologies} $|$ Proposal to Hamjik Care Initiative}
+\fancyhead[R]{\small\color{baytgray}Ref: BLT/HCI/2026/PRO/001}
+% Running Footer
+\fancyfoot[L]{\small\color{baytgray}\faGlobe\ www.baytlogic.com.ng ~|~ \faEnvelope\ info@baytlogic.com.ng}
+\fancyfoot[R]{\small\color{baytgray}Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- Section Styling ---
+\titleformat{\section}
+  {\color{baytnavy}\normalfont\Large\bfseries}
+  {\thesection.}{0.5em}{}
+  [\color{baytblue}\titlerule]
+\titlespacing*{\section}{0pt}{16pt}{8pt}
+
+\titleformat{\subsection}
+  {\color{baytdarkblue}\normalfont\large\bfseries}
+  {\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{12pt}{4pt}
+
+\titleformat{\subsubsection}
+  {\color{baytnavy}\normalfont\normalsize\bfseries}
+  {\thesubsubsection}{0.5em}{}
+\titlespacing*{\subsubsection}{0pt}{8pt}{3pt}
+
+% --- Custom List Spacing ---
+\setlist[itemize]{noitemsep, topsep=3pt, parsep=2pt, partopsep=0pt, leftmargin=1.5em}
+\setlist[enumerate]{noitemsep, topsep=3pt, parsep=2pt, partopsep=0pt, leftmargin=1.5em}
+
+% --- TColorBox Styles ---
+\tcbuselibrary{skins, breakable}
+
+\tcbset{
+  baytbox/.style={
+    enhanced,
+    colback=baytlight,
+    colframe=baytnavy,
+    boxrule=1pt,
+    arc=4pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt
+  },
+  themebox/.style={
+    enhanced,
+    colback=baytnavy,
+    colframe=baytblue,
+    coltext=white,
+    boxrule=1.5pt,
+    arc=6pt,
+    halign=center,
+    left=10pt, right=10pt, top=10pt, bottom=10pt
+  },
+  calloutbox/.style={
+    enhanced,
+    colback=baytlight,
+    colframe=baytblue,
+    boxrule=1pt,
+    leftrule=4pt,
+    arc=2pt,
+    left=10pt, right=10pt, top=8pt, bottom=8pt
+  }
+}
+
+% --- Hyperlink Settings ---
+\hypersetup{
+    colorlinks=true,
+    linkcolor=baytdarkblue,
+    urlcolor=baytblue,
+    pdftitle={Proposal - BaytLogic Technologies},
+    pdfauthor={BaytLogic Technologies}
+}
+
+\begin{document}
+
+% ==============================================================================
+% BAYTLOGIC LETTERHEAD (PAGE 1 TOP)
+% ==============================================================================
+\thispagestyle{empty}
+
+\begin{tcolorbox}[enhanced, colback=white, colframe=baytnavy, boxrule=1.5pt, arc=0pt, left=12pt, right=12pt, top=10pt, bottom=10pt]
+\begin{minipage}[c]{0.68\textwidth}
+    {\Huge \textbf{\color{baytnavy}BAYTLOGIC TECHNOLOGIES}}\\[2pt]
+    {\large \color{baytblue}\textbf{\textit{Where Intelligence Meets Security}}}\\[4pt]
+    {\small \textbf{RC No:} 8509421}
+\end{minipage}
+\hfill
+\begin{minipage}[c]{0.30\textwidth}
+    \raggedleft
+    \includegraphics[height=1.3cm,keepaspectratio]{logo.png}
+\end{minipage}
+
+\vspace{6pt}
+\hrule height 1pt color baytblue
+\vspace{6pt}
+
+{\scriptsize \color{baytgray}
+\textbf{Specialized Services:} Artificial Intelligence Solutions $|$ Cybersecurity Services \& Training $|$ CCTV Installation \& Maintenance $|$ Smart Home Automation $|$ Robotics \& Coding for Kids $|$ School Management Systems $|$ Website \& Software Development $|$ Network Installation \& Support
+}
+
+\vspace{6pt}
+\hrule height 0.5pt color baytborder
+\vspace{6pt}
+
+\begin{minipage}[t]{0.50\textwidth}
+    {\scriptsize \color{baytnavy} \faMapMarker*\ \textbf{Our Office:} NTEL T-Junction, Atiku Abubakar Street, Ibrahim Bako, Bauchi.}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.48\textwidth}
+    \raggedleft
+    {\scriptsize \color{baytnavy}
+    \faPhone*\ 08032476476 ~$|$~ 
+    \faEnvelope\ \href{mailto:info@baytlogic.com.ng}{info@baytlogic.com.ng} ~$|$~ 
+    \faGlobe\ \href{http://www.baytlogic.com.ng}{www.baytlogic.com.ng}}
+\end{minipage}
+\end{tcolorbox}
+
+\vspace{10pt}
+
+% --- Reference & Date Line ---
+\begin{tabularx}{\textwidth}{@{}X r@{}}
+\textbf{Our Ref:} BLT/HCI/2026/PRO/001 & \textbf{Date:} August 27, 2026 \\
+\textbf{Your Ref:} \underline{\hspace{4cm}} & \\
+\end{tabularx}
+
+\vspace{15pt}
+
+% --- Recipient Address Block ---
+\begin{tcolorbox}[calloutbox]
+\textbf{The Executive Director}\\
+Hamjik Care Initiative\\
+Gombe State, Nigeria.
+\end{tcolorbox}
+
+\vspace{10pt}
+
+% --- Proposal Subject Banner ---
+\begin{tcolorbox}[themebox]
+    \Large \textbf{SUBJECT: PROPOSAL FOR A PRACTICAL CCTV INSTALLATION, NETWORKING \& SMART HOME AUTOMATION SKILLS DEVELOPMENT PROGRAMME}
+\end{tcolorbox}
+
+\vspace{10pt}
+
+\noindent Dear Sir/Madam,
+
+% ==============================================================================
+% SECTION 1: INTRODUCTION
+% ==============================================================================
+\section{INTRODUCTION}
+BaytLogic Technologies is pleased to present this proposal to Hamjik Care Initiative for the delivery of an intensive, practical technical skills development programme focused on CCTV Installation, Networking, Configuration, Maintenance and Smart Home Automation.
+
+The proposed programme is designed to equip \textbf{40 young people} with practical, market-relevant technology skills that can contribute to employability, self-employment, entrepreneurship and sustainable livelihood opportunities.
+
+Rather than relying primarily on classroom lectures, the programme adopts a strongly practical approach in which participants will work directly with CCTV systems, networking tools, cables, connectors, NVR equipment, smart-home devices and automation technologies.
+
+Participants will learn how to install, configure, test, troubleshoot and deploy real technology systems, while also receiving introductory entrepreneurship training on how such skills can be converted into professional services.
+
+The programme will be delivered by \textbf{BaytLogic Technologies}, a Nigerian technology company specializing in CCTV and security systems, smart home automation, cybersecurity, artificial intelligence, networking, software development and practical technology training.
+
+% ==============================================================================
+% SECTION 2: PROGRAMME TITLE
+% ==============================================================================
+\section{PROGRAMME TITLE}
+\noindent\textbf{\large PRACTICAL CCTV INSTALLATION, NETWORKING \& SMART HOME AUTOMATION SKILLS DEVELOPMENT PROGRAMME}
+
+\vspace{8pt}
+\begin{tcolorbox}[themebox]
+    {\Huge \textbf{LEARN $\bullet$ INSTALL $\bullet$ CONFIGURE $\bullet$ TROUBLESHOOT $\bullet$ EARN}}
+\end{tcolorbox}
+
+% ==============================================================================
+% SECTION 3: PROPOSED BENEFICIARIES
+% ==============================================================================
+\section{PROPOSED BENEFICIARIES}
+The programme will support \textbf{40 participants}, divided into two cohorts:
+
+\begin{description}[style=multiline, leftmargin=3.5cm]
+    \item[Cohort 1 — Students:] \textbf{20 undergraduate students} of Gombe State University \\
+    \textit{Duration:} 3 Days
+    \item[Cohort 2 — Graduates:] \textbf{20 graduates} \\
+    \textit{Duration:} 3 Days
+\end{description}
+
+Each cohort will receive the same core practical curriculum, with the delivery adapted where necessary to accommodate differences in experience and learning needs.
+
+\vspace{4pt}
+\begin{tcolorbox}[baytbox]
+\begin{center}
+    \textbf{Total Participants:} 40 $|$ \textbf{Total Training Delivery:} 6 Training Days
+\end{center}
+\end{tcolorbox}
+
+% ==============================================================================
+% SECTION 4: PROGRAMME RATIONALE
+% ==============================================================================
+\section{PROGRAMME RATIONALE}
+Technology-driven security and automation services are becoming increasingly important across homes, schools, offices, businesses, hotels, healthcare facilities, religious institutions and residential estates.
+
+At the same time, many young people possess limited access to hands-on technical training and professional tools that would enable them to enter these emerging markets.
+
+CCTV installation and smart-home automation represent particularly practical areas because they combine:
+\begin{itemize}[label=\checkicon]
+    \item Networking \& Structured Cabling
+    \item Electrical / electronic fundamentals
+    \item IoT (Internet of Things) technologies
+    \item Mobile applications \& Remote monitoring
+    \item Physical security systems
+    \item Hardware installation \& Mounting
+    \item Technical Troubleshooting
+    \item Customer service \& Project estimation
+    \item Entrepreneurship \& Business development
+\end{itemize}
+
+The proposed programme therefore seeks to bridge the gap between learning about technology and actually being able to deploy technology.
+
+% ==============================================================================
+% SECTION 5: PROGRAMME OBJECTIVES
+% ==============================================================================
+\section{PROGRAMME OBJECTIVES}
+The programme aims to:
+\begin{enumerate}
+    \item Equip participants with foundational knowledge of CCTV surveillance systems.
+    \item Develop practical skills in CCTV installation and configuration.
+    \item Train participants in CAT6 cable termination and network cable testing.
+    \item Introduce participants to IP networking principles relevant to CCTV systems.
+    \item Develop participants' ability to configure NVR-based surveillance systems.
+    \item Teach participants basic CCTV troubleshooting and fault diagnosis.
+    \item Introduce participants to modern smart-home and IoT technologies.
+    \item Enable participants to configure smart lighting, sensors and automated curtains.
+    \item Demonstrate smartphone and voice-controlled automation.
+    \item Develop participants' practical problem-solving abilities.
+    \item Introduce participants to technical service pricing, client acquisition and entrepreneurship.
+    \item Provide each participant with basic technical tools to support continued practice after the programme.
+    \item Assess participants' practical competencies at the end of the programme.
+    \item Provide successful participants with certificates documenting completion of the training.
+\end{enumerate}
+
+% ==============================================================================
+% SECTION 6: TRAINING METHODOLOGY
+% ==============================================================================
+\section{TRAINING METHODOLOGY}
+BaytLogic Technologies proposes a highly practical training methodology, with approximately:
+
+\begin{tcolorbox}[themebox]
+    {\Huge \textbf{70\% Practical \quad/\quad 30\% Theory}}
+\end{tcolorbox}
+
+\noindent The training will combine:
+\begin{itemize}
+    \item Instructor demonstrations
+    \item Guided practical exercises
+    \item Individual hands-on activities
+    \item Team-based laboratory work
+    \item Troubleshooting exercises
+    \item Realistic installation scenarios
+    \item Practical project work
+    \item Entrepreneurship sessions
+    \item Final competency demonstrations
+\end{itemize}
+The objective is for participants to leave the programme having actually handled and configured the equipment, rather than simply understanding the concepts theoretically.
+
+% ==============================================================================
+% SECTION 7: THREE-DAY TRAINING CURRICULUM
+% ==============================================================================
+\section{THREE-DAY TRAINING CURRICULUM}
+
+% --- DAY 1 ---
+\subsection{DAY 1 — CCTV Fundamentals, Networking \& Cable Termination}
+
+\subsubsection{Module 1: Introduction to CCTV Technology}
+\textbf{Participants will learn:}
+\begin{itemize}
+    \item What CCTV is and how surveillance systems work
+    \item CCTV system architecture
+    \item Analog vs IP CCTV
+    \item Camera types and applications (Dome, Bullet, PTZ, Indoor/Outdoor)
+    \item Camera resolution, Night vision/Infrared, and Field of view
+    \item Storage requirements calculation
+    \item NVR and DVR technologies
+    \item PoE (Power over Ethernet) and network infrastructure
+\end{itemize}
+
+\vspace{4pt}
+\begin{tcolorbox}[calloutbox]
+\textbf{Practical Laboratory 1 — CCTV Equipment Identification}\\
+\textit{Participants will:} Identify CCTV cameras, NVR components, storage devices, PoE equipment, network cables, connectors, and installation tools, and design a basic CCTV system layout.
+\end{tcolorbox}
+
+\subsubsection{Module 2: Networking \& Structured Cabling}
+\textbf{Participants will learn:}
+\begin{itemize}
+    \item Basic networking concepts and Ethernet networking
+    \item CAT5e and CAT6 cables structure
+    \item RJ45 connectors and T568A / T568B wiring standards
+    \item Straight-through network cables vs Crossover cables
+    \item Cable routing and management best practices
+    \item Basic network troubleshooting
+\end{itemize}
+
+\vspace{4pt}
+\begin{tcolorbox}[calloutbox]
+\textbf{Practical Laboratory 2 — CAT6 Termination}\\
+\textit{Participants will individually practise:} Measuring cable, stripping CAT6 cable, arranging cable conductors, preparing RJ45 connectors, crimping RJ45 connectors, testing network cables with LAN tester, identifying wiring faults, and correcting failed terminations.\\
+\textbf{Note:} This practical session ensures that every participant has direct experience with one of the most fundamental skills required in CCTV and networking installations.
+\end{tcolorbox}
+
+% --- DAY 2 ---
+\subsection{DAY 2 — CCTV Installation, Configuration \& Smart Home Automation}
+
+\subsubsection{Module 3: CCTV Installation \& NVR Configuration}
+\textbf{Participants will learn:}
+\begin{itemize}
+    \item CCTV installation planning, camera positioning, mounting, and cable routing
+    \item Power requirements and PoE networking
+    \item IP addressing scheme and NVR configuration
+    \item Camera discovery, channel mapping, recording configuration, and playback
+    \item User management, remote monitoring, and mobile CCTV applications
+\end{itemize}
+
+\vspace{4pt}
+\begin{tcolorbox}[calloutbox]
+\textbf{Practical Laboratory 3 — CCTV System Deployment}\\
+\textit{Participants will work in teams to:} Connect CCTV cameras to NVR, configure network connections, configure camera channels and recording, test live viewing, review recorded footage, and configure remote/mobile viewing.
+\end{tcolorbox}
+
+\vspace{4pt}
+\begin{tcolorbox}[calloutbox]
+\textbf{Practical Troubleshooting Exercise}\\
+\textit{Participants will diagnose simulated problems including:} Camera offline, no video signal, faulty network cable, incorrect IP configuration, power failure, and storage/recording problems.
+\end{tcolorbox}
+
+\subsubsection{Module 4: Introduction to Smart Home Automation}
+\textbf{Participants will learn:}
+\begin{itemize}
+    \item What is smart home automation? Internet of Things (IoT) fundamentals
+    \item Smart home architecture (Wi-Fi vs Zigbee devices, Smart hubs/gateways)
+    \item Smart switches, bulbs, plugs, motion sensors, door/window sensors, smart curtains
+    \item Mobile app control, voice control integration, and automation routines
+\end{itemize}
+
+\vspace{4pt}
+\begin{tcolorbox}[calloutbox]
+\textbf{Practical Laboratory 4 — Smart Home Configuration}\\
+\textit{Participants will work with practical smart-home devices to demonstrate:}
+\begin{itemize}
+    \item \textbf{Smart Lighting:} Smartphone $\rightarrow$ Light ON/OFF
+    \item \textbf{Voice Control:} Voice Command $\rightarrow$ Light ON/OFF
+    \item \textbf{Door Automation:} Door Opens $\rightarrow$ Light Activates
+    \item \textbf{Motion Automation:} Motion Detected $\rightarrow$ Light Activates
+    \item \textbf{Smart Curtain:} Smartphone $\rightarrow$ Curtain Opens/Closes
+\end{itemize}
+\end{tcolorbox}
+
+% --- DAY 3 ---
+\subsection{DAY 3 — Integrated Project, Troubleshooting \& Entrepreneurship}
+
+\subsubsection{Module 5: Integrated Practical Project}
+Participants will be divided into practical teams. Each team will be given a realistic client scenario requiring them to plan and deploy a small technology solution.
+
+Depending on available equipment, projects will combine CCTV, NVR, Networking, Smart lighting, Sensors, Smart curtain, and Mobile control.
+
+\textbf{Participants will be expected to:}
+\begin{enumerate}
+    \item Understand the client requirement
+    \item Select appropriate equipment & plan the installation
+    \item Design the basic system layout
+    \item Terminate required CAT6 cables
+    \item Connect and configure the equipment & test the system
+    \item Identify and resolve simulated faults
+    \item Demonstrate the completed working solution to instructors
+\end{enumerate}
+
+% ==============================================================================
+% SECTION 8: ENTREPRENEURSHIP & INCOME-GENERATION SESSION
+% ==============================================================================
+\section{ENTREPRENEURSHIP \& INCOME-GENERATION SESSION}
+A major component of the programme will focus on helping participants understand how their newly acquired technical skills can become income-generating services.
+
+\subsection{Finding Customers}
+Potential CCTV and smart-home customers include:
+Homes, Schools, Offices, Shops, Hotels, Hospitals, Religious institutions, Estates, Small businesses, and Warehouses.
+
+\subsection{Technical Service Pricing}
+Participants will learn the fundamentals of:
+\begin{itemize}
+    \item Material costing \& Labour costing
+    \item Transportation \& logistics factor
+    \item Installation charges \& Configuration fees
+    \item Maintenance charges \& Profit margins
+    \item Formal quotation preparation
+\end{itemize}
+
+\subsection{Building a Technical Services Business}
+Participants will also be introduced to:
+\begin{itemize}
+    \item Professional customer communication
+    \item Taking project measurements \& Documenting completed projects
+    \item Building a portfolio \& WhatsApp business / Social-media marketing
+    \item Referrals \& Maintenance contracts
+    \item Working as independent technicians vs. subcontracting with established tech firms
+\end{itemize}
+
+% ==============================================================================
+% SECTION 9: PARTICIPANT STARTER PACK
+% ==============================================================================
+\section{PARTICIPANT STARTER PACK}
+One of the distinguishing features of this programme is that each participant will receive a personal technical starter pack to encourage continued practice and application of the skills acquired.
+
+\begin{tcolorbox}[themebox]
+\textbf{\Large EACH PARTICIPANT RECEIVES A PERSONAL TOOLKIT:}\\[6pt]
+\begin{enumerate}[label=\bfseries\color{baytblue}\arabic*.]
+    \color{white}
+    \item \textbf{RJ45/CAT6 Professional Crimping Tool}
+    \item \textbf{LAN Cable Tester}
+    \item \textbf{Basic cable-termination consumables} (RJ45 connectors, boot caps)
+    \item \textbf{Customized BaytLogic Technologies branded paper bag}
+\end{enumerate}
+\end{tcolorbox}
+
+\noindent The starter pack is intended to give participants basic tools with which they can continue practising CAT6 termination and networking skills after the training. It also provides participants with a practical foundation for beginning small technical assignments under appropriate supervision.
+
+% ==============================================================================
+% SECTION 10: TRAINING EQUIPMENT & PRACTICAL RESOURCES
+% ==============================================================================
+\section{TRAINING EQUIPMENT \& PRACTICAL RESOURCES}
+BaytLogic Technologies will provide the necessary training equipment for the practical sessions, which includes:
+
+\begin{description}[style=multiline, leftmargin=3.8cm]
+    \item[CCTV Equipment:] IP CCTV cameras, NVR, Surveillance storage hard drives, CAT6 cables, RJ45 connectors, PoE switches, network equipment, cable testers, crimping tools, installation accessories.
+    \item[Smart Home Devices:] Smart switches, smart bulbs/lights, smart plugs, motion sensors, door/window sensors, smart curtain system, smart hub/gateway, mobile control apps, voice-control units.
+\end{description}
+
+% ==============================================================================
+% SECTION 11: TRAINING MATERIALS & PARTICIPANT SUPPORT
+% ==============================================================================
+\section{TRAINING MATERIALS \& PARTICIPANT SUPPORT}
+Participants will receive appropriate training resources to support their learning, including:
+\begin{itemize}
+    \item Printed / Digital training notes and reference manuals
+    \item Practical step-by-step instructions
+    \item Guided laboratory exercise guides
+    \item Troubleshooting decision flowcharts
+    \item Entrepreneurship \& quotation templates
+\end{itemize}
+
+% ==============================================================================
+% SECTION 12: PARTICIPANT REFRESHMENTS
+% ==============================================================================
+\section{PARTICIPANT REFRESHMENTS}
+To support participants during the intensive practical sessions, daily snacks/refreshments will be provided for participants throughout the three-day training programme for each cohort, subject to the agreed programme logistics.
+
+% ==============================================================================
+% SECTION 13: ASSESSMENT & COMPETENCY EVALUATION
+% ==============================================================================
+\section{ASSESSMENT \& COMPETENCY EVALUATION}
+The programme will use practical assessment methods rather than relying solely on written examinations.
+
+\begin{itemize}
+    \item \textbf{Technical Skills Evaluation:} CAT6 termination quality, cable testing accuracy, CCTV/NVR connection, NVR configuration, smart device pairing, fault diagnosis.
+    \item \textbf{Practical Team Project:} Demonstration of an end-to-end working system solution.
+    \item \textbf{Entrepreneurship Scenarios:} Project cost estimation, bill of quantities (BOQ) preparation, client presentation.
+\end{itemize}
+
+% ==============================================================================
+% SECTION 14: CERTIFICATION
+% ==============================================================================
+\section{CERTIFICATION}
+Participants who successfully complete the programme will receive a formal:
+\begin{center}
+    \tcbhighcontrastbox[colback=baytnavy,coltext=white,arc=4pt]{\Large \textbf{CERTIFICATE OF COMPLETION}}
+\end{center}
+\noindent Issued by \textbf{BAYTLOGIC TECHNOLOGIES}, recognizing completion of the \textit{CCTV Installation, Networking \& Smart Home Automation Practical Skills Training}, delivered in partnership with \textbf{Hamjik Care Initiative}.
+
+% ==============================================================================
+% SECTION 15: EXPECTED LEARNING OUTCOMES
+% ==============================================================================
+\section{EXPECTED LEARNING OUTCOMES}
+At the conclusion of the programme, participants should be able to:
+
+\subsection{CCTV \& Networking}
+\begin{itemize}[label=\checkicon]
+    \item Explain the fundamental components of CCTV systems.
+    \item Identify appropriate CCTV cameras for different applications.
+    \item Understand basic IP networking concepts.
+    \item Terminate CAT6 network cables and test Ethernet cables.
+    \item Connect CCTV cameras to an NVR and configure NVR settings.
+    \item Configure recording, playback, and remote monitoring.
+    \item Identify and diagnose common CCTV system faults.
+\end{itemize}
+
+\subsection{Smart Home Automation}
+\begin{itemize}[label=\checkicon]
+    \item Explain basic IoT and smart-home concepts.
+    \item Configure smart lighting, sensors, and smart curtains.
+    \item Create basic automation routines and voice-controlled triggers.
+    \item Use smartphone-based control applications.
+\end{itemize}
+
+\subsection{Entrepreneurship}
+\begin{itemize}[label=\checkicon]
+    \item Understand basic technical project costing and prepare service quotations.
+    \item Identify potential customers and market technical services professionally.
+    \item Apply basic installation business models.
+\end{itemize}
+
+% ==============================================================================
+% SECTION 16: EXPECTED PROGRAMME OUTPUTS
+% ==============================================================================
+\section{EXPECTED PROGRAMME OUTPUTS}
+
+\begin{table}[h!]
+\centering
+\rowcolors{2}{baytlight}{white}
+\begin{tabularx}{\textwidth}{X c}
+\toprule
+\rowcolor{baytnavy} \color{white}\textbf{Output Indicator} & \color{white}\textbf{Target Quantity} \\
+\midrule
+Undergraduate participants trained (Cohort 1) & 20 Participants \\
+Graduate participants trained (Cohort 2) & 20 Participants \\
+\textbf{Total participants trained} & \textbf{40 Participants} \\
+Training duration per participant & 3 Days \\
+Total cohorts & 2 Cohorts \\
+Total training delivery days & 6 Training Days \\
+Technical starter packs distributed & 40 Packs \\
+Certificates of completion issued & Up to 40 Certificates \\
+Practical competency assessment conducted & 40 Participants \\
+\bottomrule
+\end{tabularx}
+\caption{Programme Expected Outputs Summary}
+\end{table}
+
+% ==============================================================================
+% SECTION 17: BAYTLOGIC TECHNOLOGIES' RESPONSIBILITIES
+% ==============================================================================
+\section{BAYTLOGIC TECHNOLOGIES' RESPONSIBILITIES}
+BaytLogic Technologies will be responsible for:
+\begin{itemize}
+    \item Developing and delivering the practical training curriculum
+    \item Providing qualified technical facilitators & practical training equipment
+    \item Providing networking tools, smart home demo units, and consumables
+    \item Conducting practical demonstrations & supervising laboratory activities
+    \item Conducting competency assessments & issuing certificates of completion
+    \item Providing participant starter packs (crimpers, testers, bags)
+    \item Providing training materials & daily participant refreshments/snacks
+    \item Preparing a comprehensive post-training summary report
+\end{itemize}
+
+% ==============================================================================
+% SECTION 18: HAMJIK CARE INITIATIVE'S RESPONSIBILITIES
+% ==============================================================================
+\section{HAMJIK CARE INITIATIVE'S RESPONSIBILITIES}
+The proposed responsibilities of Hamjik Care Initiative include:
+\begin{itemize}
+    \item Participant identification, selection, and mobilization
+    \item Provision of suitable training venue (with adequate tables, seating, electricity/power)
+    \item Display facilities (projector/screen) and Internet connectivity where required
+    \item Participant attendance coordination and local logistical support
+    \item Participant welfare arrangements outside the agreed training package
+\end{itemize}
+
+% ==============================================================================
+% SECTION 19: MONITORING, EVALUATION & REPORTING
+% ==============================================================================
+\section{MONITORING, EVALUATION \& REPORTING}
+BaytLogic Technologies will support programme monitoring through:
+
+\begin{description}[style=multiline, leftmargin=3.2cm]
+    \item[Pre-Training:] Participant registration and baseline skills assessment.
+    \item[During Training:] Daily attendance monitoring, practical observation, competency tracking.
+    \item[End of Training:] Practical assessment, team project demonstration, feedback collection, certification.
+    \item[Post-Training Report:] Submission of a formal summary report detailing attendance, modules delivered, assessment outcomes, starter packs distributed, photographic documentation, and recommendations.
+\end{description}
+
+% ==============================================================================
+% SECTION 20: SUSTAINABILITY & SKILLS-TO-INCOME APPROACH
+% ==============================================================================
+\section{SUSTAINABILITY \& SKILLS-TO-INCOME APPROACH}
+BaytLogic Technologies believes that technical training is most valuable when participants can continue practising and applying their skills after the training.
+
+For this reason, the programme combines:
+\begin{center}
+    \textbf{Training \quad+\quad Practical Experience \quad+\quad Tools \quad+\quad Entrepreneurship}
+\end{center}
+
+Rather than ending with the final training session, participants leave with basic technical tools that allow them to continue practising cable termination and networking skills.
+
+The programme provides a foundation for participants to pursue employment opportunities, apprenticeships, technical internships, freelance technical work, small installation businesses, or subcontracting opportunities with established technology firms.
+
+% ==============================================================================
+% SECTION 21: PROGRAMME INVESTMENT
+% ==============================================================================
+\section{PROGRAMME INVESTMENT}
+
+\begin{tcolorbox}[themebox]
+    {\Large \textbf{Training Fee:} \naira 50,000 per participant}\\[4pt]
+    {\Huge \textbf{Total Programme Investment: \naira 2,000,000}}\\[4pt]
+    \textit{Calculation: 40 participants $\times$ \naira 50,000 = \naira 2,000,000}
+\end{tcolorbox}
+
+\vspace{6pt}
+\noindent\textbf{\large Breakdown of the \naira 50,000 Participant Package:}
+
+\begin{table}[h!]
+\centering
+\rowcolors{2}{baytlight}{white}
+\begin{tabularx}{\textwidth}{X c}
+\toprule
+\rowcolor{baytnavy} \color{white}\textbf{Component / Deliverable} & \color{white}\textbf{Status} \\
+\midrule
+3-Day Practical Training (CCTV, Networking, Smart Home) & \checkicon Included \\
+CAT6 Networking, Cable Termination \& NVR Configuration & \checkicon Included \\
+Smart Lighting, Sensor \& Smart Curtain Practicals & \checkicon Included \\
+Practical Team Project \& Troubleshooting Scenarios & \checkicon Included \\
+Entrepreneurship, Pricing \& Business Development Session & \checkicon Included \\
+\textbf{Personal RJ45/CAT6 Crimping Tool} & \checkicon Included \\
+\textbf{Personal LAN Cable Tester} & \checkicon Included \\
+\textbf{Customized BaytLogic Starter Bag \& Consumables} & \checkicon Included \\
+Comprehensive Training Notes \& Materials & \checkicon Included \\
+Daily Snacks / Refreshments (3 Days per cohort) & \checkicon Included \\
+Practical Competency Assessment & \checkicon Included \\
+\textbf{Certificate of Completion} & \checkicon Included \\
+\bottomrule
+\end{tabularx}
+\caption{Participant Package Inclusions}
+\end{table}
+
+\subsection{Programme Structure Summary}
+\begin{itemize}
+    \item \textbf{Cohort 1:} 20 Gombe State University Undergraduate Students — 3 Days
+    \item \textbf{Cohort 2:} 20 Graduates — 3 Days
+    \item \textbf{Total:} 40 Participants / 6 Training Days
+\end{itemize}
+
+% ==============================================================================
+% SECTION 22: CONCLUSION & SIGNATURE
+% ==============================================================================
+\section{CONCLUSION}
+BaytLogic Technologies appreciates the opportunity to partner with Hamjik Care Initiative in delivering this practical technical skills development programme.
+
+We believe that young people require more than theoretical knowledge to participate meaningfully in today's technology-driven economy. They require practical skills, exposure to real equipment, problem-solving ability, professional guidance and access to basic tools.
+
+The proposed programme has therefore been deliberately designed around the principle:
+\begin{center}
+    \tcbhighcontrastbox[colback=baytnavy,coltext=white]{\textbf{LEARN $\bullet$ INSTALL $\bullet$ CONFIGURE $\bullet$ TROUBLESHOOT $\bullet$ EARN}}
+\end{center}
+
+Through this intervention, participants will gain practical exposure to CCTV installation, structured networking and smart-home automation while also learning the fundamentals of turning technical skills into professional services.
+
+BaytLogic Technologies looks forward to working with Hamjik Care Initiative to deliver a high-quality, practical and measurable programme that contributes to youth skills development, digital inclusion, employability and sustainable livelihood opportunities in Gombe State.
+
+We remain available to discuss the programme structure, implementation schedule, venue requirements and other logistical arrangements necessary for successful delivery.
+
+\vspace{25pt}
+
+\noindent Yours faithfully,\\[10pt]
+\begin{tikzpicture}
+    % Decorative signature line / placeholder box
+    \draw[thick, baytnavy] (0,0) -- (6,0);
+\end{tikzpicture}\\[6pt]
+\textbf{\large YAHAYA SULAIMAN ABDULLAHI}\\
+Founder \& CEO\\
+\textbf{BaytLogic Technologies}\\
+\textit{Where Intelligence Meets Security.}\\[6pt]
+\faPhone*\ 08032476476\\
+\faEnvelope\ \href{mailto:info@baytlogic.com.ng}{info@baytlogic.com.ng}\\
+\faGlobe\ \href{http://www.baytlogic.com.ng}{www.baytlogic.com.ng}
+
+\end{document}

@@ -13,7 +13,7 @@
 body {
   font-family: 'Inter', sans-serif;
   background: radial-gradient(circle at top, #0f172a, #020617);
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .glow {
@@ -117,8 +117,9 @@ Redirecting to WhatsApp in <span id="count">10</span>s...
 function trackClick(type){
   fetch("/.netlify/functions/track", {
     method:"POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({type})
-  });
+  }).catch(() => null);
 }
 
 // STOP AUTO REDIRECT IF USER INTERACTS

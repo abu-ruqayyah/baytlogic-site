@@ -85,11 +85,15 @@
               <p id="resDate" class="text-slate-200"></p>
             </div>
             <div>
-              <p class="text-slate-400 text-xs uppercase tracking-widest">Verification Status</p>
-              <p id="resStatus" class="text-green-400 font-semibold flex items-center gap-1">
-                <span class="w-2 h-2 rounded-full bg-green-400 inline-block animate-ping"></span> Valid Record
-              </p>
+              <p class="text-slate-400 text-xs uppercase tracking-widest">Sponsoring Partner</p>
+              <p id="resPartner" class="text-amber-400 font-semibold">Hamjik Care Initiative</p>
             </div>
+          </div>
+          <div class="pt-1">
+            <p class="text-slate-400 text-xs uppercase tracking-widest">Verification Status</p>
+            <p id="resStatus" class="text-green-400 font-semibold flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-green-400 inline-block animate-ping"></span> Valid Record
+            </p>
           </div>
           <div class="pt-4 flex justify-end gap-3">
             <button onclick="window.print()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-semibold rounded-lg transition flex items-center gap-1.5 border border-slate-700">
@@ -200,8 +204,8 @@
           });
         } else if (data && data.success) {
           showResult(data.data);
-        } else if (!response && fallbackRecord) {
-          showResult(fallbackRecord);
+        } else if (localDb[normalizedKey]) {
+          showResult(localDb[normalizedKey]);
         } else {
           errorText.innerText = (data && data.error) ? data.error : "Invalid or unrecognized certificate number.";
           errorMsg.classList.remove('hidden');
@@ -236,7 +240,10 @@
     function showResult(record) {
       document.getElementById('resName').innerText = record.name;
       document.getElementById('resCourse').innerText = record.course;
-      document.getElementById('resDate').innerText = record.issueDate;
+      document.getElementById('resDate').innerText = record.issueDate || record.date;
+      if (document.getElementById('resPartner')) {
+        document.getElementById('resPartner').innerText = record.partner || record.partners || "Hamjik Care Initiative";
+      }
       document.getElementById('resStatus').innerText = record.status || "Valid Record";
       document.getElementById('resultCard').classList.remove('hidden');
       lucide.createIcons();

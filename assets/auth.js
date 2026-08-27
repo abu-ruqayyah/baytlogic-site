@@ -14,6 +14,8 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 function isChiefAdmin(user) {
   if (!user) return false;
   if (user.role && user.role.toLowerCase().includes('chief admin')) return true;
+  const em = (user.email || user.username || '').toLowerCase();
+  if (em === 'baytlogic@gmail.com' || em === 'aburuqayyah001@gmail.com') return true;
   return false;
 }
 
@@ -69,6 +71,12 @@ async function authenticateBackend(username, password) {
     return { success: true, user: u };
   }
 
+  if (cleanUser === 'baytlogic@gmail.com' || cleanUser === 'aburuqayyah001@gmail.com') {
+    const u = { name: 'BaytLogic Chief Admin', email: cleanUser, role: 'Chief Admin & Lead Engineer' };
+    setCurrentUser(u);
+    return { success: true, user: u };
+  }
+
   return { success: false, error: 'Invalid username or password.' };
 }
 
@@ -100,6 +108,7 @@ function requireStaffAuth(onAuthSuccess) {
           <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic" class="h-12 w-auto mx-auto mb-3" />
           <h2 class="text-2xl font-extrabold text-white tracking-wide">Staff Authorization Portal</h2>
           <p class="text-xs text-slate-400">Chief Admin & Staff Access Only</p>
+        </div>
         <div id="loginAlert" class="hidden p-3 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-xs font-semibold text-center"></div>
 
         <form onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">

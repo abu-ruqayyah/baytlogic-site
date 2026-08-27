@@ -112,7 +112,7 @@ BaytLogic maintains a clear distinction between **proven outcomes** (established
 
 #### Established Proven Outcomes:
 * **8 Staff Hires at BaytLogic:** 8 graduates from Cohorts 1 & 2 are now working as technical staff with BaytLogic Technologies. High-performing graduates progressed into technical roles within the company, creating a direct example of how practical training develops talent for the technology workforce.
-* **Entrepreneurship Outcome:** Alumnus **Kareem Shaheed** established his own technical installation startup in Kwara State after completing his training.
+* **Entrepreneurship Outcome:** Alumnus **Kareem Shaheed** established his own technical installation startup, **YuNu Technologies**, in Kwara State after completing his Smart Home Automation & CCTV training.
 * **Master's Student Enrollment:** The programme successfully attracts advanced learners, including 4 Master's students in Embedded AI.
 * **Independent Public Feedback:** Authentic reviews and feedback from past trainees are publicly accessible via our [Google Business Reviews Profile](https://share.google/YCzL64jy6P3d9g93H).
 * **Live Digital Credential System:** Every graduate certificate is issued with a unique ID verifiable on our online portal ([`verify.html`](file:///c:/Users/PC/OneDrive/Desktop/baytlogic-site/verify.html)).
@@ -129,8 +129,8 @@ PROVEN ALUMNI OUTCOME EXAMPLES:
    (Technical installation, customer support & field operations)
 
 2. Entrepreneurial Venture Launch
-   Kareem Shaheed ──> Founded Independent Startup in Kwara State
-   (Delivering smart home & security installations in Kwara State)
+   Kareem Shaheed ──> Founded YuNu Technologies in Kwara State
+   (Delivering smart home & security installations across Kwara State)
 ```
 
 ---

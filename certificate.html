@@ -12,8 +12,8 @@
   <!-- html2pdf.js for client-side PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-  <!-- Google Fonts: Cinzel (Refined Serif Heading), Playfair Display (Recipient Name), Inter (Modern Body) -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- Google Fonts: Cinzel, Playfair Display, Great Vibes (Cursive Script), Alex Brush, Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;600;700;800&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Sacramento&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -23,12 +23,15 @@
             sans: ['Inter', 'sans-serif'],
             serif: ['Playfair Display', 'serif'],
             cinzel: ['Cinzel', 'serif'],
+            script: ['Sacramento', 'cursive'],
+            signature: ['Great Vibes', 'cursive'],
           },
           colors: {
             brand: {
-              navy: '#0f2847',
+              navy: '#0b1d3a',
               gold: '#c59b27',
-              goldMuted: '#9a7b2c',
+              goldDark: '#9a7b2c',
+              goldLight: '#e6c875',
               slate: '#334155',
             }
           }
@@ -49,8 +52,8 @@
       }
       
       html, body {
-        background: #fdfdfb !important;
-        color: #0f2847 !important;
+        background: #ffffff !important;
+        color: #0b1d3a !important;
         margin: 0 !important;
         padding: 0 !important;
         width: 297mm !important;
@@ -81,7 +84,7 @@
         border: none !important;
         border-radius: 0 !important;
         margin: 0 !important;
-        padding: 10mm !important;
+        padding: 8mm !important;
         box-sizing: border-box !important;
         page-break-after: avoid !important;
         page-break-inside: avoid !important;
@@ -90,24 +93,40 @@
       }
     }
 
-    /* Restrained Double-Line Institutional Border Frame */
+    /* Premium Double Gold Border Frame matching Bulk 1 sample 100% */
     .cert-frame-outer {
-      border: 1px solid #0f2847;
-      padding: 4px;
+      border: 3px double #c59b27;
+      outline: 1px solid #0b1d3a;
+      outline-offset: -7px;
+      padding: 6px;
       height: 100%;
     }
 
     .cert-frame-inner {
-      border: 1.5px solid #c59b27;
+      border: 1px solid #d4af37;
       height: 100%;
+      position: relative;
     }
 
-    /* Watermark Circuit Background */
-    .cert-watermark {
-      background-image: radial-gradient(#0f2847 0.75px, transparent 0.75px), radial-gradient(#c59b27 0.75px, #fdfdfb 0.75px);
-      background-size: 30px 30px;
-      background-position: 0 0, 15px 15px;
-      opacity: 0.035;
+    /* Subtle Faint Paper & Subtle Curved Watermark Texture */
+    .cert-bg-pattern {
+      background-color: #fcfcf9;
+      background-image: radial-gradient(circle at 50% 50%, rgba(197, 155, 39, 0.03) 0%, transparent 75%);
+    }
+
+    /* Gold Ribbon Seal Styling */
+    .certified-seal {
+      position: relative;
+      width: 86px;
+      height: 86px;
+      background: radial-gradient(circle, #e6c875 0%, #c59b27 60%, #9a7b2c 100%);
+      border-radius: 50%;
+      box-shadow: 0 4px 12px rgba(154, 123, 44, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #fef08a;
     }
   </style>
 </head>
@@ -122,16 +141,16 @@
         </a>
         <span class="text-slate-700">|</span>
         <span class="text-xs text-amber-400 font-bold tracking-wider uppercase flex items-center gap-1">
-          <i data-lucide="shield-check" class="w-4 h-4"></i> Official BaytLogic Certificate Engine (A4 Landscape 297×210mm)
+          <i data-lucide="award" class="w-4 h-4"></i> Premium Institutional Certificate Generator (A4 Landscape 297×210mm)
         </span>
       </div>
 
       <div class="flex items-center gap-3">
         <button onclick="toggleSidebar()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-semibold transition border border-slate-700 flex items-center gap-1.5">
-          <i data-lucide="sliders" class="w-3.5 h-3.5"></i> Customizer Options
+          <i data-lucide="sliders" class="w-3.5 h-3.5"></i> Customizer Controls
         </button>
         <button onclick="downloadPDF()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-cyan-400 rounded-lg text-xs font-bold transition border border-cyan-500/30 flex items-center gap-1.5">
-          <i data-lucide="download" class="w-4 h-4"></i> Download A4 Landscape PDF
+          <i data-lucide="download" class="w-4 h-4"></i> Download A4 PDF
         </button>
         <button onclick="window.print()" class="px-5 py-2 bg-brand-navy hover:bg-slate-800 text-white font-bold rounded-lg text-xs transition shadow-lg flex items-center gap-1.5 border border-amber-500/40">
           <i data-lucide="printer" class="w-4 h-4 text-amber-400"></i> Print Certificate
@@ -140,7 +159,7 @@
     </div>
   </header>
 
-  <div class="max-w-7xl mx-auto p-4 sm:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+  <div class="max-w-7xl mx-auto p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-8">
 
     <!-- Left Customizer Panel (Hidden on Print) -->
     <div id="controlsSidebar" class="no-print lg:col-span-4 bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-5 h-fit shadow-xl">
@@ -152,15 +171,15 @@
         <div>
           <label class="block text-slate-300 font-semibold mb-1">Certificate ID</label>
           <div class="flex gap-1.5">
-            <input type="text" id="inId" value="BLT-2026-027" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-amber-400 font-mono font-bold outline-none focus:border-amber-400 transition text-xs" />
-            <button type="button" onclick="generateNextCertIdManual()" title="Generate Next Incremental Certificate ID" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0">
+            <input type="text" id="inId" value="BLT-2026-020" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-amber-400 font-mono font-bold outline-none focus:border-amber-400 transition text-xs" />
+            <button type="button" onclick="generateNextCertIdManual()" title="Generate Next ID" class="px-2.5 py-1 bg-amber-500 hover:bg-amber-600 text-slate-950 rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0">
               <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> Next
             </button>
           </div>
         </div>
 
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Recipient Full Name</label>
+          <label class="block text-slate-300 font-semibold mb-1">Graduate / Trainee Full Name</label>
           <input type="text" id="inName" value="Muhammad Ukasha Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-bold outline-none focus:border-amber-400 transition" />
         </div>
 
@@ -170,26 +189,31 @@
             <option value="SMART HOME AUTOMATION & SMART CCTV INSTALLATION">Smart Home Automation & CCTV</option>
             <option value="YOUNG INNOVATORS ROBOTICS & STEM BOOTCAMP">Young Innovators Robotics Bootcamp</option>
             <option value="EMBEDDED AI & EDGE COMPUTER VISION MASTERCLASS">Embedded AI & Edge Computer Vision</option>
-            <option value="CUSTOM">Custom Course Title...</option>
+            <option value="CUSTOM">Custom Title...</option>
           </select>
           <input type="text" id="inCourse" value="SMART HOME AUTOMATION & SMART CCTV INSTALLATION" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
         </div>
 
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-slate-300 font-semibold mb-1">Location</label>
-            <input type="text" id="inLoc" value="Ibrahim Bako, Bauchi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
-          </div>
-
-          <div>
-            <label class="block text-slate-300 font-semibold mb-1">Training Dates</label>
-            <input type="text" id="inDate" value="June 11 – June 15, 2026" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition" />
-          </div>
+        <div>
+          <label class="block text-slate-300 font-semibold mb-1">Training Dates (Generated dynamically on print)</label>
+          <input type="text" id="inDate" value="June 11 – June 17, 2026" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-slate-300 outline-none focus:border-amber-400 transition font-medium" />
         </div>
 
         <div>
-          <label class="block text-slate-300 font-semibold mb-1">Director Name</label>
-          <input type="text" id="inDirector" value="Yahaya Sulaiman Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
+          <label class="block text-slate-300 font-semibold mb-1">Sponsoring Partner</label>
+          <input type="text" id="inPartner" value="Hamjik Care Initiative" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-amber-300 font-semibold outline-none focus:border-amber-400 transition" />
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">CEO / Founder Name</label>
+            <input type="text" id="inCeo" value="Engr. Yahaya Sulaiman Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
+          </div>
+
+          <div>
+            <label class="block text-slate-300 font-semibold mb-1">Facilitator Name</label>
+            <input type="text" id="inFacilitator" value="Engr. Auwal Yahaya" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
+          </div>
         </div>
 
         <div class="p-3 bg-slate-800/80 rounded-xl border border-slate-700 text-[11px] text-slate-400 space-y-1">
@@ -203,116 +227,150 @@
     <div class="lg:col-span-8 flex justify-center items-center">
       
       <!-- A4 Landscape Certificate Canvas (Exact 297mm × 210mm Aspect Ratio) -->
-      <div id="certPaper" class="cert-paper bg-[#fdfdfb] text-brand-navy w-full max-w-[1000px] aspect-[1.414/1] p-6 sm:p-8 shadow-2xl relative flex flex-col justify-between overflow-hidden rounded-md border border-slate-200">
+      <div id="certPaper" class="cert-paper cert-bg-pattern text-brand-navy w-full max-w-[1000px] aspect-[1.414/1] p-5 sm:p-7 shadow-2xl relative flex flex-col justify-between overflow-hidden rounded-md border border-slate-300">
         
-        <!-- Subtle Faint Circuit Watermark -->
-        <div class="cert-watermark absolute inset-0 pointer-events-none"></div>
-
-        <!-- Very Subtle Central Emblem Watermark (3-4% Opacity) -->
+        <!-- Very Faint Background Watermark Logo -->
         <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-[0.035]">
-          <img src="assets/new_projects/logo.png" alt="Watermark" class="w-80 h-80 object-contain grayscale" />
+          <img src="assets/baytlogic-icon-transparent.png" alt="Watermark" class="w-96 h-96 object-contain" />
         </div>
 
-        <!-- Double-Line Institutional Border Frame -->
+        <!-- Double Gold Border Frame 100% Copy of Bulk Certificate Design -->
         <div class="cert-frame-outer relative z-10">
-          <div class="cert-frame-inner p-6 sm:p-8 flex flex-col justify-between relative bg-transparent">
+          <div class="cert-frame-inner p-5 sm:p-7 flex flex-col justify-between relative bg-transparent h-full">
             
-            <!-- 1. Top Header: Original Official BaytLogic Logo & Institutional Branding -->
+            <!-- 1. Header: BaytLogic Logo, Title & Tagline -->
             <div class="text-center space-y-1">
-              <div class="flex justify-center items-center pb-1">
-                <img id="outLogoImg" src="assets/new_projects/logo.png" alt="Official BaytLogic Logo" class="h-14 sm:h-16 w-auto object-contain mx-auto" />
+              <div class="flex justify-center items-center pb-0.5">
+                <img id="outLogoImg" src="assets/baytlogic-logo.png" onerror="this.src='assets/baytlogic-icon-cyan.png'" alt="BaytLogic Logo" class="h-12 sm:h-14 w-auto object-contain mx-auto" />
               </div>
-              <h2 class="font-sans text-xl sm:text-2xl font-bold tracking-[0.2em] text-brand-navy uppercase">BAYTLOGIC TECHNOLOGIES</h2>
-              <p class="text-[10px] sm:text-xs text-brand-goldMuted font-medium tracking-[0.15em] uppercase">Where Intelligence Meets Security</p>
+              
+              <!-- Decorative Line with Gold Diamonds -->
+              <div class="flex items-center justify-center gap-2 text-brand-gold font-bold text-xs">
+                <span class="h-[1px] w-12 bg-gradient-to-r from-transparent to-brand-gold"></span>
+                <span class="text-[10px]">◆</span>
+                <h2 class="font-sans text-lg sm:text-xl font-extrabold tracking-[0.2em] text-brand-navy uppercase inline-block">BAYTLOGIC TECHNOLOGIES</h2>
+                <span class="text-[10px]">◆</span>
+                <span class="h-[1px] w-12 bg-gradient-to-l from-transparent to-brand-gold"></span>
+              </div>
+
+              <p class="text-[10px] sm:text-xs text-slate-600 font-serif italic tracking-widest">Where Intelligence Meets Security</p>
             </div>
 
-            <!-- 2, 3, 4, 5, 6. Main Certificate Body -->
-            <div class="text-center space-y-3 my-2">
+            <!-- 2. Main Body: Certificate Heading & Recipient Details -->
+            <div class="text-center space-y-2.5 my-1">
               
-              <!-- 2. Refined Heading -->
-              <h1 class="font-cinzel text-2xl sm:text-3xl font-semibold tracking-[0.12em] text-brand-gold uppercase">
+              <!-- Refined Certificate Title -->
+              <h1 class="font-cinzel text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-[0.14em] text-brand-gold uppercase drop-shadow-sm">
                 CERTIFICATE OF COMPLETION
               </h1>
 
-              <!-- 3. Subtitle -->
-              <p class="text-xs sm:text-sm font-serif italic text-slate-600">This is to certify that</p>
+              <!-- Subtitle Divider -->
+              <div class="flex items-center justify-center gap-3 text-slate-500 text-xs font-serif italic">
+                <span class="h-[1px] w-16 bg-slate-300"></span>
+                <span>This is to certify that</span>
+                <span class="h-[1px] w-16 bg-slate-300"></span>
+              </div>
 
-              <!-- 4. RECIPIENT NAME (VISUAL FOCAL POINT) -->
-              <div class="py-1 px-4 max-w-2xl mx-auto overflow-hidden">
-                <h3 id="outName" class="font-serif text-2xl sm:text-3xl lg:text-4xl font-bold text-brand-navy tracking-wide border-b border-brand-gold/50 inline-block px-6 pb-1 transition-all">
+              <!-- RECIPIENT NAME (100% Match of Cursive Script Font in Bulk Sample) -->
+              <div class="py-1 px-4 max-w-2xl mx-auto">
+                <h3 id="outName" class="font-script text-3xl sm:text-4xl lg:text-5xl font-bold text-brand-navy tracking-wide border-b-2 border-slate-700/80 inline-block px-8 pb-1 transition-all leading-relaxed">
                   Muhammad Ukasha Abdullahi
                 </h3>
               </div>
 
-              <!-- 5. Completion Statement -->
-              <p id="outMasterclass" class="text-xs sm:text-sm font-sans text-slate-600 font-normal">
-                has successfully completed the professional masterclass on
+              <!-- Completion Statement -->
+              <p class="text-xs sm:text-sm font-serif italic text-slate-700 font-normal">
+                has successfully completed the 5-Day Professional Masterclass on
               </p>
 
-              <!-- 6. Programme Title (Prominent but restrained) -->
-              <div class="max-w-2xl mx-auto px-4">
-                <h4 id="outCourse" class="font-sans text-base sm:text-lg lg:text-xl font-bold text-brand-navy tracking-wider uppercase leading-snug">
+              <!-- Programme Specialization -->
+              <div class="max-w-2xl mx-auto px-2">
+                <h4 id="outCourse" class="font-sans text-base sm:text-lg lg:text-xl font-black text-brand-navy tracking-wider uppercase leading-snug">
                   SMART HOME AUTOMATION & SMART CCTV INSTALLATION
                 </h4>
               </div>
 
+              <!-- Dynamic Training Date Row (Address Removed as requested) -->
+              <div class="flex items-center justify-center gap-2 pt-1 text-xs text-slate-700">
+                <i data-lucide="calendar" class="w-4 h-4 text-brand-gold"></i>
+                <span class="font-serif italic">Date:</span>
+                <strong id="outDate" class="font-semibold text-brand-navy">June 11 – June 17, 2026</strong>
+              </div>
+
             </div>
 
-            <!-- 7. BOTTOM GRID (Clean Three-Column Structure) -->
-            <div class="grid grid-cols-12 items-end text-xs text-slate-700 pt-4 border-t border-brand-navy/10 mt-2 gap-4">
+            <!-- 3. Bottom Grid: Gold Ribbon Seal, Partners, Dual Signatures & QR Verification -->
+            <div class="pt-3 border-t border-brand-gold/30 mt-1">
               
-              <!-- LEFT COLUMN: Location & Dates -->
-              <div class="col-span-4 space-y-1.5 text-left">
-                <div class="space-y-0.5">
-                  <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Location</span>
-                  <strong id="outLoc" class="text-brand-navy font-semibold text-xs block">Ibrahim Bako, Bauchi</strong>
-                </div>
-                <div class="space-y-0.5">
-                  <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Date of Issue</span>
-                  <strong id="outDate" class="text-brand-navy font-semibold text-xs block">June 11 – June 15, 2026</strong>
+              <!-- Sponsoring Partner Banner -->
+              <div class="text-center mb-3">
+                <div class="inline-flex items-center gap-2 text-xs font-semibold text-slate-600 bg-amber-500/10 px-4 py-1 rounded-full border border-brand-gold/30">
+                  <span class="font-serif italic text-slate-500">In Collaboration With Sponsoring Partner:</span>
+                  <strong id="outPartner" class="text-brand-navy font-bold tracking-wide uppercase">HAMJIK CARE INITIATIVE</strong>
                 </div>
               </div>
 
-              <!-- CENTER COLUMN: Certificate ID & Contact -->
-              <div class="col-span-4 text-center space-y-1.5">
-                <div class="space-y-0.5">
-                  <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Certificate ID</span>
-                  <strong id="outId" class="text-brand-navy font-mono font-bold text-xs block tracking-wide">BLT-2026-020</strong>
-                </div>
-                <div class="space-y-0.5">
-                  <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">CONTACT</span>
-                  <span class="text-slate-600 text-[11px] block">+234 803 247 6476 • info@baytlogic.com.ng</span>
-                </div>
-              </div>
-
-              <!-- RIGHT COLUMN: Signature Space & QR Verification -->
-              <div class="col-span-4 text-right flex flex-col items-end justify-between space-y-3">
+              <div class="grid grid-cols-12 items-end gap-2">
                 
-                <!-- Director Name & Clean Whitespace for Manual Signature -->
-                <div class="w-full text-right space-y-1">
-                  <!-- Clean Whitespace reserved for manual pen signature -->
-                  <div class="h-10 w-full"></div>
-                  
-                  <div class="border-t border-brand-navy/40 pt-1 inline-block text-right">
-                    <p id="outDirector" class="font-bold text-brand-navy text-xs sm:text-sm">Yahaya Sulaiman Abdullahi</p>
-                    <p class="text-[10px] text-slate-500 font-medium block">Founder & Director</p>
-                    <p class="text-[9px] text-slate-400 font-semibold block">BaytLogic Technologies</p>
+                <!-- LEFT SIDE: Gold Circular "CERTIFIED" Ribbon Badge -->
+                <div class="col-span-3 flex items-center justify-start">
+                  <div class="flex flex-col items-center">
+                    <div class="certified-seal text-center p-1">
+                      <div class="text-[9px] text-amber-950 font-bold tracking-wider">★ ★ ★ ★ ★</div>
+                      <div class="text-xs font-black text-slate-950 tracking-wider uppercase my-0.5 border-y border-amber-900/40 py-0.5 px-1 bg-amber-200/50">
+                        CERTIFIED
+                      </div>
+                      <div class="text-[8px] text-amber-950 font-bold tracking-widest">BAYTLOGIC</div>
+                    </div>
                   </div>
                 </div>
 
-                <!-- QR Verification Code & Label -->
-                <div class="flex items-center gap-2 pt-1">
-                  <div class="text-right">
-                    <span class="text-[10px] font-bold text-brand-navy uppercase tracking-wider block">VERIFY CERTIFICATE</span>
-                    <span class="text-[8px] text-slate-500 block">Scan to authenticate this credential</span>
+                <!-- CENTER & RIGHT: Dual Signatures (CEO/Founder on Left, Facilitator on Right) -->
+                <div class="col-span-6 grid grid-cols-2 gap-4 text-center">
+                  
+                  <!-- CEO / Founder Signature Block -->
+                  <div class="space-y-0.5">
+                    <div class="h-9 flex items-end justify-center">
+                      <span id="outCeoSig" class="font-signature text-2xl text-slate-800 leading-none">Yahaya S. A.</span>
+                    </div>
+                    <div class="border-t border-slate-700/80 pt-1">
+                      <p id="outCeo" class="font-bold text-brand-navy text-xs">Engr. Yahaya Sulaiman Abdullahi</p>
+                      <p class="text-[10px] text-slate-600 font-medium">CEO / Founder & Director</p>
+                      <p class="text-[9px] text-slate-400 font-semibold">BaytLogic Technologies</p>
+                    </div>
                   </div>
+
+                  <!-- Facilitator Signature Block -->
+                  <div class="space-y-0.5">
+                    <div class="h-9 flex items-end justify-center">
+                      <span id="outFacilitatorSig" class="font-signature text-2xl text-slate-800 leading-none">Auwal Yahaya</span>
+                    </div>
+                    <div class="border-t border-slate-700/80 pt-1">
+                      <p id="outFacilitator" class="font-bold text-brand-navy text-xs">Engr. Auwal Yahaya</p>
+                      <p class="text-[10px] text-slate-600 font-medium">Lead Training Facilitator</p>
+                      <p class="text-[9px] text-slate-400 font-semibold">Hamjik Care Initiative / BaytLogic</p>
+                    </div>
+                  </div>
+
+                </div>
+
+                <!-- FAR RIGHT: QR Verification Code & Certificate ID -->
+                <div class="col-span-3 text-right flex flex-col items-end justify-end space-y-1">
                   <div class="p-1 bg-white border border-slate-300 rounded shadow-sm inline-block">
-                    <img id="outQr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://baytlogic.com.ng/verify.html?id=BLT-2026-020" alt="Scan to Verify" class="w-14 h-14 object-contain" />
+                    <img id="outQr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://baytlogic.com.ng/verify.html?id=BLT-2026-020" alt="Scan to Verify" class="w-12 h-12 object-contain" />
                   </div>
+                  <span class="text-[9px] font-bold text-brand-navy uppercase tracking-wider block">Scan to Verify</span>
                 </div>
 
               </div>
 
+            </div>
+
+            <!-- Footer Bar -->
+            <div class="text-center pt-2 border-t border-slate-200 text-[9px] text-slate-500 flex justify-between items-center font-mono">
+              <span>• Certificate ID: <strong id="outId" class="text-brand-navy">BLT-2026-020</strong></span>
+              <span>BaytLogic Technologies &amp; Hamjik Care Initiative</span>
+              <span>• Contact: 08032476476 • verify.html</span>
             </div>
 
           </div>
@@ -339,16 +397,22 @@
       const id = document.getElementById('inId').value.trim().toUpperCase();
       const name = document.getElementById('inName').value.trim();
       const course = document.getElementById('inCourse').value.trim();
-      const loc = document.getElementById('inLoc').value.trim();
       const date = document.getElementById('inDate').value.trim();
-      const director = document.getElementById('inDirector').value.trim();
+      const partner = document.getElementById('inPartner').value.trim();
+      const ceo = document.getElementById('inCeo').value.trim();
+      const facilitator = document.getElementById('inFacilitator').value.trim();
 
       document.getElementById('outId').innerText = id || 'BLT-2026-000';
       document.getElementById('outName').innerText = name || 'Graduate Name';
       document.getElementById('outCourse').innerText = course || 'PROGRAMME SPECIALIZATION';
-      document.getElementById('outLoc').innerText = loc || 'Bauchi, Nigeria';
-      document.getElementById('outDate').innerText = date || 'June 11 – June 15, 2026';
-      document.getElementById('outDirector').innerText = director || 'Yahaya Sulaiman Abdullahi';
+      document.getElementById('outDate').innerText = date || 'June 11 – June 17, 2026';
+      document.getElementById('outPartner').innerText = partner || 'HAMJIK CARE INITIATIVE';
+      document.getElementById('outCeo').innerText = ceo || 'Engr. Yahaya Sulaiman Abdullahi';
+      document.getElementById('outFacilitator').innerText = facilitator || 'Engr. Auwal Yahaya';
+
+      // Update Signatures
+      document.getElementById('outCeoSig').innerText = ceo ? ceo.replace('Engr. ', '') : 'Yahaya S. A.';
+      document.getElementById('outFacilitatorSig').innerText = facilitator ? facilitator.replace('Engr. ', '') : 'Auwal Yahaya';
 
       const verifyUrl = `https://baytlogic.com.ng/verify.html?id=${id}`;
       document.getElementById('outQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}`;
@@ -364,7 +428,6 @@
       const certId = document.getElementById('inId').value.trim().toUpperCase() || 'BLT-CERT';
       const origCert = document.getElementById('certPaper');
       
-      // Create a 100% isolated off-screen capture container at exact A4 Landscape (297mm x 210mm)
       const container = document.createElement('div');
       container.style.position = 'fixed';
       container.style.top = '0';
@@ -372,7 +435,7 @@
       container.style.width = '297mm';
       container.style.height = '210mm';
       container.style.zIndex = '-9999';
-      container.style.background = '#fdfdfb';
+      container.style.background = '#ffffff';
       container.style.overflow = 'hidden';
       container.style.margin = '0';
       container.style.padding = '0';
@@ -383,7 +446,7 @@
       clone.style.maxWidth = 'none';
       clone.style.maxHeight = 'none';
       clone.style.margin = '0';
-      clone.style.padding = '24px';
+      clone.style.padding = '20px';
       clone.style.boxSizing = 'border-box';
       clone.style.borderRadius = '0';
       clone.style.boxShadow = 'none';
@@ -458,6 +521,10 @@
         document.getElementById('inCoursePreset').value = 'CUSTOM';
       }
       if (params.get('date')) document.getElementById('inDate').value = params.get('date');
+      if (params.get('partner')) document.getElementById('inPartner').value = params.get('partner');
+      if (params.get('ceo')) document.getElementById('inCeo').value = params.get('ceo');
+      if (params.get('facilitator')) document.getElementById('inFacilitator').value = params.get('facilitator');
+
       updateCert();
     });
   </script>

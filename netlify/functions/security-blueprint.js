@@ -1,6 +1,19 @@
 // Put this file in your actual project at: netlify/functions/security-blueprint.js
 
 exports.handler = async function(event, context) {
+  // CORS preflight support
+  if (event.httpMethod === "OPTIONS") {
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Methods": "POST, OPTIONS"
+      },
+      body: ""
+    };
+  }
+
   // Only allow POST requests from your frontend
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -40,7 +53,7 @@ Include these sections:
 Tone: Corporate, authoritative, non-dramatic.
 Output as clear Markdown with bullet points.`;
 
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
     const resp = await fetch(url, {
       method: "POST",
