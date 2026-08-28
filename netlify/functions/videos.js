@@ -32,41 +32,41 @@ exports.handler = async (event) => {
       }
     }
 
-    // Default return cached or default videos without any placeholder video IDs
+    // Default return cached or default local MP4 videos
     const defaultVideos = [
       {
         id: 1,
         name: "Kareem Shaheed — YuNu Technologies",
         category: "Smart Home Automation",
-        url: "https://drive.google.com/file/d/1v0sR0itU6-9HqGmkWhtY92GjwzCLnEkB/view?usp=drive_link",
+        url: "assets/videos/kareem.mp4",
         desc: "Kareem Shaheed demonstrating a live CCTV installation & Smart Home automation system deployed by his startup, YuNu Technologies in Kwara State."
       },
       {
         id: 2,
         name: "Abdullahi Yusuf Umar",
         category: "Smart Home Automation",
-        url: "https://drive.google.com/file/d/1Yotsgps-w40AqBnlmI88DAKNVoS76POa/view?usp=drive_link",
+        url: "assets/videos/abdullahi_yusuf.mp4",
         desc: "Abdullahi Yusuf presenting his live automated Tuya Zigbee Relay & CCTV integration project during the June 2026 Masterclass."
       },
       {
         id: 3,
         name: "Fasilat Olopade Olawunmi",
         category: "CCTV & Security",
-        url: "https://drive.google.com/file/d/1NnCscbhYB4g5NswRhwG92LRGa4MsgE-6/view?usp=drive_link",
+        url: "assets/videos/fasilat.mp4",
         desc: "Fasilat demonstrating remote IP CCTV live feed setup and mobile NVR monitoring during the BaytLogic professional training."
       },
       {
         id: 4,
         name: "Abdullahi Rabi'u Muhammad",
         category: "Kids Robotics & STEM",
-        url: "https://drive.google.com/file/d/1EynCOpZyfRyI-7DahGB-4-p6u777Kxrx/view?usp=drive_link",
+        url: "assets/videos/abdullahi_rabiu.mp4",
         desc: "Abdullahi Rabi'u demonstrating his autonomous obstacle-avoiding mobile robot project during the Young Innovators Robotics Bootcamp."
       },
       {
         id: 5,
         name: "Na'ima Muhammad Ishaq",
         category: "Kids Robotics & STEM",
-        url: "https://drive.google.com/file/d/1nLuir1EP3gp-fRauDbXLbUUFoCEnVP59/view?usp=drive_link",
+        url: "assets/videos/naima.mp4",
         desc: "Na'ima demonstrating her interactive smart sensors and motor control robotics project at BaytLogic Young Innovators Bootcamp."
       }
     ];
