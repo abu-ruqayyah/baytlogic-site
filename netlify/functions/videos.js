@@ -52,7 +52,7 @@ exports.handler = async (event) => {
         id: 3,
         name: "Fasilat Olopade Olawunmi",
         category: "CCTV & Security",
-        url: "",
+        url: "https://drive.google.com/file/d/1NnCscbhYB4g5NswRhwG92LRGa4MsgE-6/view?usp=drive_link",
         desc: "Fasilat demonstrating remote IP CCTV live feed setup and mobile NVR monitoring during the BaytLogic professional training."
       }
     ];
