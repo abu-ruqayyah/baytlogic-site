@@ -1027,9 +1027,35 @@
     }
 
     // Helper for formatting Google Drive, YouTube, or direct video URLs
+    // Known Rickroll / placeholder YouTube video IDs
+    const RICKROLL_IDS = [
+      'dQw4w9WgXcQ', 'oHg5SJYRHA0', 'uHgt8giw1LY', '2qyuxE1W18M',
+      'cvh0ocx0yfq', 'DLzxrzFCy7E', 'fC7oUOUEEi4', 'xm3YgoEiEDc',
+      'xvFZjo5PgG0', 'y6120QOlsfU'
+    ];
+
+    function isInvalidOrRickrollUrl(url) {
+      if (!url || typeof url !== 'string') return true;
+      const trimmed = url.trim();
+      if (trimmed === '' || trimmed === '#' || trimmed === 'null' || trimmed === 'undefined') return true;
+      const lower = trimmed.toLowerCase();
+      if (lower.includes('rickroll') || lower.includes('rickastley') || lower.includes('never gonna give you up')) return true;
+      return RICKROLL_IDS.some(id => trimmed.includes(id));
+    }
+
+    function sanitizeVideosList(vids) {
+      if (!Array.isArray(vids)) return [];
+      return vids.map(v => {
+        if (isInvalidOrRickrollUrl(v.url)) {
+          return { ...v, url: '' };
+        }
+        return v;
+      });
+    }
+
     // Helper for formatting Google Drive, YouTube, Shorts, or direct video URLs
     function getFormattedEmbedUrl(url) {
-      if (!url) return { type: 'video', src: '' };
+      if (!url || isInvalidOrRickrollUrl(url)) return { type: 'video', src: '' };
       url = url.trim();
 
       const gdriveMatch = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
@@ -1076,7 +1102,8 @@
       }
     ];
 
-    let videos = JSON.parse(localStorage.getItem('baytlogic_videos')) || defaultVideos;
+    let videos = sanitizeVideosList(JSON.parse(localStorage.getItem('baytlogic_videos')) || defaultVideos);
+    localStorage.setItem('baytlogic_videos', JSON.stringify(videos));
 
     async function syncRemoteVideos() {
       try {
@@ -1086,11 +1113,10 @@
         }
         if (response && response.ok) {
           const data = await response.json();
-          const fetched = data.videos || data;
+          const fetched = sanitizeVideosList(data.videos || data);
           if (Array.isArray(fetched) && fetched.length > 0) {
-            // If local storage is empty or contains defaults, adopt server list
-            const currentLocal = localStorage.getItem('baytlogic_videos');
-            if (!currentLocal || currentLocal.includes('dQw4w9WgXcQ')) {
+            const currentLocalStr = localStorage.getItem('baytlogic_videos');
+            if (!currentLocalStr || currentLocalStr.includes('dQw4w9WgXcQ') || isInvalidOrRickrollUrl(currentLocalStr)) {
               videos = fetched;
               localStorage.setItem('baytlogic_videos', JSON.stringify(videos));
               renderVideos(false);
@@ -1113,9 +1139,9 @@
         
         const embedInfo = getFormattedEmbedUrl(v.url);
         let mediaHtml = '';
-        if (v.url && embedInfo.type === 'iframe') {
+        if (v.url && !isInvalidOrRickrollUrl(v.url) && embedInfo.type === 'iframe') {
           mediaHtml = `<iframe src="${embedInfo.src}" class="w-full h-44 rounded-xl border border-slate-800 bg-black" allowfullscreen></iframe>`;
-        } else if (v.url) {
+        } else if (v.url && !isInvalidOrRickrollUrl(v.url)) {
           mediaHtml = `<video src="${embedInfo.src}" controls class="w-full h-44 rounded-xl border border-slate-800 bg-black object-cover"></video>`;
         } else {
           mediaHtml = `<div class="w-full h-44 rounded-xl border border-slate-800 bg-slate-950 flex items-center justify-center text-slate-500 text-xs text-center p-4">No Video URL set yet.<br>Click "Edit Link" below to add video.</div>`;
@@ -1168,7 +1194,7 @@
       if (!item) return;
       document.getElementById('editingVideoId').value = item.id;
       document.getElementById('vidName').value = item.name || '';
-      document.getElementById('vidUrl').value = item.url || '';
+      document.getElementById('vidUrl').value = isInvalidOrRickrollUrl(item.url) ? '' : item.url;
       document.getElementById('vidDesc').value = item.desc || '';
       document.getElementById('vidCategory').value = item.category || 'Smart Home Automation';
       document.getElementById('videoModalTitle').innerText = `Edit Video — ${item.name}`;
@@ -1184,6 +1210,11 @@
 
       if (!name || !url) {
         alert('Please fill in Trainee Name and Video URL / Path.');
+        return;
+      }
+
+      if (isInvalidOrRickrollUrl(url)) {
+        alert('Rickroll or placeholder URLs are not allowed. Please paste a valid Google Drive preview link, YouTube video URL, or direct MP4 link for the trainee video.');
         return;
       }
 

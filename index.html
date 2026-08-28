@@ -770,7 +770,7 @@
               </div>
               <div class="pt-4 border-t border-slate-700/80 flex items-center justify-between">
                 <span class="text-xs text-slate-400">Independent Venture Launch</span>
-                <button type="button" onclick="openPublicVideoModal(window.publicVideos[0].url, window.publicVideos[0].name, window.publicVideos[0].category)" class="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-md hover:shadow-purple-500/20">
+                <button type="button" onclick="openPublicVideoModalById(1)" class="px-4 py-2 bg-purple-600/80 hover:bg-purple-600 text-white rounded-lg text-xs font-bold transition flex items-center gap-1.5 shadow-md hover:shadow-purple-500/20">
                   <i data-lucide="play-circle" class="w-3.5 h-3.5"></i> Watch Alumni Story
                 </button>
               </div>
@@ -1459,9 +1459,35 @@
         }
       }
 
+      // Known Rickroll / placeholder YouTube video IDs
+      const RICKROLL_IDS = [
+        'dQw4w9WgXcQ', 'oHg5SJYRHA0', 'uHgt8giw1LY', '2qyuxE1W18M',
+        'cvh0ocx0yfq', 'DLzxrzFCy7E', 'fC7oUOUEEi4', 'xm3YgoEiEDc',
+        'xvFZjo5PgG0', 'y6120QOlsfU'
+      ];
+
+      function isInvalidOrRickrollUrl(url) {
+        if (!url || typeof url !== 'string') return true;
+        const trimmed = url.trim();
+        if (trimmed === '' || trimmed === '#' || trimmed === 'null' || trimmed === 'undefined') return true;
+        const lower = trimmed.toLowerCase();
+        if (lower.includes('rickroll') || lower.includes('rickastley') || lower.includes('never gonna give you up')) return true;
+        return RICKROLL_IDS.some(id => trimmed.includes(id));
+      }
+
+      function sanitizeVideosList(vids) {
+        if (!Array.isArray(vids)) return [];
+        return vids.map(v => {
+          if (isInvalidOrRickrollUrl(v.url)) {
+            return { ...v, url: '' };
+          }
+          return v;
+        });
+      }
+
       // Google Drive, YouTube, & Direct Video URL Parser helper
       window.getFormattedEmbedUrl = function(url) {
-        if (!url) return { type: 'video', src: '' };
+        if (!url || isInvalidOrRickrollUrl(url)) return { type: 'video', src: '' };
         url = url.trim();
 
         // Google Drive support (file/d/... or id=...)
@@ -1497,9 +1523,10 @@
           }
           if (response && response.ok) {
             const data = await response.json();
-            const fetched = data.videos || data;
+            const fetched = sanitizeVideosList(data.videos || data);
             if (Array.isArray(fetched) && fetched.length > 0) {
               window.publicVideos = fetched;
+              localStorage.setItem('baytlogic_videos', JSON.stringify(window.publicVideos));
               renderPublicVideos('ALL');
               return;
             }
@@ -1510,8 +1537,11 @@
       }
 
       // Render Trainee Video Showcase
-      const savedVids = JSON.parse(localStorage.getItem('baytlogic_videos')) || [];
-      window.publicVideos = (savedVids.length > 0) ? savedVids : [
+      let savedVids = JSON.parse(localStorage.getItem('baytlogic_videos')) || [];
+      savedVids = sanitizeVideosList(savedVids);
+      localStorage.setItem('baytlogic_videos', JSON.stringify(savedVids));
+
+      const defaultPublicVideos = [
         {
           id: 1,
           name: "Kareem Shaheed — YuNu Technologies",
@@ -1534,6 +1564,8 @@
           desc: "Fasilat demonstrating remote IP CCTV live feed setup and mobile NVR monitoring during the BaytLogic professional training."
         }
       ];
+
+      window.publicVideos = (savedVids.length > 0) ? savedVids : defaultPublicVideos;
 
       renderPublicVideos('ALL');
       loadPublicVideos();
@@ -1593,12 +1625,36 @@
       if (window.lucide) lucide.createIcons();
     }
 
+    function openPublicVideoModalById(id) {
+      const item = (window.publicVideos || []).find(v => v.id == id);
+      if (item) {
+        openPublicVideoModal(item.url, item.name, item.category);
+      }
+    }
+
     function openPublicVideoModal(url, name, category) {
       const modal = document.getElementById('publicVideoModal');
       const titleEl = document.getElementById('pubVidTitle');
       const containerEl = document.getElementById('pubVidContainer');
 
       titleEl.innerText = `${name} — ${category}`;
+
+      if (isInvalidOrRickrollUrl(url)) {
+        containerEl.innerHTML = `
+          <div class="w-full h-80 sm:h-[450px] rounded-xl border border-slate-700 bg-slate-950 flex flex-col items-center justify-center p-6 text-center space-y-4">
+            <div class="w-16 h-16 rounded-full bg-purple-900/40 border border-purple-500/30 flex items-center justify-center text-purple-400">
+              <i data-lucide="video" class="w-8 h-8"></i>
+            </div>
+            <h4 class="text-lg font-bold text-white">Video Link Updating</h4>
+            <p class="text-xs text-slate-400 max-w-md leading-relaxed">
+              The video demonstration for <strong>${name}</strong> is being updated in our media showcase. Please check back shortly or update the URL from the Admin Studio.
+            </p>
+          </div>
+        `;
+        if (window.lucide) lucide.createIcons();
+        modal.classList.remove('hidden');
+        return;
+      }
 
       const embedInfo = window.getFormattedEmbedUrl(url);
 
