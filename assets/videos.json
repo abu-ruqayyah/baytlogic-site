@@ -2,23 +2,23 @@
   {
     "id": 1,
     "name": "Kareem Shaheed — YuNu Technologies",
-    "category": "Smart Home Automation",
+    "category": "Smart Home & CCTV",
     "url": "assets/videos/kareem.mp4",
-    "desc": "Kareem Shaheed demonstrating a live CCTV installation & Smart Home automation system deployed by his startup, YuNu Technologies in Kwara State."
+    "desc": "Kareem Shaheed demonstrating live CCTV installation and Smart Home automation deployed by his startup, YuNu Technologies in Kwara State."
   },
   {
     "id": 2,
     "name": "Abdullahi Yusuf Umar",
-    "category": "Smart Home Automation",
+    "category": "Smart Home & CCTV",
     "url": "assets/videos/abdullahi_yusuf.mp4",
-    "desc": "Abdullahi Yusuf presenting his live automated Tuya Zigbee Relay & CCTV integration project during the June 2026 Masterclass."
+    "desc": "Abdullahi Yusuf presenting his live automated Tuya Zigbee Relay and IP CCTV integration project during the Masterclass."
   },
   {
     "id": 3,
     "name": "Fasilat Olopade Olawunmi",
-    "category": "CCTV & Security",
+    "category": "Smart Home Automation",
     "url": "assets/videos/fasilat.mp4",
-    "desc": "Fasilat demonstrating remote IP CCTV live feed setup and mobile NVR monitoring during the BaytLogic professional training."
+    "desc": "Fasilat demonstrating Smart Home automation controls, Tuya smart relays, and remote mobile surveillance during the BaytLogic training."
   },
   {
     "id": 4,
@@ -33,5 +33,19 @@
     "category": "Kids Robotics & STEM",
     "url": "assets/videos/naima.mp4",
     "desc": "Na'ima demonstrating her interactive smart sensors and motor control robotics project at BaytLogic Young Innovators Bootcamp."
+  },
+  {
+    "id": 6,
+    "name": "Saeed Haruna Saeed",
+    "category": "Kids Robotics & STEM",
+    "url": "assets/videos/saeed.mp4",
+    "desc": "Saeed demonstrating his autonomous mobile robot circuitry and embedded logic programming during the Young Innovators Robotics Bootcamp."
+  },
+  {
+    "id": 7,
+    "name": "Muhammad Bello Abubakar",
+    "category": "Kids Robotics & STEM",
+    "url": "assets/videos/muhammad_bello.mp4",
+    "desc": "Muhammad Bello showcasing his smart sensor robotics build and motor steering automation project at BaytLogic Academy."
   }
 ]
