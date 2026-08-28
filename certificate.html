@@ -15,6 +15,8 @@
   <!-- Google Fonts: Cinzel, Playfair Display, Great Vibes (Cursive Script), Alex Brush, Inter -->
   <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@500;600;700;800&family=Great+Vibes&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Sacramento&display=swap" rel="stylesheet">
 
+  <script src="assets/auth.js"></script>
+
   <script>
     tailwind.config = {
       theme: {
@@ -139,7 +141,7 @@
   </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased min-h-screen">
-
+  <main>
   <!-- Top Control Bar (Hidden on Print / PDF export) -->
   <header class="no-print bg-slate-900 border-b border-slate-800 py-3 px-4 sm:px-8 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-4">
@@ -389,9 +391,16 @@
     </div>
 
   </div>
+  </main>
 
   <script>
     lucide.createIcons();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      requireStaffAuth((user) => {
+        updateCert();
+      });
+    });
 
     function getPartnerByCertId(certId) {
       if (!certId) return "Hamjik Care Initiative";
