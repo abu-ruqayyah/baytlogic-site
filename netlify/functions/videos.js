@@ -38,7 +38,7 @@ exports.handler = async (event) => {
         id: 1,
         name: "Kareem Shaheed — YuNu Technologies",
         category: "Smart Home Automation",
-        url: "",
+        url: "https://drive.google.com/file/d/1v0sR0itU6-9HqGmkWhtY92GjwzCLnEkB/view?usp=drive_link",
         desc: "Kareem Shaheed demonstrating a live CCTV installation & Smart Home automation system deployed by his startup, YuNu Technologies in Kwara State."
       },
       {
