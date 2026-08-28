@@ -262,10 +262,12 @@
       document.getElementById('resCourse').innerText = record.course;
       document.getElementById('resDate').innerText = record.issueDate || record.date;
       if (document.getElementById('resPartner')) {
+        const partnerBox = document.getElementById('resPartner').parentElement;
         const p = record.partner || record.partners || getPartnerByCertId(record.id || '');
-        if (p === 'None' || p === 'No Collaborators' || p === 'Self-Sponsored' || p === 'N/A') {
-          document.getElementById('resPartner').innerText = "Direct Training (No External Collaborators)";
+        if (!p || p === 'None' || p === 'No Collaborators' || p === 'Self-Sponsored' || p === 'N/A') {
+          if (partnerBox) partnerBox.classList.add('hidden');
         } else {
+          if (partnerBox) partnerBox.classList.remove('hidden');
           document.getElementById('resPartner').innerText = p;
         }
       }

@@ -432,12 +432,14 @@
       document.getElementById('outCourse').innerText = course || 'PROGRAMME SPECIALIZATION';
       document.getElementById('outDate').innerText = date || 'June 11 – June 17, 2026';
       
-      const isDirect = (partner.toUpperCase() === 'NONE' || partner.toUpperCase() === 'NO COLLABORATORS' || partner.toUpperCase() === 'SELF-SPONSORED' || partner.toUpperCase() === 'N/A');
-      const partnerTextSpan = document.getElementById('outPartner').previousElementSibling;
-      if (partnerTextSpan) {
-        partnerTextSpan.innerText = isDirect ? "Programme Delivery:" : "In Collaboration With Sponsoring Partner:";
+      const isDirect = (!partner || partner.toUpperCase() === 'NONE' || partner.toUpperCase() === 'NO COLLABORATORS' || partner.toUpperCase() === 'SELF-SPONSORED' || partner.toUpperCase() === 'N/A');
+      const partnerContainer = document.getElementById('outPartner')?.closest('.text-center.mb-3');
+      if (partnerContainer) {
+        partnerContainer.style.display = isDirect ? 'none' : 'block';
       }
-      document.getElementById('outPartner').innerText = isDirect ? 'BAYTLOGIC ACADEMY DIRECT' : partner.toUpperCase();
+      if (!isDirect) {
+        document.getElementById('outPartner').innerText = partner.toUpperCase();
+      }
       
       const footerBar = document.querySelector('.border-t.border-slate-200.text-\\[9px\\]');
       if (footerBar && footerBar.children.length >= 2) {

@@ -790,10 +790,10 @@
 
           <!-- Category Filter Tabs -->
           <div class="flex flex-wrap justify-center gap-2 mb-8">
-            <button onclick="filterPublicVideos('ALL')" class="vid-tab-btn active px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 rounded-xl text-xs font-bold transition">All Videos</button>
-            <button onclick="filterPublicVideos('Kids Robotics & STEM')" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition">Kids Robotics &amp; STEM</button>
-            <button onclick="filterPublicVideos('Smart Home Automation')" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition">Smart Home Automation</button>
-            <button onclick="filterPublicVideos('CCTV & Security')" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition">CCTV &amp; Security</button>
+            <button onclick="filterPublicVideos('ALL', event)" class="vid-tab-btn active px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white border border-purple-500/50 rounded-xl text-xs font-bold transition cursor-pointer">All Videos</button>
+            <button onclick="filterPublicVideos('Kids Robotics & STEM', event)" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition cursor-pointer">Kids Robotics &amp; STEM</button>
+            <button onclick="filterPublicVideos('Smart Home Automation', event)" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition cursor-pointer">Smart Home Automation</button>
+            <button onclick="filterPublicVideos('CCTV & Security', event)" class="vid-tab-btn px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 rounded-xl text-xs font-bold transition cursor-pointer">CCTV &amp; Security</button>
           </div>
 
           <!-- Dynamic Video Cards Grid -->
@@ -1512,34 +1512,7 @@
           type: 'video',
           src: url
         };
-      };
-
-      // Fetch public video stories dynamically from remote endpoint or assets/videos.json
-      async function loadPublicVideos() {
-        try {
-          let response = await fetch('/.netlify/functions/videos').catch(() => null);
-          if (!response || !response.ok) {
-            response = await fetch('assets/videos.json').catch(() => null);
-          }
-          if (response && response.ok) {
-            const data = await response.json();
-            const fetched = sanitizeVideosList(data.videos || data);
-            if (Array.isArray(fetched) && fetched.length > 0) {
-              window.publicVideos = fetched;
-              localStorage.setItem('baytlogic_videos', JSON.stringify(window.publicVideos));
-              renderPublicVideos('ALL');
-              return;
-            }
-          }
-        } catch (e) {
-          console.warn("Could not fetch remote video showcase, using local data.");
-        }
-      }
-
-      // Render Trainee Video Showcase
-      let savedVids = JSON.parse(localStorage.getItem('baytlogic_videos')) || [];
-      savedVids = sanitizeVideosList(savedVids);
-
+      // Default Trainee Videos List (Local MP4 files)
       const defaultPublicVideos = [
         {
           id: 1,
@@ -1592,86 +1565,92 @@
         }
       ];
 
-      // Always ensure current MP4 showcase videos are set
       window.publicVideos = defaultPublicVideos;
-      localStorage.setItem('baytlogic_videos', JSON.stringify(defaultPublicVideos));
 
-      renderPublicVideos('ALL');
-      loadPublicVideos();
-    });
+      // Render Trainee Video Showcase
+      function renderPublicVideos(categoryFilter = 'ALL') {
+        const grid = document.getElementById('publicVideosGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
 
-    window.filterPublicVideos = function(category, evt) {
-      document.querySelectorAll('.vid-tab-btn').forEach(btn => {
-        btn.classList.remove('bg-purple-600', 'text-white');
-        btn.classList.add('bg-slate-800', 'text-slate-300');
-      });
-      const targetBtn = (evt && evt.target) ? evt.target.closest('.vid-tab-btn') : null;
-      if (targetBtn) {
-        targetBtn.classList.remove('bg-slate-800', 'text-slate-300');
-        targetBtn.classList.add('bg-purple-600', 'text-white');
+        const list = (window.publicVideos && window.publicVideos.length > 0) ? window.publicVideos : defaultPublicVideos;
+        const vids = list.filter(v => {
+          if (categoryFilter === 'ALL') return true;
+          if (v.category === categoryFilter) return true;
+          if (categoryFilter === 'CCTV & Security' && (v.category.includes('CCTV') || v.category.includes('Security'))) return true;
+          if (categoryFilter === 'Smart Home Automation' && (v.category.includes('Smart Home') || v.category.includes('Automation'))) return true;
+          if (categoryFilter === 'Kids Robotics & STEM' && (v.category.includes('Robotics') || v.category.includes('STEM'))) return true;
+          return false;
+        });
+
+        vids.forEach(v => {
+          const card = document.createElement('div');
+          card.className = 'bg-slate-800/90 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl space-y-4 p-5 flex flex-col justify-between hover:border-purple-500/50 transition';
+
+          const embedInfo = window.getFormattedEmbedUrl(v.url);
+          let mediaHtml = '';
+          if (v.url && !isInvalidOrRickrollUrl(v.url) && embedInfo.type === 'iframe') {
+            mediaHtml = `
+              <div class="relative w-full h-48 rounded-xl overflow-hidden border border-slate-700 bg-black">
+                <iframe src="${embedInfo.src}" class="w-full h-full" allow="autoplay; fullscreen" allowfullscreen></iframe>
+              </div>
+            `;
+          } else if (v.url && !isInvalidOrRickrollUrl(v.url)) {
+            mediaHtml = `
+              <div class="relative w-full h-48 rounded-xl overflow-hidden border border-slate-700 bg-black flex items-center justify-center">
+                <video src="${embedInfo.src}" controls preload="metadata" playsinline class="w-full h-full object-contain"></video>
+              </div>
+            `;
+          } else {
+            mediaHtml = `
+              <div class="w-full h-48 rounded-xl border border-slate-700 bg-slate-950 flex flex-col items-center justify-center p-4 text-center text-slate-400">
+                <i data-lucide="video" class="w-8 h-8 text-purple-400 mb-2"></i>
+                <span class="text-xs">Video updating soon</span>
+              </div>
+            `;
+          }
+
+          card.innerHTML = `
+            <div>
+              <div class="relative mb-3">
+                ${mediaHtml}
+                <span class="absolute top-2 left-2 text-[10px] bg-slate-950/90 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded font-bold uppercase z-10">${v.category}</span>
+              </div>
+              <div class="space-y-1.5">
+                <h5 class="text-base font-bold text-white">${v.name}</h5>
+                <p class="text-xs text-slate-300 leading-relaxed font-normal">${v.desc}</p>
+              </div>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+
+        if (window.lucide) lucide.createIcons();
       }
-      renderPublicVideos(category);
-    };
 
-    window.renderPublicVideos = function(categoryFilter = 'ALL') {
-      const grid = document.getElementById('publicVideosGrid');
-      if (!grid) return;
-      grid.innerHTML = '';
+      window.renderPublicVideos = renderPublicVideos;
 
-      const list = (window.publicVideos && window.publicVideos.length > 0) ? window.publicVideos : defaultPublicVideos;
-      const vids = list.filter(v => {
-        if (categoryFilter === 'ALL') return true;
-        if (v.category === categoryFilter) return true;
-        if (categoryFilter === 'CCTV & Security' && (v.category.includes('CCTV') || v.category.includes('Security'))) return true;
-        if (categoryFilter === 'Smart Home Automation' && (v.category.includes('Smart Home') || v.category.includes('Automation'))) return true;
-        if (categoryFilter === 'Kids Robotics & STEM' && (v.category.includes('Robotics') || v.category.includes('STEM'))) return true;
-        return false;
-      });
-
-      vids.forEach(v => {
-        const card = document.createElement('div');
-        card.className = 'bg-slate-800/90 border border-slate-700/80 rounded-2xl overflow-hidden shadow-xl space-y-4 p-5 flex flex-col justify-between hover:border-purple-500/50 transition';
-
-        const embedInfo = window.getFormattedEmbedUrl(v.url);
-        let mediaHtml = '';
-        if (v.url && !isInvalidOrRickrollUrl(v.url) && embedInfo.type === 'iframe') {
-          mediaHtml = `
-            <div class="relative w-full h-48 rounded-xl overflow-hidden border border-slate-700 bg-black">
-              <iframe src="${embedInfo.src}" class="w-full h-full" allow="autoplay; fullscreen" allowfullscreen></iframe>
-            </div>
-          `;
-        } else if (v.url && !isInvalidOrRickrollUrl(v.url)) {
-          mediaHtml = `
-            <div class="relative w-full h-48 rounded-xl overflow-hidden border border-slate-700 bg-black flex items-center justify-center">
-              <video src="${embedInfo.src}" controls preload="metadata" playsinline class="w-full h-full object-contain"></video>
-            </div>
-          `;
-        } else {
-          mediaHtml = `
-            <div class="w-full h-48 rounded-xl border border-slate-700 bg-slate-950 flex flex-col items-center justify-center p-4 text-center text-slate-400">
-              <i data-lucide="video" class="w-8 h-8 text-purple-400 mb-2"></i>
-              <span class="text-xs">Video updating soon</span>
-            </div>
-          `;
+      function filterPublicVideos(category, evt) {
+        document.querySelectorAll('.vid-tab-btn').forEach(btn => {
+          btn.classList.remove('bg-purple-600', 'text-white');
+          btn.classList.add('bg-slate-800', 'text-slate-300');
+        });
+        const targetBtn = (evt && evt.target) ? evt.target.closest('.vid-tab-btn') : null;
+        if (targetBtn) {
+          targetBtn.classList.remove('bg-slate-800', 'text-slate-300');
+          targetBtn.classList.add('bg-purple-600', 'text-white');
         }
+        renderPublicVideos(category);
+      }
 
-        card.innerHTML = `
-          <div>
-            <div class="relative mb-3">
-              ${mediaHtml}
-              <span class="absolute top-2 left-2 text-[10px] bg-slate-950/90 text-cyan-300 border border-cyan-800 px-2 py-0.5 rounded font-bold uppercase z-10">${v.category}</span>
-            </div>
-            <div class="space-y-1.5">
-              <h5 class="text-base font-bold text-white">${v.name}</h5>
-              <p class="text-xs text-slate-300 leading-relaxed font-normal">${v.desc}</p>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
+      window.filterPublicVideos = filterPublicVideos;
 
-      if (window.lucide) lucide.createIcons();
-    };
+      // Initialize Showcase immediately and on DOM load
+      renderPublicVideos('ALL');
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', () => renderPublicVideos('ALL'));
+      }
+    });
 
     window.openPublicVideoModalById = function(id) {
       const list = (window.publicVideos && window.publicVideos.length > 0) ? window.publicVideos : defaultPublicVideos;
