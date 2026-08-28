@@ -1116,7 +1116,20 @@
       }
     ];
 
-    let videos = sanitizeVideosList(JSON.parse(localStorage.getItem('baytlogic_videos')) || defaultVideos);
+    let videos = sanitizeVideosList(JSON.parse(localStorage.getItem('baytlogic_videos')) || []);
+    if (videos.length > 0) {
+      defaultVideos.forEach(def => {
+        const match = videos.find(s => s.id == def.id);
+        if (!match) {
+          videos.push(def);
+        } else if (def.url && (!match.url || isInvalidOrRickrollUrl(match.url))) {
+          match.url = def.url;
+          match.name = def.name;
+        }
+      });
+    } else {
+      videos = defaultVideos;
+    }
     localStorage.setItem('baytlogic_videos', JSON.stringify(videos));
 
     async function syncRemoteVideos() {
