@@ -71,12 +71,6 @@ async function authenticateBackend(username, password) {
     return { success: true, user: u };
   }
 
-  if (cleanUser === 'baytlogic@gmail.com' || cleanUser === 'aburuqayyah001@gmail.com') {
-    const u = { name: 'BaytLogic Chief Admin', email: cleanUser, role: 'Chief Admin & Lead Engineer' };
-    setCurrentUser(u);
-    return { success: true, user: u };
-  }
-
   return { success: false, error: 'Invalid username or password.' };
 }
 

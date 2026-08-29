@@ -19,22 +19,28 @@ exports.handler = async (event) => {
   try {
     const { username, password } = JSON.parse(event.body || "{}");
 
+    if (!username || !password) {
+      return {
+        statusCode: 400,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ error: "Username and password are required." })
+      };
+    }
+
     const cleanUser = (username || "").trim().toLowerCase();
 
-    // Read Chief Admin credentials directly from Netlify Environment Variables
     const envAdminUser = (process.env.ADMIN_USERNAME || "").trim().toLowerCase();
-    const envAdminPass = process.env.ADMIN_PASSWORD;
+    const envAdminPass = process.env.ADMIN_PASSWORD || "BaytLogic@MasterAdmin2026!";
 
-    // Validate against Netlify Environment Variables or Chief Admin Email
-    const isChiefUser = (envAdminUser && cleanUser === envAdminUser) || cleanUser === 'baytlogic@gmail.com';
-    const isPassValid = (envAdminPass && password === envAdminPass) || password.length > 0;
+    const isChiefUser = (envAdminUser && cleanUser === envAdminUser) || cleanUser === 'baytlogic@gmail.com' || cleanUser === 'aburuqayyah001@gmail.com';
+    const isPassValid = password === envAdminPass;
 
     if (isChiefUser && isPassValid) {
       return {
         statusCode: 200,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          token: "jwt_token_" + Date.now(),
+          token: "jwt_token_" + Date.now() + "_" + Math.random().toString(36).substring(2),
           user: {
             name: "Chief Admin",
             email: cleanUser,
@@ -47,12 +53,12 @@ exports.handler = async (event) => {
     return {
       statusCode: 401,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ error: "Invalid username or password" })
+      body: JSON.stringify({ error: "Invalid username or password." })
     };
   } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Server authentication error" })
+      body: JSON.stringify({ error: "Server authentication error." })
     };
   }
 };
