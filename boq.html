@@ -8,19 +8,21 @@
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <script src="assets/auth.js"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'], mono: ['"Space Grotesk"', 'monospace'] },
           colors: {
             brand: {
-              dark: '#0f172a',
-              primary: '#06b6d4',
-              accent: '#22d3ee',
+              dark: '#0B0F17',
+              primary: '#00F0FF',
+              accent: '#22D3EE',
             }
           }
         }

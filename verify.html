@@ -3,295 +3,210 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Verify Certificate – BaytLogic Technologies</title>
+  <title>Official Certificate Verification – BaytLogic Technologies</title>
   
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="apple-touch-icon" href="assets/favicon.png">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace'],
+          },
           colors: {
+            obsidian: {
+              DEFAULT: '#0B0F17',
+              950: '#06090E',
+              900: '#0B0F17',
+              850: '#101725',
+              800: '#161F30',
+              700: '#1E2A3E',
+            },
+            neon: {
+              DEFAULT: '#00F0FF',
+              glow: 'rgba(0, 240, 255, 0.4)',
+              cyan: '#06B6D4',
+              accent: '#22D3EE',
+            },
             brand: {
-              dark: '#0f172a',
-              primary: '#06b6d4',
-              accent: '#22d3ee',
+              dark: '#0B0F17',
+              primary: '#00F0FF',
+              accent: '#22D3EE',
             }
+          },
+          boxShadow: {
+            'neon-sm': '0 0 10px rgba(0, 240, 255, 0.25)',
+            'neon': '0 0 25px rgba(0, 240, 255, 0.35)',
           }
         }
       }
     }
   </script>
+
+  <style>
+    .neon-text-glow {
+      text-shadow: 0 0 15px rgba(0, 240, 255, 0.5);
+    }
+  </style>
 </head>
-<body class="bg-brand-dark text-slate-200 antialiased min-h-screen flex flex-col items-center justify-center p-4">
+<body class="bg-obsidian text-slate-200 antialiased min-h-screen flex flex-col items-center justify-center p-4 relative overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-200">
 
-  <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-500 opacity-10 blur-[100px] pointer-events-none"></div>
-  <div class="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-blue-600 opacity-10 blur-[100px] pointer-events-none"></div>
+  <!-- Ambient Glow Behind -->
+  <div class="absolute top-0 right-0 w-96 h-96 rounded-full bg-cyan-500/10 blur-[130px] pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 w-96 h-96 rounded-full bg-blue-600/10 blur-[130px] pointer-events-none"></div>
 
-  <div class="max-w-xl w-full relative z-10">
+  <div class="max-w-xl w-full relative z-10 py-10">
+    
+    <!-- Brand Header -->
     <div class="text-center mb-10">
-      <a href="index.html" class="inline-flex items-center justify-center mb-6 hover:opacity-90 transition group">
-        <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="h-12 w-auto mr-3 drop-shadow-[0_0_10px_rgba(34,211,238,0.4)] group-hover:scale-105 transition-transform duration-300" />
+      <a href="index.html" class="inline-flex items-center justify-center mb-6 hover:opacity-95 transition group">
+        <div class="relative flex items-center justify-center mr-3">
+          <div class="absolute -inset-1 bg-cyan-500/20 rounded-full blur-sm group-hover:bg-cyan-400/40 transition duration-300"></div>
+          <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="relative h-12 w-auto drop-shadow-[0_0_12px_rgba(0,240,255,0.4)] group-hover:scale-105 transition-transform duration-300" />
+        </div>
         <div class="flex flex-col text-left">
-          <span class="font-bold text-2xl tracking-wider text-white">BAYTLOGIC</span>
-          <span class="text-xs text-brand-accent tracking-widest uppercase font-semibold">Academy</span>
+          <span class="font-bold text-2xl tracking-tight text-white font-mono">BAYTLOGIC</span>
+          <span class="text-[10px] text-cyan-400 tracking-[0.2em] uppercase font-mono font-bold">ACADEMY &amp; CREDENTIALS</span>
         </div>
       </a>
-      <h1 class="text-3xl font-extrabold text-white">Certificate Verification</h1>
-      <p class="text-slate-400 mt-2">Enter the unique ID found at the bottom of your certificate.</p>
+      
+      <h1 class="text-3xl font-extrabold text-white tracking-tight">Official Certificate Verification</h1>
+      <p class="text-slate-400 text-sm mt-2">Enter the unique credential ID found at the bottom of the issued certificate.</p>
     </div>
 
-    <div class="bg-slate-800/50 backdrop-blur-xl border border-slate-700 p-8 rounded-2xl shadow-2xl">
+    <!-- Card Form -->
+    <div class="bg-obsidian-850/80 backdrop-blur-2xl border border-obsidian-700 hover:border-cyan-500/40 p-8 rounded-3xl shadow-neon transition duration-300">
+      
       <div class="relative">
-        <input type="text" id="certInput" class="w-full bg-slate-900 border border-slate-600 text-white px-5 py-4 rounded-xl outline-none focus:border-brand-primary focus:ring-1 focus:ring-brand-primary transition font-mono uppercase tracking-widest placeholder-slate-500" placeholder="e.g. BLT-2026-001">
-        <button onclick="verifyCertificate()" id="verifyBtn" class="absolute right-2 top-2 bottom-2 bg-brand-primary hover:bg-cyan-600 text-white px-6 rounded-lg font-bold transition flex items-center">
+        <input 
+          type="text" 
+          id="certInput" 
+          class="w-full bg-obsidian-950 border border-obsidian-700 text-white px-5 py-4 rounded-2xl outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition font-mono uppercase tracking-widest placeholder-slate-500 text-sm" 
+          placeholder="e.g. BLT-2026-001">
+        
+        <button 
+          onclick="verifyCertificate()" 
+          id="verifyBtn" 
+          class="absolute right-2 top-2 bottom-2 bg-gradient-to-r from-cyan-400 to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-obsidian-950 px-6 rounded-xl font-mono font-bold text-xs uppercase tracking-wider transition flex items-center shadow-neon-sm">
           <span id="btnText">Verify</span>
-          <i data-lucide="search" id="btnIcon" class="w-4 h-4 ml-2"></i>
-          <div id="btnLoader" class="hidden animate-spin h-4 w-4 ml-2 border-2 border-white border-t-transparent rounded-full"></div>
+          <i data-lucide="search" id="btnIcon" class="w-4 h-4 ml-1.5"></i>
+          <div id="btnLoader" class="hidden animate-spin h-4 w-4 ml-2 border-2 border-obsidian-950 border-t-transparent rounded-full"></div>
         </button>
       </div>
 
-      <div id="errorMsg" class="hidden mt-4 p-4 bg-red-900/30 border border-red-500/50 rounded-lg flex items-start">
-        <i data-lucide="x-circle" class="w-5 h-5 text-red-400 mr-3 mt-0.5"></i>
-        <p id="errorText" class="text-red-200 text-sm"></p>
+      <!-- Error State -->
+      <div id="errorMsg" class="hidden mt-5 p-4 bg-red-950/40 border border-red-500/40 rounded-2xl flex items-start">
+        <i data-lucide="x-circle" class="w-5 h-5 text-red-400 mr-3 mt-0.5 shrink-0"></i>
+        <p id="errorText" class="text-red-200 text-xs sm:text-sm"></p>
       </div>
 
-      <div id="resultCard" class="hidden mt-6 bg-slate-900 border border-brand-primary/50 rounded-xl p-6 relative overflow-hidden">
-        <div class="absolute top-0 right-0 bg-brand-primary text-white text-[10px] font-bold px-3 py-1 rounded-bl-lg uppercase tracking-wider flex items-center gap-1">
-          <i data-lucide="shield-check" class="w-3 h-3"></i> Verified Official
+      <!-- Result Card -->
+      <div id="resultCard" class="hidden mt-6 bg-obsidian-900 border border-cyan-500/50 rounded-2xl p-6 relative overflow-hidden shadow-neon-sm">
+        
+        <div class="absolute top-0 right-0 bg-gradient-to-r from-cyan-400 to-blue-500 text-obsidian-950 text-[10px] font-mono font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider flex items-center gap-1">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Verified Record
         </div>
+
         <div class="flex items-center space-x-4 mb-4">
-          <div class="bg-green-500/20 p-3 rounded-full text-green-400">
-            <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+          <div class="w-12 h-12 rounded-2xl bg-cyan-950 text-cyan-400 border border-cyan-800 flex items-center justify-center shrink-0">
+            <i data-lucide="award" class="w-6 h-6"></i>
           </div>
           <div>
-            <p class="text-slate-400 text-xs uppercase tracking-widest">Student / Graduate Name</p>
+            <p class="text-slate-400 text-[10px] uppercase font-mono tracking-widest">Graduate / Student Name</p>
             <h3 id="resName" class="text-xl font-bold text-white"></h3>
           </div>
         </div>
-        <div class="space-y-3 border-t border-slate-700 pt-4 mt-2">
+
+        <div class="space-y-3 border-t border-obsidian-800 pt-4 mt-2 text-xs">
           <div>
-            <p class="text-slate-400 text-xs uppercase tracking-widest">Program Completed</p>
-            <p id="resCourse" class="text-slate-200 font-medium"></p>
+            <p class="text-slate-400 text-[10px] uppercase font-mono tracking-widest">Program Completed</p>
+            <p id="resCourse" class="text-slate-200 font-semibold text-sm"></p>
           </div>
+
           <div class="grid grid-cols-2 gap-4">
             <div>
-              <p class="text-slate-400 text-xs uppercase tracking-widest">Issue Date</p>
-              <p id="resDate" class="text-slate-200"></p>
+              <p class="text-slate-400 text-[10px] uppercase font-mono tracking-widest">Issue Date</p>
+              <p id="resDate" class="text-slate-300 font-mono"></p>
             </div>
             <div>
-              <p class="text-slate-400 text-xs uppercase tracking-widest">Sponsoring Partner</p>
-              <p id="resPartner" class="text-amber-400 font-semibold">Hamjik Care Initiative</p>
+              <p class="text-slate-400 text-[10px] uppercase font-mono tracking-widest">Sponsoring Partner</p>
+              <p id="resPartner" class="text-amber-400 font-semibold"></p>
             </div>
           </div>
+
           <div class="pt-1">
-            <p class="text-slate-400 text-xs uppercase tracking-widest">Verification Status</p>
-            <p id="resStatus" class="text-green-400 font-semibold flex items-center gap-1">
-              <span class="w-2 h-2 rounded-full bg-green-400 inline-block animate-ping"></span> Valid Record
+            <p class="text-slate-400 text-[10px] uppercase font-mono tracking-widest">Verification Status</p>
+            <p id="resStatus" class="text-neon font-mono font-semibold flex items-center gap-1.5 mt-0.5">
+              <span class="w-2 h-2 rounded-full bg-neon inline-block animate-ping"></span> Authenticated Official
             </p>
           </div>
-          <div class="pt-4 flex justify-end gap-3">
-            <button onclick="window.print()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-xs text-slate-300 font-semibold rounded-lg transition flex items-center gap-1.5 border border-slate-700">
+
+          <div class="pt-4 flex justify-end gap-3 border-t border-obsidian-800/80">
+            <button onclick="window.print()" class="px-4 py-2 bg-obsidian-850 hover:bg-obsidian-800 text-xs font-mono text-slate-300 font-medium rounded-xl transition flex items-center gap-1.5 border border-obsidian-700">
               <i data-lucide="printer" class="w-3.5 h-3.5"></i> Print Record
             </button>
           </div>
         </div>
+
       </div>
+
     </div>
     
     <div class="text-center mt-8">
-      <a href="index.html" class="text-slate-500 hover:text-brand-primary text-sm transition">&larr; Back to BaytLogic Home</a>
+      <a href="index.html" class="text-slate-400 hover:text-neon text-xs font-mono transition flex items-center justify-center gap-1">
+        &larr; Return to BaytLogic Home
+      </a>
     </div>
+
   </div>
 
   <script>
     lucide.createIcons();
 
-    // Client-side fallback database for offline / local preview testing
-    const localDb = {
-      "BLT-2026-001": { name: "Ahmad Adamu Zakari", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", partner: "Nurtureroots Foundation", status: "Valid" },
-      "BLT-2026-002": { name: "Abdulkadir Ahmed Tataru", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", partner: "Nurtureroots Foundation", status: "Valid" },
-      "BLT-2026-003": { name: "Sulaiman Jibril Babayo", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", partner: "Nurtureroots Foundation", status: "Valid" },
-      "BLT-2026-004": { name: "Dahiru Adamu", course: "Smart Home Automation & CCTV Master Class", issueDate: "April 2, 2026", partner: "Nurtureroots Foundation", status: "Valid" },
-      "BLT-2026-005": { name: "Saeed Haruna Saeed", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-006": { name: "Maryam Muhammad Ahmad", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-007": { name: "Toyyibat Abiola Shittu", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-008": { name: "Abdulshaheed Umar Chinade", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-009": { name: "Muhammad Bello Abubakar", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-010": { name: "Muhammad Ballo Mufty", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-011": { name: "Niimatullah Abimbola Shittu", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-012": { name: "Haleemat Suad Muhammad Ballo", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-013": { name: "Shamsuddeen Muhammad Ishaq", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-014": { name: "Ibrahim Muhammad Ballo", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-015": { name: "Na'ima Muhammad Ishaq", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-016": { name: "Abdullahi Rabi'u Muhammad", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-017": { name: "Abubakar Muhammad Chinade", course: "Young Innovators Robotics Bootcamp - Level 1", issueDate: "April 24, 2026", partner: "Nasscomsoft", status: "Valid" },
-      "BLT-2026-018": { name: "Moshood Lukman Sekoni", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
-      "BLT-2026-019": { name: "Ismail Abdullahi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
-      "BLT-2026-020": { name: "Muhammad Ukasha Abdullahi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
-      "BLT-2026-021": { name: "Abdulquadir Folorunso Adeshina", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
-      "BLT-2026-022": { name: "Auwal Yahaya", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
-      "BLT-2026-023": { name: "Abdullahi Yusuf Umar", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
-      "BLT-2026-024": { name: "Fasilat Olopade Olawunmi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
-      "BLT-2026-025": { name: "Kareem Saheed Adeniyi", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" },
-      "BLT-2026-026": { name: "Salihu Adamu Deba", course: "Smart Home Automation & CCTV Master Class", issueDate: "June 17, 2026", partner: "None", status: "Valid" }
-    };
+    
 
-    function getPartnerByCertId(certId) {
-      if (!certId) return "Hamjik Care Initiative";
-      const match = certId.match(/(\d+)$/);
-      if (!match) return "Hamjik Care Initiative";
-      const num = parseInt(match[1], 10);
-      if (num >= 1 && num <= 4) return "Nurtureroots Foundation";
-      if (num >= 5 && num <= 17) return "Nasscomsoft";
-      if (num >= 18 && num <= 26) return "None";
-      if (num >= 27 && num <= 67) return "Hamjik Care Initiative";
-      return "Hamjik Care Initiative";
-    }
-
-    function normalizeCertId(id) {
-      let searchId = id.replace(/\s+/g, "").toUpperCase();
-      if (searchId.startsWith("BLT2026")) searchId = "BLT-2026-" + searchId.substring(7);
-      const match = searchId.match(/^(BLT-2026-)(\d+)$/);
-      if (match) searchId = match[1] + match[2].padStart(3, '0');
-      return searchId;
-    }
-
-    async function verifyCertificate() {
-      const inputField = document.getElementById('certInput');
-      const certId = inputField.value.trim();
+    function showResult(data) {
+      document.getElementById('resName').innerText = data.name;
+      document.getElementById('resCourse').innerText = data.course;
+      document.getElementById('resDate').innerText = data.issueDate || data.date || "Verified";
+      document.getElementById('resPartner').innerText = data.partner || data.partners || "BaytLogic Academy";
       
+      const resCard = document.getElementById('resultCard');
+      resCard.classList.remove('hidden');
+      lucide.createIcons();
+
       const btnText = document.getElementById('btnText');
       const btnIcon = document.getElementById('btnIcon');
       const btnLoader = document.getElementById('btnLoader');
       const verifyBtn = document.getElementById('verifyBtn');
-      
-      const errorMsg = document.getElementById('errorMsg');
-      const errorText = document.getElementById('errorText');
-      const resultCard = document.getElementById('resultCard');
 
-      errorMsg.classList.add('hidden');
-      resultCard.classList.add('hidden');
-      
-      if (!certId) {
-        errorText.innerText = "Please enter a certificate ID.";
-        errorMsg.classList.remove('hidden');
-        return;
-      }
-
-      verifyBtn.disabled = true;
-      btnText.innerText = "Checking...";
-      btnIcon.classList.add('hidden');
-      btnLoader.classList.remove('hidden');
-
-      try {
-        const response = await fetch("/.netlify/functions/verify-cert", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ certId })
-        }).catch(() => null);
-
-        let data = null;
-        if (response && response.ok) {
-          data = await response.json();
-        }
-
-        // Check custom issued certificates from Admin Studio
-        const customCerts = JSON.parse(localStorage.getItem('baytlogic_certificates')) || [];
-        const normalizedKey = normalizeCertId(certId);
-        const customMatch = customCerts.find(c => normalizeCertId(c.id) === normalizedKey);
-
-        if (customMatch) {
-          showResult({
-            id: customMatch.id,
-            name: customMatch.name,
-            course: customMatch.course,
-            issueDate: customMatch.date,
-            partner: customMatch.partners || getPartnerByCertId(customMatch.id),
-            cohort: customMatch.cohort || 'BaytLogic Academy Graduate',
-            status: 'Valid Record'
-          });
-        } else if (data && data.success) {
-          showResult(data.data);
-        } else if (localDb[normalizedKey]) {
-          const rec = localDb[normalizedKey];
-          rec.id = normalizedKey;
-          showResult(rec);
-        } else {
-          errorText.innerText = (data && data.error) ? data.error : "Invalid or unrecognized certificate number.";
-          errorMsg.classList.remove('hidden');
-        }
-      } catch (error) {
-        const customCerts = JSON.parse(localStorage.getItem('baytlogic_certificates')) || [];
-        const normalizedKey = normalizeCertId(certId);
-        const customMatch = customCerts.find(c => normalizeCertId(c.id) === normalizedKey);
-
-        if (customMatch) {
-          showResult({
-            id: customMatch.id,
-            name: customMatch.name,
-            course: customMatch.course,
-            issueDate: customMatch.date,
-            partner: customMatch.partners || getPartnerByCertId(customMatch.id),
-            cohort: customMatch.cohort || 'BaytLogic Academy Graduate',
-            status: 'Valid Record'
-          });
-        } else if (localDb[normalizedKey]) {
-          const rec = localDb[normalizedKey];
-          rec.id = normalizedKey;
-          showResult(rec);
-        } else {
-          errorText.innerText = "Invalid or unrecognized certificate number.";
-          errorMsg.classList.remove('hidden');
-        }
-      } finally {
-        verifyBtn.disabled = false;
-        btnText.innerText = "Verify";
-        btnIcon.classList.remove('hidden');
-        btnLoader.classList.add('hidden');
-      }
+      verifyBtn.disabled = false;
+      btnText.innerText = "Verify";
+      btnIcon.classList.remove('hidden');
+      btnLoader.classList.add('hidden');
     }
 
-    function showResult(record) {
-      document.getElementById('resName').innerText = record.name;
-      document.getElementById('resCourse').innerText = record.course;
-      document.getElementById('resDate').innerText = record.issueDate || record.date;
-      if (document.getElementById('resPartner')) {
-        const partnerBox = document.getElementById('resPartner').parentElement;
-        const p = record.partner || record.partners || getPartnerByCertId(record.id || '');
-        if (!p || p === 'None' || p === 'No Collaborators' || p === 'Self-Sponsored' || p === 'N/A') {
-          if (partnerBox) partnerBox.classList.add('hidden');
-        } else {
-          if (partnerBox) partnerBox.classList.remove('hidden');
-          document.getElementById('resPartner').innerText = p;
-        }
-      }
-      document.getElementById('resStatus').innerText = record.status || "Valid Record";
-      document.getElementById('resultCard').classList.remove('hidden');
-      lucide.createIcons();
-    }
-
-    // Auto-verify from QR Code / URL parameter (e.g. verify.html?id=BLT-2026-001)
+    // Check if certId is provided in URL query string (e.g. verify.html?id=BLT-2026-001)
     window.addEventListener('DOMContentLoaded', () => {
-      const urlParams = new URLSearchParams(window.location.search);
-      const queryId = urlParams.get('id') || urlParams.get('cert') || urlParams.get('code');
-      if (queryId) {
-        document.getElementById('certInput').value = queryId;
-        verifyCertificate();
-      }
-    });
-
-    document.getElementById("certInput").addEventListener("keypress", function(event) {
-      if (event.key === "Enter") {
-        event.preventDefault();
+      const params = new URLSearchParams(window.location.search);
+      const idParam = params.get('id') || params.get('cert') || params.get('certId');
+      if (idParam) {
+        document.getElementById('certInput').value = idParam;
         verifyCertificate();
       }
     });
   </script>
+
 </body>
 </html>
