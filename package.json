@@ -1,0 +1,9 @@
+{
+  "name": "baytlogic-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BaytLogic Technologies Website",
+  "scripts": {
+    "build": "echo 'Static site - no build step required'"
+  }
+}
