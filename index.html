@@ -153,36 +153,12 @@
 </head>
 
 <body class="bg-white text-slate-800 antialiased overflow-x-hidden selection:bg-cyan-500/20 selection:text-cyan-900">
-
-  <!-- ========================================================
-       TOP NOTIFICATION BAR (Subtle Glass Ticker)
-       ======================================================== -->
-  <div class="bg-obsidian-950 text-slate-300 py-2 px-4 text-xs border-b border-obsidian-800 relative z-50">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
-      <div class="flex items-center gap-2">
-        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-cyan-950 text-neon border border-cyan-500/30 animate-pulse">
-          LIVE STATUS
-        </span>
-        <span class="text-slate-300">
-          Serving Bauchi HQ, Abuja, Kano & Nationwide • Verified ATBU Lab & Institutional Partner
-        </span>
-      </div>
-      <div class="flex items-center gap-4 text-[11px] font-medium">
-        <a href="verify.html" class="text-cyan-400 hover:text-white transition flex items-center gap-1 font-mono">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-cyan-400"></i> Verify Certificate
-        </a>
-        <span class="text-slate-700">|</span>
-        <a href="tel:+2348032476476" class="text-slate-300 hover:text-white transition flex items-center gap-1">
-          <i data-lucide="phone-call" class="w-3 h-3 text-cyan-400"></i> 0803 247 6476
-        </a>
-      </div>
-    </div>
-  </div>
-
   <!-- ========================================================
        NAVIGATION BAR (Modern Obsidian Glassmorphism)
+       ========================================================
+       NAVIGATION BAR (Modern Obsidian Glassmorphism)
        ======================================================== -->
-  <nav class="fixed top-0 w-full z-40 glass-obsidian text-white transition-all duration-300 mt-[33px] sm:mt-[33px]" id="navbar">
+  <nav class="fixed top-0 w-full z-40 glass-obsidian text-white transition-all duration-300" id="navbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex justify-between items-center h-20">
         
@@ -221,6 +197,9 @@
 
         <!-- Right Action Buttons -->
         <div class="hidden sm:flex items-center gap-3">
+          <a href="verify.html" class="px-3 py-1.5 text-cyan-400 hover:text-neon text-xs font-mono font-bold transition flex items-center gap-1 border border-cyan-500/30 hover:border-cyan-400/60 rounded-lg bg-cyan-950/40">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Verify
+          </a>
           <a href="admin.html" class="px-3.5 py-1.5 bg-obsidian-850 hover:bg-obsidian-800 text-slate-300 hover:text-white border border-obsidian-700 hover:border-cyan-500/40 text-xs font-mono font-medium rounded-lg transition flex items-center gap-1.5">
             <i data-lucide="lock" class="w-3.5 h-3.5 text-cyan-400"></i> Staff Portal
           </a>
@@ -269,7 +248,7 @@
   <!-- ========================================================
        HERO SECTION (Rich Obsidian Dark + Neon Cyan Tech Grid)
        ======================================================== -->
-  <header class="relative bg-obsidian pt-40 pb-24 lg:pt-48 lg:pb-36 overflow-hidden min-h-[90vh] flex items-center border-b border-obsidian-800">
+  <header class="relative bg-obsidian pt-32 pb-20 lg:pt-36 lg:pb-28 overflow-hidden min-h-[90vh] flex items-center border-b border-obsidian-800">
     <canvas id="networkCanvas"></canvas>
 
     <!-- Ambient Neon Cyber Lights -->
@@ -772,8 +751,11 @@
                 <i data-lucide="cctv" class="w-7 h-7"></i>
               </div>
               <div>
-                <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-600">Professional Cohort</span>
-                <h4 class="text-xl font-bold text-slate-900">Smart Home Automation & CCTV</h4>
+                <div class="flex items-center gap-2">
+                  <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-600">Professional Cohort</span>
+                  <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-mono font-bold bg-cyan-100 text-cyan-800 border border-cyan-200">Fee: ₦50,000</span>
+                </div>
+                <h4 class="text-xl font-bold text-slate-900 mt-0.5">Smart Home Automation & CCTV</h4>
               </div>
             </div>
             <p class="text-slate-600 text-sm leading-relaxed mb-6">
@@ -940,14 +922,14 @@
           <div class="max-w-3xl mx-auto text-center mb-10">
             <span class="text-cyan-400 text-xs font-mono uppercase tracking-widest font-bold">Budget Modeling</span>
             <h3 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Predictable Sponsorship Packages</h3>
-            <p class="text-sm text-slate-300 mt-2">Baseline training fee of ₦30,000 per trainee including comprehensive hardware access and verifiable certification.</p>
+            <p class="text-sm text-slate-300 mt-2">Baseline training fee of ₦50,000 per trainee including comprehensive hardware access and verifiable certification.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             
             <div class="bg-obsidian-900/90 p-6 rounded-2xl border border-obsidian-700 text-center">
               <span class="text-xs font-mono text-slate-400 uppercase">10 Young People</span>
-              <div class="text-2xl sm:text-3xl font-extrabold text-white my-2 font-mono">₦300,000</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white my-2 font-mono">₦500,000</div>
               <p class="text-xs text-slate-400">Neighborhood / Micro-cohort</p>
             </div>
 
@@ -956,13 +938,13 @@
                 Most Popular
               </div>
               <span class="text-xs font-mono text-slate-400 uppercase">25 Young People</span>
-              <div class="text-2xl sm:text-3xl font-extrabold text-neon my-2 font-mono">₦750,000</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-neon my-2 font-mono">₦1,250,000</div>
               <p class="text-xs text-slate-400">Standard Institutional Cohort</p>
             </div>
 
             <div class="bg-obsidian-900/90 p-6 rounded-2xl border border-obsidian-700 text-center">
               <span class="text-xs font-mono text-slate-400 uppercase">50 Young People</span>
-              <div class="text-2xl sm:text-3xl font-extrabold text-white my-2 font-mono">₦1,500,000</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-white my-2 font-mono">₦2,500,000</div>
               <p class="text-xs text-slate-400">State / Regional Initiative</p>
             </div>
 

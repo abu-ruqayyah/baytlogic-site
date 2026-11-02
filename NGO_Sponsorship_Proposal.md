@@ -171,17 +171,17 @@ BaytLogic ensures clear documentation throughout the sponsorship lifecycle:
 
 Sponsorship fees are structured predictably per trainee based on our standard training fee:
 
-* **Base Training Fee:** **₦30,000 per trainee**
+* **Base Training Fee:** **₦50,000 per trainee**
 
 #### Illustrative Sponsorship Cohort Packages:
 
 | Cohort Size | Illustrative Sponsorship Amount | Included Scope |
 | :--- | :--- | :--- |
-| **10 Trainees** | **₦300,000** | Full practical training, materials, assessment & certification |
-| **25 Trainees** | **₦750,000** | Full practical training, materials, assessment & certification |
-| **50 Trainees** | **₦1,500,000** | Full practical training, materials, assessment & certification |
+| **10 Trainees** | **₦500,000** | Full practical training, materials, assessment & certification |
+| **25 Trainees** | **₦1,250,000** | Full practical training, materials, assessment & certification |
+| **50 Trainees** | **₦2,500,000** | Full practical training, materials, assessment & certification |
 
-*Note: Illustrative sponsorship amounts based on current ₦30,000 training fee. Custom sponsorship packages can be developed for larger cohorts or specific programme requirements.*
+*Note: Illustrative sponsorship amounts based on current ₦50,000 training fee. Custom sponsorship packages can be developed for larger cohorts or specific programme requirements.*
 
 ---
 
