@@ -204,6 +204,20 @@ module.exports = async function handler(req, res) {
         issueDate: "June 17, 2026",
         partner: "None",
         status: "Valid"
+      },
+      "BLT-2026-027": {
+        name: "Yakubu Haruna",
+        course: "Smart Home Automation & CCTV Master Class",
+        issueDate: "November 13, 2026",
+        partner: "None",
+        status: "Valid"
+      },
+      "BLT-2026-028": {
+        name: "Murtala Muhammad Sha'aban",
+        course: "Smart Home Automation & CCTV Master Class",
+        issueDate: "November 13, 2026",
+        partner: "None",
+        status: "Valid"
       }
     };
 
@@ -214,8 +228,8 @@ module.exports = async function handler(req, res) {
       const num = parseInt(match[1], 10);
       if (num >= 1 && num <= 4) return "Nurtureroots Foundation";
       if (num >= 5 && num <= 17) return "Nasscomsoft";
-      if (num >= 18 && num <= 26) return "None";
-      if (num >= 27 && num <= 67) return "Hamjik Care Initiative";
+      if (num >= 18 && num <= 28) return "None";
+      if (num >= 29 && num <= 67) return "Hamjik Care Initiative";
       return "Hamjik Care Initiative";
     }
 
