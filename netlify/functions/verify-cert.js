@@ -215,14 +215,14 @@ exports.handler = async function(event, context) {
       "BLT-2026-027": {
         name: "Yakubu Haruna",
         course: "Smart Home Automation & CCTV Master Class",
-        issueDate: "November 12, 2026",
+        issueDate: "November 13, 2026",
         partner: "None",
         status: "Valid"
       },
       "BLT-2026-028": {
         name: "Murtala Muhammad Sha'aban",
         course: "Smart Home Automation & CCTV Master Class",
-        issueDate: "November 12, 2026",
+        issueDate: "November 13, 2026",
         partner: "None",
         status: "Valid"
       }

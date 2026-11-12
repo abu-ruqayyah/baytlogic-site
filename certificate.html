@@ -217,12 +217,12 @@
         <div class="grid grid-cols-2 gap-3">
           <div>
             <label class="block text-slate-300 font-semibold mb-1">CEO / Founder Name</label>
-            <input type="text" id="inCeo" value="Engr. Yahaya Sulaiman Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
+            <input type="text" id="inCeo" value="Yahaya Sulaiman Abdullahi" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
           </div>
 
           <div>
             <label class="block text-slate-300 font-semibold mb-1">Lead Facilitator Name</label>
-            <input type="text" id="inFacilitator" value="Engr. Ahmad Adamu Zakari" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
+            <input type="text" id="inFacilitator" value="Ahmad Adamu Zakari" oninput="updateCert()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-white font-semibold outline-none focus:border-amber-400 transition" />
           </div>
         </div>
 
@@ -344,7 +344,7 @@
                       <!-- Blank signature area for physical pen signature -->
                     </div>
                     <div class="border-t border-slate-700/80 pt-1">
-                      <p id="outCeo" class="font-bold text-brand-navy text-xs">Engr. Yahaya Sulaiman Abdullahi</p>
+                      <p id="outCeo" class="font-bold text-brand-navy text-xs">Yahaya Sulaiman Abdullahi</p>
                       <p class="text-[10px] text-slate-600 font-medium">CEO / Founder & Director</p>
                       <p class="text-[9px] text-slate-400 font-semibold">BaytLogic Technologies</p>
                     </div>
@@ -356,7 +356,7 @@
                       <!-- Blank signature area for physical pen signature -->
                     </div>
                     <div class="border-t border-slate-700/80 pt-1">
-                      <p id="outFacilitator" class="font-bold text-brand-navy text-xs">Engr. Ahmad Adamu Zakari</p>
+                      <p id="outFacilitator" class="font-bold text-brand-navy text-xs">Ahmad Adamu Zakari</p>
                       <p class="text-[10px] text-slate-600 font-medium">Lead Training Facilitator</p>
                       <p class="text-[9px] text-slate-400 font-semibold">BaytLogic Technologies</p>
                     </div>
@@ -455,8 +455,8 @@
         footerBar.children[1].innerText = isDirect ? 'BaytLogic Technologies' : `BaytLogic Technologies & ${partner}`;
       }
 
-      document.getElementById('outCeo').innerText = ceo || 'Engr. Yahaya Sulaiman Abdullahi';
-      document.getElementById('outFacilitator').innerText = facilitator || 'Engr. Ahmad Adamu Zakari';
+      document.getElementById('outCeo').innerText = ceo || 'Yahaya Sulaiman Abdullahi';
+      document.getElementById('outFacilitator').innerText = facilitator || 'Ahmad Adamu Zakari';
 
       const verifyUrl = `https://baytlogic.com.ng/verify.html?id=${id}`;
       document.getElementById('outQr').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(verifyUrl)}`;

@@ -121,7 +121,7 @@ def generate_certificate(recipient_name, cert_id, output_pdf_path):
     logo_w, logo_h = 48, 48
     logo_x = (WIDTH - logo_w) / 2
     logo_y = HEIGHT - 85
-    c.drawImage('assets/baytlogic-icon-cyan.png', logo_x, logo_y, width=logo_w, height=logo_h, mask='auto')
+    c.drawImage('assets/baytlogic-icon-navy.png', logo_x, logo_y, width=logo_w, height=logo_h, mask='auto')
     
     # Institution Name Header
     c.setFont('Constantia-Bold', 18)
@@ -196,7 +196,7 @@ def generate_certificate(recipient_name, cert_id, output_pdf_path):
     # Training Dates & Issue Date Row
     c.setFont('Georgia-Italic', 10.5)
     c.setFillColor(colors.HexColor("#475569"))
-    date_str = "Training Duration: November 9 – 13, 2026   •   Date of Issue: November 12, 2026"
+    date_str = "Training Duration: November 9 – 13, 2026   •   Date of Issue: November 13, 2026"
     c.drawCentredString(WIDTH / 2, HEIGHT - 314, date_str)
     
     # --- 8. Middle Divider Line ---
@@ -212,49 +212,41 @@ def generate_certificate(recipient_name, cert_id, output_pdf_path):
     seal_y = 95
     c.drawImage('assets/certified_gold_seal.png', seal_x, seal_y, width=seal_size, height=seal_size, mask='auto')
     
-    # (B) Center: Dual Signatures
+    # (B) Center: Dual Signatures (Blank space provided above lines for manual physical signatures)
     # 1. CEO Signature Block (Left center)
     ceo_center_x = 310
     sig_line_y = 130
     
-    # Authentic transparent CEO signature
-    sig_w, sig_h = 100, 52
-    c.drawImage('assets/ceo_signature_transparent.png', ceo_center_x - sig_w/2, sig_line_y + 4, width=sig_w, height=sig_h, mask='auto')
-    
-    # CEO Signature Line
+    # CEO Signature Line for manual pen signing
     c.setStrokeColor(colors.HexColor("#0B1D3A"))
     c.setLineWidth(1)
     c.line(ceo_center_x - 75, sig_line_y, ceo_center_x + 75, sig_line_y)
     
-    # CEO Titles
+    # CEO Titles (Title 'Engr.' and 'Ltd' removed)
     c.setFont('Georgia-Bold', 10)
     c.setFillColor(colors.HexColor("#0B1D3A"))
-    c.drawCentredString(ceo_center_x, sig_line_y - 14, "Engr. Yahaya Sulaiman Abdullahi")
+    c.drawCentredString(ceo_center_x, sig_line_y - 14, "Yahaya Sulaiman Abdullahi")
     
     c.setFont('Georgia', 8.5)
     c.setFillColor(colors.HexColor("#475569"))
-    c.drawCentredString(ceo_center_x, sig_line_y - 26, "CEO / Founder & Managing Director")
+    c.drawCentredString(ceo_center_x, sig_line_y - 26, "CEO / Founder")
     
     c.setFont('Georgia-Italic', 7.5)
     c.setFillColor(colors.HexColor("#64748B"))
-    c.drawCentredString(ceo_center_x, sig_line_y - 37, "BaytLogic Technologies Ltd")
+    c.drawCentredString(ceo_center_x, sig_line_y - 37, "BaytLogic Technologies")
 
     # 2. Facilitator Signature Block (Right center)
     fac_center_x = 515
     
-    # Authentic transparent Facilitator signature
-    fac_sig_w, fac_sig_h = 105, 38
-    c.drawImage('assets/facilitator_signature_transparent.png', fac_center_x - fac_sig_w/2, sig_line_y + 4, width=fac_sig_w, height=fac_sig_h, mask='auto')
-    
-    # Facilitator Signature Line
+    # Facilitator Signature Line for manual pen signing
     c.setStrokeColor(colors.HexColor("#0B1D3A"))
     c.setLineWidth(1)
     c.line(fac_center_x - 75, sig_line_y, fac_center_x + 75, sig_line_y)
     
-    # Facilitator Titles
+    # Facilitator Titles (Title 'Engr.' and 'Ltd' removed)
     c.setFont('Georgia-Bold', 10)
     c.setFillColor(colors.HexColor("#0B1D3A"))
-    c.drawCentredString(fac_center_x, sig_line_y - 14, "Engr. Ahmad Adamu Zakari")
+    c.drawCentredString(fac_center_x, sig_line_y - 14, "Ahmad Adamu Zakari")
     
     c.setFont('Georgia', 8.5)
     c.setFillColor(colors.HexColor("#475569"))
@@ -262,7 +254,7 @@ def generate_certificate(recipient_name, cert_id, output_pdf_path):
     
     c.setFont('Georgia-Italic', 7.5)
     c.setFillColor(colors.HexColor("#64748B"))
-    c.drawCentredString(fac_center_x, sig_line_y - 37, "BaytLogic Technologies Ltd")
+    c.drawCentredString(fac_center_x, sig_line_y - 37, "BaytLogic Technologies")
 
     # (C) Right: Vector QR Verification Code
     qr_x = 690
@@ -303,7 +295,7 @@ def generate_certificate(recipient_name, cert_id, output_pdf_path):
     c.setFillColor(colors.HexColor("#64748B"))
     
     # Left footer
-    c.drawString(45, 40, f"Certificate ID: {cert_id}  •  Issued: November 12, 2026")
+    c.drawString(45, 40, f"Certificate ID: {cert_id}  •  Issued: November 13, 2026")
     
     # Center footer (Institutional certification, no partner mentioned)
     c.drawCentredString(WIDTH / 2, 40, "BaytLogic Technologies • Institutional Certification of Competency")
