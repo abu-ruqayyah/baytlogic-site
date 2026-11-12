@@ -193,10 +193,10 @@ def generate_certificate(recipient_name, cert_id, output_pdf_path):
     c.setFillColor(colors.HexColor("#0B1D3A"))
     c.drawCentredString(WIDTH / 2, HEIGHT - 292, "SMART HOME AUTOMATION & SMART CCTV INSTALLATION")
     
-    # Training Dates Row
+    # Training Dates & Issue Date Row
     c.setFont('Georgia-Italic', 10.5)
     c.setFillColor(colors.HexColor("#475569"))
-    date_str = "Conducted & Evaluated: November 9 – November 13, 2026"
+    date_str = "Training Duration: November 9 – 13, 2026   •   Date of Issue: November 12, 2026"
     c.drawCentredString(WIDTH / 2, HEIGHT - 314, date_str)
     
     # --- 8. Middle Divider Line ---
@@ -303,7 +303,7 @@ def generate_certificate(recipient_name, cert_id, output_pdf_path):
     c.setFillColor(colors.HexColor("#64748B"))
     
     # Left footer
-    c.drawString(45, 40, f"Certificate ID: {cert_id}")
+    c.drawString(45, 40, f"Certificate ID: {cert_id}  •  Issued: November 12, 2026")
     
     # Center footer (Institutional certification, no partner mentioned)
     c.drawCentredString(WIDTH / 2, 40, "BaytLogic Technologies • Institutional Certification of Competency")
