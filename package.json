@@ -5,5 +5,8 @@
   "description": "BaytLogic Technologies Website",
   "scripts": {
     "build": "echo 'Static site - no build step required'"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.9"
   }
 }

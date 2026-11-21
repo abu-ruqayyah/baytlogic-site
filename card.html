@@ -1,195 +1,410 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sulaiman Abdullahi Yahaya | BaytLogic Technologies — Digital Card</title>
+  <meta name="description" content="Connect with Sulaiman Abdullahi Yahaya, Managing Director / CEO of BaytLogic Technologies — Security Systems, Network Engineering & Smart Homes." />
 
-<title>BaytLogic Technologies | Contact</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/favicon.png" />
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<style>
-body {
-  font-family: 'Plus Jakarta Sans', Inter, sans-serif;
-  background: radial-gradient(circle at top, #0B0F17, #06090E);
-  overflow-x: hidden;
-}
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 
-.glow {
-  box-shadow: 0 0 30px rgba(34,211,238,0.25);
-}
+  <!-- Google Fonts matching index.html -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
-.float {
-  animation: float 4s ease-in-out infinite;
-}
-@keyframes float {
-  0%,100%{transform:translateY(0)}
-  50%{transform:translateY(-10px)}
-}
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace'],
+          },
+          colors: {
+            obsidian: {
+              DEFAULT: '#0B0F17',
+              950: '#06090E',
+              900: '#0B0F17',
+              850: '#101725',
+              800: '#161F30',
+              700: '#1E2A3E',
+            },
+            neon: {
+              DEFAULT: '#00F0FF',
+              cyan: '#06B6D4',
+              accent: '#22D3EE',
+            },
+            gold: {
+              DEFAULT: '#E6A31E',
+              light: '#F5CA5C',
+            }
+          }
+        }
+      }
+    };
+  </script>
 
-/* Pulse effect for register button */
-.pulse {
-  animation: pulse 1.5s infinite;
-}
-@keyframes pulse {
-  0% { box-shadow: 0 0 0 0 rgba(168,85,247,0.6); }
-  70% { box-shadow: 0 0 0 15px rgba(168,85,247,0); }
-  100% { box-shadow: 0 0 0 0 rgba(168,85,247,0); }
-}
-</style>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', Inter, sans-serif;
+      background: radial-gradient(circle at top center, #0F1A2E 0%, #0B0F17 48%, #06090E 100%);
+      overflow-x: hidden;
+    }
+
+    .glass-card-dark {
+      background: rgba(16, 23, 37, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(0, 240, 255, 0.16);
+      box-shadow: 0 24px 60px -12px rgba(0, 0, 0, 0.65), 0 0 30px rgba(0, 240, 255, 0.08);
+    }
+
+    .glass-pill {
+      background: rgba(22, 31, 48, 0.78);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 0.25s ease;
+    }
+    .glass-pill:hover {
+      border-color: rgba(0, 240, 255, 0.4);
+      background: rgba(22, 31, 48, 0.95);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -8px rgba(0, 240, 255, 0.2);
+    }
+
+    .btn-primary-glow {
+      background: linear-gradient(135deg, #00F0FF 0%, #0EA5E9 100%);
+      color: #06090E;
+      box-shadow: 0 0 24px rgba(0, 240, 255, 0.32);
+      transition: all 0.25s ease;
+    }
+    .btn-primary-glow:hover {
+      box-shadow: 0 0 34px rgba(0, 240, 255, 0.55);
+      transform: translateY(-2px);
+    }
+
+    .btn-gold-glow {
+      background: linear-gradient(135deg, #F5CA5C 0%, #D99116 100%);
+      color: #06090E;
+      box-shadow: 0 0 22px rgba(230, 163, 30, 0.28);
+      transition: all 0.25s ease;
+    }
+    .btn-gold-glow:hover {
+      box-shadow: 0 0 32px rgba(230, 163, 30, 0.48);
+      transform: translateY(-2px);
+    }
+
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-6px); }
+    }
+    .float-slow {
+      animation: floatSlow 5s ease-in-out infinite;
+    }
+
+    #networkCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+  </style>
 </head>
 
-<body class="text-white flex items-center justify-center min-h-screen px-4">
+<body class="text-white min-h-screen flex items-center justify-center px-4 py-8 relative selection:bg-cyan-500/30">
 
-<div class="max-w-md w-full text-center relative z-10">
+  <!-- Neural Network Particle Canvas (matching main website) -->
+  <canvas id="networkCanvas"></canvas>
 
-<!-- LOGO -->
-<div class="mb-6 float flex flex-col items-center">
-  <img src="assets/baytlogic-icon-navy.png" alt="BaytLogic Technologies" class="h-16 w-auto mb-2" />
-  <div class="font-extrabold text-xl tracking-wider text-white">BAYTLOGIC</div>
-  <div class="text-xs text-cyan-400 font-semibold tracking-widest uppercase">TECHNOLOGIES</div>
-  <div class="text-[11px] text-slate-400 tracking-wide mt-1">Where Intelligence Meets Security</div>
-</div>
+  <!-- Main Digital Business Card -->
+  <main class="relative z-10 w-full max-w-md">
+    <div class="glass-card-dark rounded-3xl overflow-hidden relative">
 
-<!-- NAME -->
-<h1 class="text-2xl font-extrabold mb-2">Yahaya Abdullahi Sulaiman</h1>
-<p class="text-cyan-400 mb-6">AI • Robotics • Smart Home Engineer</p>
+      <!-- Top Neon-to-Gold Accent Strip -->
+      <div class="h-1.5 w-full bg-gradient-to-r from-cyan-400 via-sky-500 to-amber-400"></div>
 
-<!-- BUTTONS -->
-<div class="space-y-4">
+      <div class="p-6 sm:p-7">
 
-<a href="tel:+2348032476476"
-onclick="stopRedirect(); trackClick('call')"
-class="block w-full py-3 rounded-lg bg-slate-800 glow">
-📞 Call Now
-</a>
+        <!-- Brand & Verified Header -->
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center gap-2.5">
+            <div class="w-10 h-10 rounded-xl bg-obsidian-950/90 border border-cyan-400/30 p-1.5 flex items-center justify-center shadow-lg">
+              <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Logo" class="w-full h-full object-contain" />
+            </div>
+            <div class="text-left">
+              <div class="font-extrabold text-sm tracking-wider text-white leading-tight">BAYTLOGIC</div>
+              <div class="text-[10px] font-mono font-bold tracking-[0.22em] text-amber-400 uppercase">Technologies</div>
+            </div>
+          </div>
 
-<a id="waBtn"
-href="https://wa.me/2348032476476"
-onclick="stopRedirect(); trackClick('whatsapp')"
-class="block w-full py-3 rounded-lg bg-green-500 text-white font-bold glow">
-💬 Chat on WhatsApp
-</a>
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/30 text-emerald-300 text-[10px] font-mono font-semibold uppercase tracking-wider">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            RC: 8509421
+          </span>
+        </div>
 
-<a href="https://baytlogic.com.ng"
-onclick="stopRedirect(); trackClick('website')"
-class="block w-full py-3 rounded-lg bg-cyan-500 font-bold glow">
-🌐 Visit Website
-</a>
+        <!-- Executive Identity -->
+        <div class="text-center mb-6">
+          <div class="w-20 h-20 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-cyan-400/20 via-obsidian-800 to-amber-400/20 p-[2px] float-slow shadow-xl">
+            <div class="w-full h-full rounded-2xl bg-obsidian-950 flex items-center justify-center p-2.5">
+              <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic Crest" class="w-full h-full object-contain" />
+            </div>
+          </div>
 
-<!-- 🔥 REGISTER BUTTON -->
-<a href="https://forms.gle/ykDWvtjZtjjbKkES8"
-onclick="stopRedirect(); trackClick('form')"
-target="_blank"
-class="block w-full py-3 rounded-lg bg-purple-500 text-white font-bold pulse">
-📝 Register for Training
-</a>
+          <h1 class="text-2xl font-extrabold tracking-tight text-white">
+            Sulaiman Abdullahi Yahaya
+          </h1>
+          <p class="text-xs font-mono font-bold uppercase tracking-[0.18em] text-amber-400 mt-1">
+            Managing Director / CEO
+          </p>
+          <p class="text-[11px] text-slate-400 mt-1.5">
+            Where Intelligence Meets Security
+          </p>
 
-</div>
+          <!-- 3-Pillar Executive Strip -->
+          <div class="mt-4 inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-3.5 py-1.5 rounded-full bg-obsidian-950/70 border border-slate-700/80 text-[10px] font-mono font-semibold text-cyan-300 tracking-wider uppercase">
+            <span>Security Systems</span>
+            <span class="text-amber-400">&bull;</span>
+            <span>Network Engineering</span>
+            <span class="text-amber-400">&bull;</span>
+            <span>Smart Homes</span>
+          </div>
+        </div>
 
-<!-- COUNTDOWN -->
-<p id="redirectMsg" class="mt-6 text-xs text-gray-400">
-Redirecting to WhatsApp in <span id="count">10</span>s...
-</p>
+        <!-- Primary Action Buttons -->
+        <div class="space-y-3">
 
-<!-- SERVICES -->
-<div class="mt-8 text-sm text-gray-400">
-<p>✔ CCTV Installation</p>
-<p>✔ Smart Home Automation</p>
-<p>✔ Embedded AI Systems</p>
-<p>✔ Robotics Training</p>
-<p>✔ EdTech & School LMS</p>
-</div>
+          <!-- 1-Tap Save Contact (.vcf) -->
+          <button onclick="downloadVCard(); trackClick('vcard')"
+            class="w-full py-3.5 px-4 rounded-xl btn-primary-glow font-extrabold text-sm flex items-center justify-center gap-2.5">
+            <i data-lucide="user-plus" class="w-4 h-4"></i>
+            <span>Save Contact to Phone</span>
+          </button>
 
-<!-- FOOTER -->
-<div class="mt-8 text-xs text-gray-500">
-© 2026 BaytLogic Technologies
-</div>
+          <!-- WhatsApp Direct -->
+          <a href="https://wa.me/2348032476476?text=Hello%20BaytLogic%20Technologies%2C%20I%20scanned%20your%20digital%20business%20card."
+            target="_blank" rel="noopener"
+            onclick="trackClick('whatsapp')"
+            class="w-full py-3.5 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-sm flex items-center justify-center gap-2.5 transition shadow-lg shadow-emerald-500/20">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>Chat on WhatsApp</span>
+          </a>
 
-</div>
+          <!-- Call & Email Quick Split -->
+          <div class="grid grid-cols-2 gap-3">
+            <a href="tel:+2348032476476"
+              onclick="trackClick('call')"
+              class="glass-pill py-3 px-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-white">
+              <i data-lucide="phone-call" class="w-4 h-4 text-cyan-400"></i>
+              <span>Call Direct</span>
+            </a>
 
-<!-- BACKGROUND -->
-<canvas id="bgCanvas" class="absolute top-0 left-0 w-full h-full"></canvas>
+            <a href="mailto:info@baytlogic.com.ng"
+              onclick="trackClick('email')"
+              class="glass-pill py-3 px-3 rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-white">
+              <i data-lucide="mail" class="w-4 h-4 text-amber-400"></i>
+              <span>Send Email</span>
+            </a>
+          </div>
 
-<script>
-// TRACKING
-function trackClick(type){
-  fetch("/.netlify/functions/track", {
-    method:"POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({type})
-  }).catch(() => null);
-}
+          <!-- Official Website -->
+          <a href="https://baytlogic.com.ng"
+            onclick="trackClick('website')"
+            class="glass-pill w-full py-3 px-4 rounded-xl flex items-center justify-between text-xs font-bold text-white">
+            <span class="flex items-center gap-2.5">
+              <i data-lucide="globe" class="w-4 h-4 text-cyan-400"></i>
+              <span>Visit Official Website</span>
+            </span>
+            <span class="text-[11px] font-mono text-slate-400 flex items-center gap-1">
+              baytlogic.com.ng <i data-lucide="arrow-up-right" class="w-3.5 h-3.5 text-cyan-400"></i>
+            </span>
+          </a>
 
-// STOP AUTO REDIRECT IF USER INTERACTS
-let redirectStopped = false;
-function stopRedirect(){
-  redirectStopped = true;
-}
+          <!-- Register for Training -->
+          <a href="https://forms.gle/ykDWvtjZtjjbKkES8"
+            target="_blank" rel="noopener"
+            onclick="trackClick('form')"
+            class="w-full py-3.5 px-4 rounded-xl btn-gold-glow font-extrabold text-sm flex items-center justify-center gap-2.5">
+            <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+            <span>Register for Tech Training</span>
+          </a>
+        </div>
 
-// COUNTDOWN + REDIRECT
-let timeLeft = 10;
-const countEl = document.getElementById("count");
+        <!-- Core Capabilities Grid -->
+        <div class="mt-6 pt-5 border-t border-slate-800/90">
+          <div class="text-[10px] font-mono font-bold uppercase tracking-[0.18em] text-slate-400 text-center mb-3">
+            Core Engineering Solutions
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-[11px] font-semibold text-slate-200">
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-obsidian-950/60 border border-slate-800">
+              <i data-lucide="cctv" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+              <span>AI CCTV Surveillance</span>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-obsidian-950/60 border border-slate-800">
+              <i data-lucide="network" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+              <span>Network Engineering</span>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-obsidian-950/60 border border-slate-800">
+              <i data-lucide="home" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+              <span>Smart Home IoT</span>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-obsidian-950/60 border border-slate-800">
+              <i data-lucide="wifi" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+              <span>Starlink &amp; Fiber</span>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-obsidian-950/60 border border-slate-800">
+              <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400 shrink-0"></i>
+              <span>Embedded AI &amp; Robotics</span>
+            </div>
+            <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-obsidian-950/60 border border-slate-800">
+              <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400 shrink-0"></i>
+              <span>Tech Academy</span>
+            </div>
+          </div>
+        </div>
 
-const timer = setInterval(()=>{
-  if(redirectStopped){
-    clearInterval(timer);
-    document.getElementById("redirectMsg").innerText = "Redirect cancelled";
-    return;
-  }
+        <!-- Social Media Links -->
+        <div class="mt-5 pt-5 border-t border-slate-800/90">
+          <div class="grid grid-cols-3 gap-2.5">
+            <a href="https://www.tiktok.com/@baytlogictech" target="_blank" rel="noopener" onclick="trackClick('tiktok')"
+              class="glass-pill py-2.5 px-2 rounded-xl flex flex-col items-center justify-center gap-1 text-[10px] font-bold text-slate-200">
+              <svg class="w-4 h-4 fill-cyan-400" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-5.2 1.74 2.89 2.89 0 012.31-4.64 2.93 2.93 0 01.88.13V9.4a6.84 6.84 0 00-1-.05A6.33 6.33 0 005 20.1a6.34 6.34 0 0010.86-4.43v-7a8.16 8.16 0 004.77 1.52v-3.4a4.85 4.85 0 01-1-.1z"/></svg>
+              <span>@baytlogictech</span>
+            </a>
 
-  timeLeft--;
-  countEl.innerText = timeLeft;
+            <a href="https://www.instagram.com/baytlogic" target="_blank" rel="noopener" onclick="trackClick('instagram')"
+              class="glass-pill py-2.5 px-2 rounded-xl flex flex-col items-center justify-center gap-1 text-[10px] font-bold text-slate-200">
+              <svg class="w-4 h-4 stroke-amber-400 fill-none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1.2" class="fill-amber-400 stroke-none"/></svg>
+              <span>@baytlogic</span>
+            </a>
 
-  if(timeLeft <= 0){
-    clearInterval(timer);
-    window.location.href = "https://wa.me/2348032476476";
-  }
-},1000);
+            <a href="https://facebook.com/baytlogic" target="_blank" rel="noopener" onclick="trackClick('facebook')"
+              class="glass-pill py-2.5 px-2 rounded-xl flex flex-col items-center justify-center gap-1 text-[10px] font-bold text-slate-200">
+              <svg class="w-4 h-4 fill-sky-400" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.89h-2.34v6.99C18.34 21.13 22 16.99 22 12z"/></svg>
+              <span>/baytlogic</span>
+            </a>
+          </div>
+        </div>
 
-// PARTICLE BACKGROUND
-const canvas = document.getElementById("bgCanvas");
-const ctx = canvas.getContext("2d");
-let w,h,particles=[];
+        <!-- Headquarters Location -->
+        <div class="mt-5 p-3 rounded-xl bg-obsidian-950/70 border border-slate-800/80 flex items-center gap-2.5 text-[11px] text-slate-300">
+          <i data-lucide="map-pin" class="w-4 h-4 text-amber-400 shrink-0"></i>
+          <span>NTEL T-Junction, Atiku Abubakar Street, Ibrahim Bako, Bauchi State</span>
+        </div>
 
-function resize(){
-  w=canvas.width=window.innerWidth;
-  h=canvas.height=window.innerHeight;
-}
-window.addEventListener("resize",resize);
-resize();
+        <!-- Footer -->
+        <div class="mt-5 text-center text-[10px] font-mono text-slate-500">
+          &copy; 2026 BaytLogic Technologies &bull; All Rights Reserved
+        </div>
+      </div>
+    </div>
+  </main>
 
-class P{
-  constructor(){
-    this.x=Math.random()*w;
-    this.y=Math.random()*h;
-    this.vx=(Math.random()-0.5)*0.5;
-    this.vy=(Math.random()-0.5)*0.5;
-  }
-  move(){
-    this.x+=this.vx;
-    this.y+=this.vy;
-  }
-  draw(){
-    ctx.fillStyle="rgba(34,211,238,0.7)";
-    ctx.fillRect(this.x,this.y,2,2);
-  }
-}
+  <script>
+    if (window.lucide) lucide.createIcons();
 
-for(let i=0;i<60;i++)particles.push(new P());
+    // Click analytics
+    function trackClick(type) {
+      fetch('/.netlify/functions/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type })
+      }).catch(() => null);
+    }
 
-function animate(){
-  ctx.clearRect(0,0,w,h);
-  particles.forEach(p=>{
-    p.move(); p.draw();
-  });
-  requestAnimationFrame(animate);
-}
-animate();
-</script>
+    // 1-Tap vCard (.vcf) Contact Download
+    function downloadVCard() {
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'N:Yahaya;Sulaiman;Abdullahi;;',
+        'FN:Sulaiman Abdullahi Yahaya',
+        'ORG:BaytLogic Technologies',
+        'TITLE:Managing Director / CEO',
+        'TEL;TYPE=WORK,VOICE:+2348032476476',
+        'EMAIL;TYPE=WORK,INTERNET:info@baytlogic.com.ng',
+        'URL:https://baytlogic.com.ng',
+        'ADR;TYPE=WORK:;;NTEL T-Junction, Atiku Abubakar Street, Ibrahim Bako;Bauchi;Bauchi State;;Nigeria',
+        'NOTE:Security Systems | Network Engineering | Smart Homes (RC: 8509421)',
+        'END:VCARD'
+      ].join('\r\n');
 
+      const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Sulaiman_Yahaya_BaytLogic.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Connected Neural Network Canvas (matches baytlogic.com.ng)
+    const canvas = document.getElementById('networkCanvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, nodes = [];
+
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    for (let i = 0; i < 45; i++) {
+      nodes.push({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        r: Math.random() * 1.6 + 0.9
+      });
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, w, h);
+      for (let i = 0; i < nodes.length; i++) {
+        const a = nodes[i];
+        a.x += a.vx;
+        a.y += a.vy;
+        if (a.x < 0 || a.x > w) a.vx *= -1;
+        if (a.y < 0 || a.y > h) a.vy *= -1;
+
+        ctx.beginPath();
+        ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(0, 240, 255, 0.65)';
+        ctx.fill();
+
+        for (let j = i + 1; j < nodes.length; j++) {
+          const b = nodes[j];
+          const dx = a.x - b.x;
+          const dy = a.y - b.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < 130) {
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.strokeStyle = `rgba(0, 240, 255, ${(1 - dist / 130) * 0.18})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+      }
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
 </body>
 </html>

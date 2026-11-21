@@ -1,10 +1,9 @@
 /**
  * BaytLogic Technologies - Secure Staff & Admin Authentication Module
- * Enforces strict access control: Unauthenticated users are blocked and redirected.
- * PUBLIC SIGNUPS ARE DISABLED COMPLETELY. Staff accounts are managed exclusively by Chief Admins.
+ * Uses Netlify Serverless + Netlify Blobs cloud persistence so staff accounts
+ * work across ALL devices and NEVER disappear.
  */
 
-// Automatically set Netlify site URL for local development testing
 if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
   if (!localStorage.getItem('netlifySiteURL')) {
     localStorage.setItem('netlifySiteURL', 'https://baytlogic.com.ng');
@@ -13,62 +12,99 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
 
 function isChiefAdmin(user) {
   if (!user) return false;
+  if (user.isChief === true) return true;
   if (user.role && user.role.toLowerCase().includes('chief admin')) return true;
   const em = (user.email || user.username || '').toLowerCase();
   if (em === 'baytlogic@gmail.com' || em === 'aburuqayyah001@gmail.com') return true;
   return false;
 }
 
-// Master session getter
 function getCurrentUser() {
   const sess = sessionStorage.getItem('baytlogic_current_user') || localStorage.getItem('baytlogic_remember_user');
   return sess ? JSON.parse(sess) : null;
 }
 
-function setCurrentUser(user, remember = true) {
+function getAuthToken() {
+  return sessionStorage.getItem('baytlogic_auth_token') || localStorage.getItem('baytlogic_auth_token') || '';
+}
+
+function setCurrentUser(user, token = '', remember = true) {
   sessionStorage.setItem('baytlogic_current_user', JSON.stringify(user));
+  if (token) sessionStorage.setItem('baytlogic_auth_token', token);
   if (remember) {
     localStorage.setItem('baytlogic_remember_user', JSON.stringify(user));
+    if (token) localStorage.setItem('baytlogic_auth_token', token);
   }
 }
 
 function logoutUser() {
   sessionStorage.removeItem('baytlogic_current_user');
+  sessionStorage.removeItem('baytlogic_auth_token');
   localStorage.removeItem('baytlogic_remember_user');
-  window.location.href = "index.html";
+  localStorage.removeItem('baytlogic_auth_token');
+  window.location.href = 'index.html';
 }
 
-// Backend Serverless Authentication call for local or custom auth
+// Toggle password visibility helper (works for login & modals)
+function togglePasswordVisibility(inputId, btnEl) {
+  const input = document.getElementById(inputId);
+  if (!input) return;
+  const isPassword = input.type === 'password';
+  input.type = isPassword ? 'text' : 'password';
+  if (btnEl) {
+    btnEl.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
+    btnEl.innerHTML = isPassword
+      ? '<i data-lucide="eye-off" class="w-4 h-4"></i>'
+      : '<i data-lucide="eye" class="w-4 h-4"></i>';
+    if (window.lucide) lucide.createIcons();
+  }
+}
+window.togglePasswordVisibility = togglePasswordVisibility;
+
+// Backend Serverless Authentication call (Cloud-First with Local Dev Fallback)
 async function authenticateBackend(username, password) {
-  const cleanUser = username.trim().toLowerCase();
+  const cleanUser = (username || '').trim().toLowerCase();
 
   try {
     const response = await fetch('/.netlify/functions/staff-auth', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: cleanUser, password })
+      body: JSON.stringify({ action: 'login', username: cleanUser, password })
     });
-    if (response.ok) {
-      const data = await response.json();
-      if (data.user) {
-        setCurrentUser(data.user);
-        return { success: true, user: data.user };
+
+    const data = await response.json().catch(() => ({}));
+
+    if (response.ok && data.user) {
+      setCurrentUser(data.user, data.token || '');
+      return { success: true, user: data.user, token: data.token };
+    }
+
+    // If server responded with 401/400, still check legacy localStorage only as offline fallback
+    if (response.status === 401 || response.status === 400) {
+      const storedAccounts = JSON.parse(localStorage.getItem('baytlogic_accounts') || '[]');
+      const customMatch = storedAccounts.find(a =>
+        ((a.username || '').toLowerCase() === cleanUser || (a.email && a.email.toLowerCase() === cleanUser)) &&
+        a.password && a.password !== '••••••••' && a.password === password
+      );
+      if (customMatch) {
+        const u = { name: customMatch.name, email: customMatch.username, username: customMatch.username, role: customMatch.role };
+        setCurrentUser(u, '');
+        return { success: true, user: u };
       }
+      return { success: false, error: data.error || 'Invalid username or password.' };
     }
   } catch (err) {
-    // Backend endpoint offline/unreachable, fallback to local database
-  }
-
-  // Check localStorage custom staff accounts created in Admin Studio by Chief Admin
-  const storedAccounts = JSON.parse(localStorage.getItem('baytlogic_accounts') || '[]');
-  const customMatch = storedAccounts.find(a => 
-    (a.username.toLowerCase() === cleanUser || (a.email && a.email.toLowerCase() === cleanUser)) && 
-    a.password === password
-  );
-  if (customMatch) {
-    const u = { name: customMatch.name, email: customMatch.username, role: customMatch.role };
-    setCurrentUser(u);
-    return { success: true, user: u };
+    // Offline / local static server fallback
+    const storedAccounts = JSON.parse(localStorage.getItem('baytlogic_accounts') || '[]');
+    const customMatch = storedAccounts.find(a =>
+      ((a.username || '').toLowerCase() === cleanUser || (a.email && a.email.toLowerCase() === cleanUser)) &&
+      a.password && a.password !== '••••••••' && a.password === password
+    );
+    if (customMatch) {
+      const u = { name: customMatch.name, email: customMatch.username, username: customMatch.username, role: customMatch.role };
+      setCurrentUser(u, '');
+      return { success: true, user: u };
+    }
   }
 
   return { success: false, error: 'Invalid username or password.' };
@@ -76,55 +112,66 @@ async function authenticateBackend(username, password) {
 
 // Strict Authorization Gate: Hides page content until authenticated
 function requireStaffAuth(onAuthSuccess) {
+  if (typeof onAuthSuccess === 'function') {
+    window.onAuthSuccessCallback = onAuthSuccess;
+  }
+
   const currentUser = getCurrentUser();
 
   if (currentUser) {
-    // User is authorized: Show page content & user bar
     document.querySelectorAll('main').forEach(m => m.style.display = '');
     if (onAuthSuccess) onAuthSuccess(currentUser);
     renderUserBar(currentUser);
     return;
   }
 
-  // Hide main page content completely to prevent any sneak peek
   document.querySelectorAll('main').forEach(m => m.style.display = 'none');
 
-  // Fallback Auth Modal for Local Server Testing
   let authModal = document.getElementById('staffAuthModal');
   if (!authModal) {
     authModal = document.createElement('div');
     authModal.id = 'staffAuthModal';
     authModal.className = 'fixed inset-0 bg-slate-950/95 backdrop-blur-md z-[100] flex items-center justify-center p-4';
     authModal.innerHTML = `
-      <div class="bg-slate-900 border border-slate-700 rounded-3xl max-w-md w-full p-8 shadow-2xl space-y-6">
-        
-        <div class="text-center space-y-2">
+      <div class="bg-slate-900 border border-cyan-500/20 rounded-3xl max-w-md w-full p-8 shadow-2xl space-y-6 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-sky-500 to-amber-400"></div>
+
+        <div class="text-center space-y-2 pt-1">
           <img src="assets/baytlogic-icon-cyan.png" alt="BaytLogic" class="h-12 w-auto mx-auto mb-3" />
           <h2 class="text-2xl font-extrabold text-white tracking-wide">Staff Authorization Portal</h2>
-          <p class="text-xs text-slate-400">Chief Admin & Staff Access Only</p>
+          <p class="text-xs text-slate-400">Chief Admin &amp; Authorized Staff Access Only</p>
         </div>
         <div id="loginAlert" class="hidden p-3 bg-red-900/40 border border-red-500/50 rounded-xl text-red-200 text-xs font-semibold text-center"></div>
 
         <form onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
           <div>
-            <label class="block text-slate-300 font-semibold mb-1">Username or Email</label>
-            <input type="text" id="authUsername" placeholder="e.g. aburuqayyah001@gmail.com" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
+            <label class="block text-slate-300 font-semibold mb-1.5">Username or Email</label>
+            <input type="text" id="authUsername" autocomplete="username" placeholder="e.g. staff@baytlogic.com.ng" required
+              class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-cyan-400 transition font-medium" />
           </div>
 
           <div>
-            <label class="block text-slate-300 font-semibold mb-1">Password</label>
-            <input type="password" id="authPassword" placeholder="••••••••" required class="w-full px-4 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-brand-primary transition font-medium" />
+            <label class="block text-slate-300 font-semibold mb-1.5">Password</label>
+            <div class="relative">
+              <input type="password" id="authPassword" autocomplete="current-password" placeholder="Enter your password" required
+                class="w-full pl-4 pr-11 py-3 bg-slate-800 border border-slate-700 rounded-xl text-white outline-none focus:border-cyan-400 transition font-medium" />
+              <button type="button" onclick="togglePasswordVisibility('authPassword', this)"
+                aria-label="Show password" title="Show / Hide Password"
+                class="absolute inset-y-0 right-0 px-3.5 flex items-center text-slate-400 hover:text-cyan-400 transition focus:outline-none">
+                <i data-lucide="eye" class="w-4 h-4"></i>
+              </button>
+            </div>
           </div>
 
-          <button type="submit" id="authSubmitBtn" class="w-full py-3.5 bg-brand-primary hover:bg-cyan-600 text-white font-bold rounded-xl text-sm transition shadow-lg flex items-center justify-center gap-2">
-            <i data-lucide="lock" class="w-4 h-4"></i> Authorize & Access Studio
+          <button type="submit" id="authSubmitBtn"
+            class="w-full py-3.5 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold rounded-xl text-sm transition shadow-lg shadow-cyan-500/20 flex items-center justify-center gap-2">
+            <i data-lucide="lock" class="w-4 h-4"></i> Authorize &amp; Access Studio
           </button>
         </form>
 
         <div class="text-center">
           <a href="index.html" class="text-xs text-slate-500 hover:text-slate-300 transition">&larr; Return to Public Website</a>
         </div>
-
       </div>
     `;
     document.body.appendChild(authModal);
@@ -139,26 +186,26 @@ async function handleAuthSubmit(e) {
   const alertBox = document.getElementById('loginAlert');
   const btn = document.getElementById('authSubmitBtn');
 
+  alertBox.classList.add('hidden');
   btn.disabled = true;
-  btn.innerText = 'Authenticating...';
+  btn.innerHTML = 'Authenticating...';
 
   const res = await authenticateBackend(username, password);
   if (res.success) {
     const authModal = document.getElementById('staffAuthModal');
     if (authModal) authModal.remove();
 
-    // Unhide main page content and render user bar cleanly
     document.querySelectorAll('main').forEach(m => m.style.display = '');
     renderUserBar(res.user);
 
-    if (window.onAuthSuccessCallback) {
+    if (typeof window.onAuthSuccessCallback === 'function') {
       window.onAuthSuccessCallback(res.user);
     }
   } else {
     alertBox.innerText = res.error;
     alertBox.classList.remove('hidden');
     btn.disabled = false;
-    btn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i> Authorize & Access Studio';
+    btn.innerHTML = '<i data-lucide="lock" class="w-4 h-4"></i> Authorize &amp; Access Studio';
     if (window.lucide) lucide.createIcons();
   }
 }
